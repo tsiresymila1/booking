@@ -1,0 +1,1239 @@
+input AddSeatsToBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
+input AddSeatsToTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
+type Booking {
+  createdAt: DateTime
+  id: ID!
+  seats(
+    # Specify to filter the records returned.
+    filter: SeatFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [SeatSort!]! = []
+  ): BookingSeatsConnection!
+  seatsIds: [Int!]
+  travel: Travel!
+  travelId: ID!
+  updatedAt: DateTime
+  user: User!
+  userId: ID!
+}
+
+type BookingAggregateGroupBy {
+  id: ID
+}
+
+type BookingConnection {
+  # Array of nodes.
+  nodes: [Booking!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+}
+
+type BookingCountAggregate {
+  id: Int
+}
+
+input BookingDeleteFilter {
+  and: [BookingDeleteFilter!]
+  id: IDFilterComparison
+  or: [BookingDeleteFilter!]
+}
+
+type BookingDeleteResponse {
+  createdAt: DateTime
+  id: ID
+  seatsIds: [Int!]
+  travelId: ID
+  updatedAt: DateTime
+  userId: ID
+}
+
+input BookingFilter {
+  and: [BookingFilter!]
+  id: IDFilterComparison
+  or: [BookingFilter!]
+  travel: BookingFilterTravelFilter
+  user: BookingFilterUserFilter
+}
+
+input BookingFilterTravelFilter {
+  and: [BookingFilterTravelFilter!]
+  arrivalId: IDFilterComparison
+  carId: IDFilterComparison
+  date: DateFieldComparison
+  departureId: IDFilterComparison
+  feeId: IDFilterComparison
+  id: IDFilterComparison
+  or: [BookingFilterTravelFilter!]
+  time: TimeFilterComparison
+}
+
+input BookingFilterUserFilter {
+  _id: StringFieldComparison
+  and: [BookingFilterUserFilter!]
+  email: StringFieldComparison
+  id: IDFilterComparison
+  or: [BookingFilterUserFilter!]
+  phone: StringFieldComparison
+}
+
+type BookingMaxAggregate {
+  id: ID
+}
+
+type BookingMinAggregate {
+  id: ID
+}
+
+type BookingSeatsConnection {
+  # Array of nodes.
+  nodes: [Seat!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+
+  # Fetch total count of records
+  totalCount: Int!
+}
+
+input BookingSort {
+  direction: SortDirection!
+  field: BookingSortFields!
+  nulls: SortNulls
+}
+
+enum BookingSortFields {
+  id
+}
+
+input BookingUpdateFilter {
+  and: [BookingUpdateFilter!]
+  id: IDFilterComparison
+  or: [BookingUpdateFilter!]
+}
+
+type Car {
+  createdAt: DateTime
+  id: ID!
+  name: String!
+  reference: String!
+  seatCount: Int!
+  updatedAt: DateTime
+}
+
+type CarAggregateGroupBy {
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+}
+
+type CarAvgAggregate {
+  seatCount: Float
+}
+
+type CarConnection {
+  # Array of nodes.
+  nodes: [Car!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+}
+
+type CarCountAggregate {
+  id: Int
+  name: Int
+  reference: Int
+  seatCount: Int
+}
+
+input CarDeleteFilter {
+  and: [CarDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [CarDeleteFilter!]
+  reference: StringFieldComparison
+  seatCount: IntFieldComparison
+}
+
+type CarDeleteResponse {
+  createdAt: DateTime
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+  updatedAt: DateTime
+}
+
+input CarFilter {
+  and: [CarFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [CarFilter!]
+  reference: StringFieldComparison
+  seatCount: IntFieldComparison
+}
+
+type CarMaxAggregate {
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+}
+
+type CarMinAggregate {
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+}
+
+input CarSort {
+  direction: SortDirection!
+  field: CarSortFields!
+  nulls: SortNulls
+}
+
+enum CarSortFields {
+  id
+  name
+  reference
+  seatCount
+}
+
+type CarSumAggregate {
+  seatCount: Float
+}
+
+input CarUpdateFilter {
+  and: [CarUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [CarUpdateFilter!]
+  reference: StringFieldComparison
+  seatCount: IntFieldComparison
+}
+
+input CreateBooking {
+  createdAt: DateTime
+  id: ID
+  seatsIds: [Int!]
+  travelId: ID
+  updatedAt: DateTime
+  userId: ID
+}
+
+input CreateCar {
+  createdAt: DateTime
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+  updatedAt: DateTime
+}
+
+input CreateFee {
+  createdAt: DateTime
+  id: ID
+  rate: Int
+  updatedAt: DateTime
+  value: Int
+}
+
+input CreateLocation {
+  abbreviation: String
+  createdAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input CreateManyBookingsInput {
+  # Array of records to create
+  bookings: [CreateBooking!]!
+}
+
+input CreateManyCarsInput {
+  # Array of records to create
+  cars: [CreateCar!]!
+}
+
+input CreateManyFeesInput {
+  # Array of records to create
+  fees: [CreateFee!]!
+}
+
+input CreateManyLocationsInput {
+  # Array of records to create
+  locations: [CreateLocation!]!
+}
+
+input CreateManyTravelsInput {
+  # Array of records to create
+  travels: [CreateTravel!]!
+}
+
+input CreateOneBookingInput {
+  # The record to create
+  booking: CreateBooking!
+}
+
+input CreateOneCarInput {
+  # The record to create
+  car: CreateCar!
+}
+
+input CreateOneFeeInput {
+  # The record to create
+  fee: CreateFee!
+}
+
+input CreateOneLocationInput {
+  # The record to create
+  location: CreateLocation!
+}
+
+input CreateOneTravelInput {
+  # The record to create
+  travel: CreateTravel!
+}
+
+input CreateTravel {
+  arrivalId: ID
+  carId: ID
+  createdAt: DateTime
+  date: Date
+  departureId: ID
+  duration: Int
+  feeId: ID
+  id: ID
+  time: Time
+  updatedAt: DateTime
+}
+
+input CreateUserInput {
+  _id: String!
+  email: String!
+  phone: String!
+}
+
+# A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+scalar Date
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+# A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+scalar DateTime
+
+input DeleteManyBookingsInput {
+  # Filter to find records to delete
+  filter: BookingDeleteFilter!
+}
+
+input DeleteManyCarsInput {
+  # Filter to find records to delete
+  filter: CarDeleteFilter!
+}
+
+input DeleteManyFeesInput {
+  # Filter to find records to delete
+  filter: FeeDeleteFilter!
+}
+
+input DeleteManyLocationsInput {
+  # Filter to find records to delete
+  filter: LocationDeleteFilter!
+}
+
+type DeleteManyResponse {
+  # The number of records deleted.
+  deletedCount: Int!
+}
+
+input DeleteManyTravelsInput {
+  # Filter to find records to delete
+  filter: TravelDeleteFilter!
+}
+
+input DeleteOneBookingInput {
+  # The id of the record to delete.
+  id: ID!
+}
+
+input DeleteOneCarInput {
+  # The id of the record to delete.
+  id: ID!
+}
+
+input DeleteOneFeeInput {
+  # The id of the record to delete.
+  id: ID!
+}
+
+input DeleteOneLocationInput {
+  # The id of the record to delete.
+  id: ID!
+}
+
+input DeleteOneTravelInput {
+  # The id of the record to delete.
+  id: ID!
+}
+
+type Fee {
+  createdAt: DateTime
+  id: ID!
+  rate: Int!
+  updatedAt: DateTime
+  value: Int!
+}
+
+type FeeAggregateGroupBy {
+  id: ID
+  rate: Int
+  value: Int
+}
+
+type FeeAvgAggregate {
+  rate: Float
+  value: Float
+}
+
+type FeeConnection {
+  # Array of nodes.
+  nodes: [Fee!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+}
+
+type FeeCountAggregate {
+  id: Int
+  rate: Int
+  value: Int
+}
+
+input FeeDeleteFilter {
+  and: [FeeDeleteFilter!]
+  id: IDFilterComparison
+  or: [FeeDeleteFilter!]
+  rate: IntFieldComparison
+  value: IntFieldComparison
+}
+
+type FeeDeleteResponse {
+  createdAt: DateTime
+  id: ID
+  rate: Int
+  updatedAt: DateTime
+  value: Int
+}
+
+input FeeFilter {
+  and: [FeeFilter!]
+  id: IDFilterComparison
+  or: [FeeFilter!]
+  rate: IntFieldComparison
+  value: IntFieldComparison
+}
+
+type FeeMaxAggregate {
+  id: ID
+  rate: Int
+  value: Int
+}
+
+type FeeMinAggregate {
+  id: ID
+  rate: Int
+  value: Int
+}
+
+input FeeSort {
+  direction: SortDirection!
+  field: FeeSortFields!
+  nulls: SortNulls
+}
+
+enum FeeSortFields {
+  id
+  rate
+  value
+}
+
+type FeeSumAggregate {
+  rate: Float
+  value: Float
+}
+
+input FeeUpdateFilter {
+  and: [FeeUpdateFilter!]
+  id: IDFilterComparison
+  or: [FeeUpdateFilter!]
+  rate: IntFieldComparison
+  value: IntFieldComparison
+}
+
+input IDFilterComparison {
+  eq: ID
+  gt: ID
+  gte: ID
+  iLike: ID
+  in: [ID!]
+  is: Boolean
+  isNot: Boolean
+  like: ID
+  lt: ID
+  lte: ID
+  neq: ID
+  notILike: ID
+  notIn: [ID!]
+  notLike: ID
+}
+
+input IntFieldComparison {
+  between: IntFieldComparisonBetween
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  is: Boolean
+  isNot: Boolean
+  lt: Int
+  lte: Int
+  neq: Int
+  notBetween: IntFieldComparisonBetween
+  notIn: [Int!]
+}
+
+input IntFieldComparisonBetween {
+  lower: Int!
+  upper: Int!
+}
+
+type Location {
+  abbreviation: String!
+  createdAt: DateTime
+  id: ID!
+  name: String!
+  updatedAt: DateTime
+}
+
+type LocationAggregateGroupBy {
+  abbreviation: String
+  id: ID
+  name: String
+}
+
+type LocationConnection {
+  # Array of nodes.
+  nodes: [Location!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+
+  # Fetch total count of records
+  totalCount: Int!
+}
+
+type LocationCountAggregate {
+  abbreviation: Int
+  id: Int
+  name: Int
+}
+
+input LocationDeleteFilter {
+  abbreviation: StringFieldComparison
+  and: [LocationDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [LocationDeleteFilter!]
+}
+
+type LocationDeleteResponse {
+  abbreviation: String
+  createdAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input LocationFilter {
+  abbreviation: StringFieldComparison
+  and: [LocationFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [LocationFilter!]
+}
+
+type LocationMaxAggregate {
+  abbreviation: String
+  id: ID
+  name: String
+}
+
+type LocationMinAggregate {
+  abbreviation: String
+  id: ID
+  name: String
+}
+
+input LocationSort {
+  direction: SortDirection!
+  field: LocationSortFields!
+  nulls: SortNulls
+}
+
+enum LocationSortFields {
+  abbreviation
+  id
+  name
+}
+
+input LocationUpdateFilter {
+  abbreviation: StringFieldComparison
+  and: [LocationUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [LocationUpdateFilter!]
+}
+
+type Mutation {
+  addBooking(input: CreateOneBookingInput!): Booking!
+  addCar(input: CreateOneCarInput!): Car!
+  addFee(input: CreateOneFeeInput!): Fee!
+  addLocation(input: CreateOneLocationInput!): Location!
+  addManyBookings(input: CreateManyBookingsInput!): [Booking!]!
+  addManyCars(input: CreateManyCarsInput!): [Car!]!
+  addManyFees(input: CreateManyFeesInput!): [Fee!]!
+  addManyLocations(input: CreateManyLocationsInput!): [Location!]!
+  addManyTravels(input: CreateManyTravelsInput!): [Travel!]!
+  addSeatsToBooking(input: AddSeatsToBookingInput!): Booking!
+  addSeatsToTravel(input: AddSeatsToTravelInput!): Travel!
+  addTravel(input: CreateOneTravelInput!): Travel!
+  createUser(input: CreateUserInput!): User!
+  deleteBooking(input: DeleteOneBookingInput!): BookingDeleteResponse!
+  deleteCar(input: DeleteOneCarInput!): CarDeleteResponse!
+  deleteFee(input: DeleteOneFeeInput!): FeeDeleteResponse!
+  deleteLocation(input: DeleteOneLocationInput!): LocationDeleteResponse!
+  deleteManyBookings(input: DeleteManyBookingsInput!): DeleteManyResponse!
+  deleteManyCars(input: DeleteManyCarsInput!): DeleteManyResponse!
+  deleteManyFees(input: DeleteManyFeesInput!): DeleteManyResponse!
+  deleteManyLocations(input: DeleteManyLocationsInput!): DeleteManyResponse!
+  deleteManyTravels(input: DeleteManyTravelsInput!): DeleteManyResponse!
+  deleteTravel(input: DeleteOneTravelInput!): TravelDeleteResponse!
+  editBooking(input: UpdateOneBookingInput!): Booking!
+  editCar(input: UpdateOneCarInput!): Car!
+  editFee(input: UpdateOneFeeInput!): Fee!
+  editLocation(input: UpdateOneLocationInput!): Location!
+  editManyBookings(input: UpdateManyBookingsInput!): UpdateManyResponse!
+  editManyCars(input: UpdateManyCarsInput!): UpdateManyResponse!
+  editManyFees(input: UpdateManyFeesInput!): UpdateManyResponse!
+  editManyLocations(input: UpdateManyLocationsInput!): UpdateManyResponse!
+  editManyTravels(input: UpdateManyTravelsInput!): UpdateManyResponse!
+  editTravel(input: UpdateOneTravelInput!): Travel!
+  setArrivalOnTravel(input: SetArrivalOnTravelInput!): Travel!
+  setCarOnTravel(input: SetCarOnTravelInput!): Travel!
+  setDepartureOnTravel(input: SetDepartureOnTravelInput!): Travel!
+  setFeeOnTravel(input: SetFeeOnTravelInput!): Travel!
+  setSeatsOnBooking(input: SetSeatsOnBookingInput!): Booking!
+  setSeatsOnTravel(input: SetSeatsOnTravelInput!): Travel!
+  setTravelOnBooking(input: SetTravelOnBookingInput!): Booking!
+  setUserOnBooking(input: SetUserOnBookingInput!): Booking!
+  updateUser(input: UpdateUserInput!): User!
+}
+
+type OffsetPageInfo {
+  # true if paging forward and there are more records.
+  hasNextPage: Boolean
+
+  # true if paging backwards and there are more records.
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  # Limit the number of records returned
+  limit: Int
+
+  # Offset to start returning records from
+  offset: Int
+}
+
+type Query {
+  booking(
+    # The id of the record to find.
+    id: ID!
+  ): Booking
+  bookings(
+    # Specify to filter the records returned.
+    filter: BookingFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [BookingSort!]! = []
+  ): BookingConnection!
+  car(
+    # The id of the record to find.
+    id: ID!
+  ): Car
+  cars(
+    # Specify to filter the records returned.
+    filter: CarFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [CarSort!]! = []
+  ): CarConnection!
+  currentUser: User!
+  fee(
+    # The id of the record to find.
+    id: ID!
+  ): Fee
+  fees(
+    # Specify to filter the records returned.
+    filter: FeeFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [FeeSort!]! = []
+  ): FeeConnection!
+  location(
+    # The id of the record to find.
+    id: ID!
+  ): Location
+  locations(
+    # Specify to filter the records returned.
+    filter: LocationFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [LocationSort!]! = []
+  ): LocationConnection!
+  travel(
+    # The id of the record to find.
+    id: ID!
+  ): Travel
+  travels(
+    # Specify to filter the records returned.
+    filter: TravelFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [TravelSort!]! = []
+  ): TravelConnection!
+  users: [User!]!
+}
+
+type Seat {
+  bookingId: ID!
+  createdAt: DateTime
+  id: ID!
+  seat: Int!
+  travelId: ID!
+  updatedAt: DateTime
+}
+
+input SeatFilter {
+  and: [SeatFilter!]
+  id: IDFilterComparison
+  or: [SeatFilter!]
+  seat: IntFieldComparison
+}
+
+input SeatSort {
+  direction: SortDirection!
+  field: SeatSortFields!
+  nulls: SortNulls
+}
+
+enum SeatSortFields {
+  id
+  seat
+}
+
+input SetArrivalOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetCarOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetDepartureOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetFeeOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetSeatsOnBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
+input SetSeatsOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
+input SetTravelOnBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetUserOnBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+# Sort Directions
+enum SortDirection {
+  ASC
+  DESC
+}
+
+# Sort Nulls Options
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+# A time string at UTC, such as 10:15:30Z, compliant with the `full-time` format outlined in section 5.6 of the RFC 3339profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+scalar Time
+
+input TimeFilterComparison {
+  eq: Time
+  gt: Time
+  gte: Time
+  iLike: Time
+  in: [Time!]
+  is: Boolean
+  isNot: Boolean
+  like: Time
+  lt: Time
+  lte: Time
+  neq: Time
+  notILike: Time
+  notIn: [Time!]
+  notLike: Time
+}
+
+type Travel {
+  arrival: Location!
+  arrivalId: ID!
+  car: Car!
+  carId: ID!
+  createdAt: DateTime
+  date: Date!
+  departure: Location!
+  departureId: ID!
+  duration: Int!
+  fee: Fee!
+  feeId: ID!
+  id: ID!
+  seats(
+    # Specify to filter the records returned.
+    filter: SeatFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [SeatSort!]! = []
+  ): TravelSeatsConnection!
+  time: Time!
+  updatedAt: DateTime
+}
+
+type TravelAggregateGroupBy {
+  arrivalId: ID
+  carId: ID
+  date: Date
+  departureId: ID
+  feeId: ID
+  id: ID
+  time: Time
+}
+
+type TravelConnection {
+  # Array of nodes.
+  nodes: [Travel!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+}
+
+type TravelCountAggregate {
+  arrivalId: Int
+  carId: Int
+  date: Int
+  departureId: Int
+  feeId: Int
+  id: Int
+  time: Int
+}
+
+input TravelDeleteFilter {
+  and: [TravelDeleteFilter!]
+  arrivalId: IDFilterComparison
+  carId: IDFilterComparison
+  date: DateFieldComparison
+  departureId: IDFilterComparison
+  feeId: IDFilterComparison
+  id: IDFilterComparison
+  or: [TravelDeleteFilter!]
+  time: TimeFilterComparison
+}
+
+type TravelDeleteResponse {
+  arrivalId: ID
+  carId: ID
+  createdAt: DateTime
+  date: Date
+  departureId: ID
+  duration: Int
+  feeId: ID
+  id: ID
+  time: Time
+  updatedAt: DateTime
+}
+
+input TravelFilter {
+  and: [TravelFilter!]
+  arrival: TravelFilterLocationFilter
+  arrivalId: IDFilterComparison
+  car: TravelFilterCarFilter
+  carId: IDFilterComparison
+  date: DateFieldComparison
+  departure: TravelFilterLocationFilter
+  departureId: IDFilterComparison
+  fee: TravelFilterFeeFilter
+  feeId: IDFilterComparison
+  id: IDFilterComparison
+  or: [TravelFilter!]
+  time: TimeFilterComparison
+}
+
+input TravelFilterCarFilter {
+  and: [TravelFilterCarFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [TravelFilterCarFilter!]
+  reference: StringFieldComparison
+  seatCount: IntFieldComparison
+}
+
+input TravelFilterFeeFilter {
+  and: [TravelFilterFeeFilter!]
+  id: IDFilterComparison
+  or: [TravelFilterFeeFilter!]
+  rate: IntFieldComparison
+  value: IntFieldComparison
+}
+
+input TravelFilterLocationFilter {
+  abbreviation: StringFieldComparison
+  and: [TravelFilterLocationFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [TravelFilterLocationFilter!]
+}
+
+type TravelMaxAggregate {
+  arrivalId: ID
+  carId: ID
+  date: Date
+  departureId: ID
+  feeId: ID
+  id: ID
+  time: Time
+}
+
+type TravelMinAggregate {
+  arrivalId: ID
+  carId: ID
+  date: Date
+  departureId: ID
+  feeId: ID
+  id: ID
+  time: Time
+}
+
+type TravelSeatsConnection {
+  # Array of nodes.
+  nodes: [Seat!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+
+  # Fetch total count of records
+  totalCount: Int!
+}
+
+input TravelSort {
+  direction: SortDirection!
+  field: TravelSortFields!
+  nulls: SortNulls
+}
+
+enum TravelSortFields {
+  arrivalId
+  carId
+  date
+  departureId
+  feeId
+  id
+  time
+}
+
+input TravelUpdateFilter {
+  and: [TravelUpdateFilter!]
+  arrivalId: IDFilterComparison
+  carId: IDFilterComparison
+  date: DateFieldComparison
+  departureId: IDFilterComparison
+  feeId: IDFilterComparison
+  id: IDFilterComparison
+  or: [TravelUpdateFilter!]
+  time: TimeFilterComparison
+}
+
+input UpdateBooking {
+  createdAt: DateTime
+  id: ID
+  seatsIds: [Int!]
+  travelId: ID
+  updatedAt: DateTime
+  userId: ID
+}
+
+input UpdateCar {
+  createdAt: DateTime
+  id: ID
+  name: String
+  reference: String
+  seatCount: Int
+  updatedAt: DateTime
+}
+
+input UpdateFee {
+  createdAt: DateTime
+  id: ID
+  rate: Int
+  updatedAt: DateTime
+  value: Int
+}
+
+input UpdateLocation {
+  abbreviation: String
+  createdAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UpdateManyBookingsInput {
+  # Filter used to find fields to update
+  filter: BookingUpdateFilter!
+
+  # The update to apply to all records found using the filter
+  update: UpdateBooking!
+}
+
+input UpdateManyCarsInput {
+  # Filter used to find fields to update
+  filter: CarUpdateFilter!
+
+  # The update to apply to all records found using the filter
+  update: UpdateCar!
+}
+
+input UpdateManyFeesInput {
+  # Filter used to find fields to update
+  filter: FeeUpdateFilter!
+
+  # The update to apply to all records found using the filter
+  update: UpdateFee!
+}
+
+input UpdateManyLocationsInput {
+  # Filter used to find fields to update
+  filter: LocationUpdateFilter!
+
+  # The update to apply to all records found using the filter
+  update: UpdateLocation!
+}
+
+type UpdateManyResponse {
+  # The number of records updated.
+  updatedCount: Int!
+}
+
+input UpdateManyTravelsInput {
+  # Filter used to find fields to update
+  filter: TravelUpdateFilter!
+
+  # The update to apply to all records found using the filter
+  update: UpdateTravel!
+}
+
+input UpdateOneBookingInput {
+  # The id of the record to update
+  id: ID!
+
+  # The update to apply.
+  update: UpdateBooking!
+}
+
+input UpdateOneCarInput {
+  # The id of the record to update
+  id: ID!
+
+  # The update to apply.
+  update: UpdateCar!
+}
+
+input UpdateOneFeeInput {
+  # The id of the record to update
+  id: ID!
+
+  # The update to apply.
+  update: UpdateFee!
+}
+
+input UpdateOneLocationInput {
+  # The id of the record to update
+  id: ID!
+
+  # The update to apply.
+  update: UpdateLocation!
+}
+
+input UpdateOneTravelInput {
+  # The id of the record to update
+  id: ID!
+
+  # The update to apply.
+  update: UpdateTravel!
+}
+
+input UpdateTravel {
+  arrivalId: ID
+  carId: ID
+  createdAt: DateTime
+  date: Date
+  departureId: ID
+  duration: Int
+  feeId: ID
+  id: ID
+  time: Time
+  updatedAt: DateTime
+}
+
+input UpdateUserInput {
+  _id: String
+  email: String
+  id: String!
+  phone: String
+}
+
+type User {
+  _id: String!
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  phone: String!
+  updatedAt: DateTime!
+}

@@ -1,0 +1,19 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          clients:
+            - graphql
+            - graphql_flutter
+          addTypename: true
+          outputDirectory: .
+          assetsPath: lib/**.graphql
+          namingSeparator:
+          scalars:
+            DateTime:
+              type: DateTime
+              fromJsonFunctionName: dateTimeFromJson
+              toJsonFunctionName: dateTimeToJson
+              import: package:booking/core/graphql/scalars.dart
+
