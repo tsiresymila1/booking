@@ -541,8 +541,8 @@ class Mutation$UserRegister$createUser {
   Mutation$UserRegister$createUser({
     required this.id,
     required this.$_id,
-    required this.email,
-    required this.phone,
+    this.email,
+    this.phone,
     required this.createdAt,
     required this.updatedAt,
     this.$__typename = 'User',
@@ -559,8 +559,8 @@ class Mutation$UserRegister$createUser {
     return Mutation$UserRegister$createUser(
       id: (l$id as String),
       $_id: (l$$_id as String),
-      email: (l$email as String),
-      phone: (l$phone as String),
+      email: (l$email as String?),
+      phone: (l$phone as String?),
       createdAt: dateTimeFromJson(l$createdAt),
       updatedAt: dateTimeFromJson(l$updatedAt),
       $__typename: (l$$__typename as String),
@@ -571,9 +571,9 @@ class Mutation$UserRegister$createUser {
 
   final String $_id;
 
-  final String email;
+  final String? email;
 
-  final String phone;
+  final String? phone;
 
   final DateTime createdAt;
 
@@ -724,12 +724,8 @@ class _CopyWithImpl$Mutation$UserRegister$createUser<TRes>
         $_id: $_id == _undefined || $_id == null
             ? _instance.$_id
             : ($_id as String),
-        email: email == _undefined || email == null
-            ? _instance.email
-            : (email as String),
-        phone: phone == _undefined || phone == null
-            ? _instance.phone
-            : (phone as String),
+        email: email == _undefined ? _instance.email : (email as String?),
+        phone: phone == _undefined ? _instance.phone : (phone as String?),
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as DateTime),

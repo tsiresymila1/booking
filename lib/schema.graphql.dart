@@ -1,5 +1,141 @@
 import 'package:booking/core/graphql/scalars.dart';
 
+class Input$AddBookingsToTravelInput {
+  factory Input$AddBookingsToTravelInput({
+    required String id,
+    required List<String> relationIds,
+  }) =>
+      Input$AddBookingsToTravelInput._({
+        r'id': id,
+        r'relationIds': relationIds,
+      });
+
+  Input$AddBookingsToTravelInput._(this._$data);
+
+  factory Input$AddBookingsToTravelInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationIds = data['relationIds'];
+    result$data['relationIds'] =
+        (l$relationIds as List<dynamic>).map((e) => (e as String)).toList();
+    return Input$AddBookingsToTravelInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  List<String> get relationIds => (_$data['relationIds'] as List<String>);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationIds = relationIds;
+    result$data['relationIds'] = l$relationIds.map((e) => e).toList();
+    return result$data;
+  }
+
+  CopyWith$Input$AddBookingsToTravelInput<Input$AddBookingsToTravelInput>
+      get copyWith => CopyWith$Input$AddBookingsToTravelInput(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$AddBookingsToTravelInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationIds = relationIds;
+    final lOther$relationIds = other.relationIds;
+    if (l$relationIds.length != lOther$relationIds.length) {
+      return false;
+    }
+    for (int i = 0; i < l$relationIds.length; i++) {
+      final l$relationIds$entry = l$relationIds[i];
+      final lOther$relationIds$entry = lOther$relationIds[i];
+      if (l$relationIds$entry != lOther$relationIds$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationIds = relationIds;
+    return Object.hashAll([
+      l$id,
+      Object.hashAll(l$relationIds.map((v) => v)),
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$AddBookingsToTravelInput<TRes> {
+  factory CopyWith$Input$AddBookingsToTravelInput(
+    Input$AddBookingsToTravelInput instance,
+    TRes Function(Input$AddBookingsToTravelInput) then,
+  ) = _CopyWithImpl$Input$AddBookingsToTravelInput;
+
+  factory CopyWith$Input$AddBookingsToTravelInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$AddBookingsToTravelInput;
+
+  TRes call({
+    String? id,
+    List<String>? relationIds,
+  });
+}
+
+class _CopyWithImpl$Input$AddBookingsToTravelInput<TRes>
+    implements CopyWith$Input$AddBookingsToTravelInput<TRes> {
+  _CopyWithImpl$Input$AddBookingsToTravelInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$AddBookingsToTravelInput _instance;
+
+  final TRes Function(Input$AddBookingsToTravelInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationIds = _undefined,
+  }) =>
+      _then(Input$AddBookingsToTravelInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationIds != _undefined && relationIds != null)
+          'relationIds': (relationIds as List<String>),
+      }));
+}
+
+class _CopyWithStubImpl$Input$AddBookingsToTravelInput<TRes>
+    implements CopyWith$Input$AddBookingsToTravelInput<TRes> {
+  _CopyWithStubImpl$Input$AddBookingsToTravelInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    List<String>? relationIds,
+  }) =>
+      _res;
+}
+
 class Input$AddSeatsToBookingInput {
   factory Input$AddSeatsToBookingInput({
     required String id,
@@ -872,6 +1008,7 @@ class Input$BookingFilterTravelFilter {
     List<Input$BookingFilterTravelFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -883,6 +1020,7 @@ class Input$BookingFilterTravelFilter {
         if (and != null) r'and': and,
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (carId != null) r'carId': carId,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departureId != null) r'departureId': departureId,
         if (feeId != null) r'feeId': feeId,
@@ -915,6 +1053,13 @@ class Input$BookingFilterTravelFilter {
           ? null
           : Input$IDFilterComparison.fromJson(
               (l$carId as Map<String, dynamic>));
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = l$createdById == null
+          ? null
+          : Input$IDFilterComparison.fromJson(
+              (l$createdById as Map<String, dynamic>));
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -971,6 +1116,9 @@ class Input$BookingFilterTravelFilter {
   Input$IDFilterComparison? get carId =>
       (_$data['carId'] as Input$IDFilterComparison?);
 
+  Input$IDFilterComparison? get createdById =>
+      (_$data['createdById'] as Input$IDFilterComparison?);
+
   Input$DateFieldComparison? get date =>
       (_$data['date'] as Input$DateFieldComparison?);
 
@@ -1002,6 +1150,10 @@ class Input$BookingFilterTravelFilter {
     if (_$data.containsKey('carId')) {
       final l$carId = carId;
       result$data['carId'] = l$carId?.toJson();
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById?.toJson();
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -1081,6 +1233,15 @@ class Input$BookingFilterTravelFilter {
     if (l$carId != lOther$carId) {
       return false;
     }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -1149,6 +1310,7 @@ class Input$BookingFilterTravelFilter {
     final l$and = and;
     final l$arrivalId = arrivalId;
     final l$carId = carId;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departureId = departureId;
     final l$feeId = feeId;
@@ -1163,6 +1325,7 @@ class Input$BookingFilterTravelFilter {
           : const {},
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('carId') ? l$carId : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
       _$data.containsKey('feeId') ? l$feeId : const {},
@@ -1190,6 +1353,7 @@ abstract class CopyWith$Input$BookingFilterTravelFilter<TRes> {
     List<Input$BookingFilterTravelFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -1205,6 +1369,7 @@ abstract class CopyWith$Input$BookingFilterTravelFilter<TRes> {
           _fn);
   CopyWith$Input$IDFilterComparison<TRes> get arrivalId;
   CopyWith$Input$IDFilterComparison<TRes> get carId;
+  CopyWith$Input$IDFilterComparison<TRes> get createdById;
   CopyWith$Input$DateFieldComparison<TRes> get date;
   CopyWith$Input$IDFilterComparison<TRes> get departureId;
   CopyWith$Input$IDFilterComparison<TRes> get feeId;
@@ -1235,6 +1400,7 @@ class _CopyWithImpl$Input$BookingFilterTravelFilter<TRes>
     Object? and = _undefined,
     Object? arrivalId = _undefined,
     Object? carId = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departureId = _undefined,
     Object? feeId = _undefined,
@@ -1249,6 +1415,8 @@ class _CopyWithImpl$Input$BookingFilterTravelFilter<TRes>
         if (arrivalId != _undefined)
           'arrivalId': (arrivalId as Input$IDFilterComparison?),
         if (carId != _undefined) 'carId': (carId as Input$IDFilterComparison?),
+        if (createdById != _undefined)
+          'createdById': (createdById as Input$IDFilterComparison?),
         if (date != _undefined) 'date': (date as Input$DateFieldComparison?),
         if (departureId != _undefined)
           'departureId': (departureId as Input$IDFilterComparison?),
@@ -1285,6 +1453,14 @@ class _CopyWithImpl$Input$BookingFilterTravelFilter<TRes>
     return local$carId == null
         ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
         : CopyWith$Input$IDFilterComparison(local$carId, (e) => call(carId: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById {
+    final local$createdById = _instance.createdById;
+    return local$createdById == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(
+            local$createdById, (e) => call(createdById: e));
   }
 
   CopyWith$Input$DateFieldComparison<TRes> get date {
@@ -1347,6 +1523,7 @@ class _CopyWithStubImpl$Input$BookingFilterTravelFilter<TRes>
     List<Input$BookingFilterTravelFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -1362,6 +1539,9 @@ class _CopyWithStubImpl$Input$BookingFilterTravelFilter<TRes>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$IDFilterComparison<TRes> get carId =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById =>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$DateFieldComparison<TRes> get date =>
@@ -1388,6 +1568,7 @@ class Input$BookingFilterUserFilter {
     List<Input$BookingFilterUserFilter>? and,
     Input$StringFieldComparison? email,
     Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
     List<Input$BookingFilterUserFilter>? or,
     Input$StringFieldComparison? phone,
   }) =>
@@ -1396,6 +1577,7 @@ class Input$BookingFilterUserFilter {
         if (and != null) r'and': and,
         if (email != null) r'email': email,
         if (id != null) r'id': id,
+        if (name != null) r'name': name,
         if (or != null) r'or': or,
         if (phone != null) r'phone': phone,
       });
@@ -1431,6 +1613,13 @@ class Input$BookingFilterUserFilter {
           ? null
           : Input$IDFilterComparison.fromJson((l$id as Map<String, dynamic>));
     }
+    if (data.containsKey('name')) {
+      final l$name = data['name'];
+      result$data['name'] = l$name == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$name as Map<String, dynamic>));
+    }
     if (data.containsKey('or')) {
       final l$or = data['or'];
       result$data['or'] = (l$or as List<dynamic>?)
@@ -1462,6 +1651,9 @@ class Input$BookingFilterUserFilter {
   Input$IDFilterComparison? get id =>
       (_$data['id'] as Input$IDFilterComparison?);
 
+  Input$StringFieldComparison? get name =>
+      (_$data['name'] as Input$StringFieldComparison?);
+
   List<Input$BookingFilterUserFilter>? get or =>
       (_$data['or'] as List<Input$BookingFilterUserFilter>?);
 
@@ -1485,6 +1677,10 @@ class Input$BookingFilterUserFilter {
     if (_$data.containsKey('id')) {
       final l$id = id;
       result$data['id'] = l$id?.toJson();
+    }
+    if (_$data.containsKey('name')) {
+      final l$name = name;
+      result$data['name'] = l$name?.toJson();
     }
     if (_$data.containsKey('or')) {
       final l$or = or;
@@ -1555,6 +1751,14 @@ class Input$BookingFilterUserFilter {
     if (l$id != lOther$id) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (_$data.containsKey('name') != other._$data.containsKey('name')) {
+      return false;
+    }
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$or = or;
     final lOther$or = other.or;
     if (_$data.containsKey('or') != other._$data.containsKey('or')) {
@@ -1591,6 +1795,7 @@ class Input$BookingFilterUserFilter {
     final l$and = and;
     final l$email = email;
     final l$id = id;
+    final l$name = name;
     final l$or = or;
     final l$phone = phone;
     return Object.hashAll([
@@ -1602,6 +1807,7 @@ class Input$BookingFilterUserFilter {
           : const {},
       _$data.containsKey('email') ? l$email : const {},
       _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('name') ? l$name : const {},
       _$data.containsKey('or')
           ? l$or == null
               ? null
@@ -1626,6 +1832,7 @@ abstract class CopyWith$Input$BookingFilterUserFilter<TRes> {
     List<Input$BookingFilterUserFilter>? and,
     Input$StringFieldComparison? email,
     Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
     List<Input$BookingFilterUserFilter>? or,
     Input$StringFieldComparison? phone,
   });
@@ -1638,6 +1845,7 @@ abstract class CopyWith$Input$BookingFilterUserFilter<TRes> {
           _fn);
   CopyWith$Input$StringFieldComparison<TRes> get email;
   CopyWith$Input$IDFilterComparison<TRes> get id;
+  CopyWith$Input$StringFieldComparison<TRes> get name;
   TRes or(
       Iterable<Input$BookingFilterUserFilter>? Function(
               Iterable<
@@ -1665,6 +1873,7 @@ class _CopyWithImpl$Input$BookingFilterUserFilter<TRes>
     Object? and = _undefined,
     Object? email = _undefined,
     Object? id = _undefined,
+    Object? name = _undefined,
     Object? or = _undefined,
     Object? phone = _undefined,
   }) =>
@@ -1676,6 +1885,7 @@ class _CopyWithImpl$Input$BookingFilterUserFilter<TRes>
         if (email != _undefined)
           'email': (email as Input$StringFieldComparison?),
         if (id != _undefined) 'id': (id as Input$IDFilterComparison?),
+        if (name != _undefined) 'name': (name as Input$StringFieldComparison?),
         if (or != _undefined)
           'or': (or as List<Input$BookingFilterUserFilter>?),
         if (phone != _undefined)
@@ -1718,6 +1928,14 @@ class _CopyWithImpl$Input$BookingFilterUserFilter<TRes>
         : CopyWith$Input$IDFilterComparison(local$id, (e) => call(id: e));
   }
 
+  CopyWith$Input$StringFieldComparison<TRes> get name {
+    final local$name = _instance.name;
+    return local$name == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$name, (e) => call(name: e));
+  }
+
   TRes or(
           Iterable<Input$BookingFilterUserFilter>? Function(
                   Iterable<
@@ -1751,6 +1969,7 @@ class _CopyWithStubImpl$Input$BookingFilterUserFilter<TRes>
     List<Input$BookingFilterUserFilter>? and,
     Input$StringFieldComparison? email,
     Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
     List<Input$BookingFilterUserFilter>? or,
     Input$StringFieldComparison? phone,
   }) =>
@@ -1766,6 +1985,9 @@ class _CopyWithStubImpl$Input$BookingFilterUserFilter<TRes>
 
   CopyWith$Input$IDFilterComparison<TRes> get id =>
       CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get name =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
 
   or(_fn) => _res;
 
@@ -2581,6 +2803,7 @@ class Input$CarFilter {
     List<Input$CarFilter>? or,
     Input$StringFieldComparison? reference,
     Input$IntFieldComparison? seatCount,
+    Input$CarFilterUserFilter? user,
   }) =>
       Input$CarFilter._({
         if (and != null) r'and': and,
@@ -2589,6 +2812,7 @@ class Input$CarFilter {
         if (or != null) r'or': or,
         if (reference != null) r'reference': reference,
         if (seatCount != null) r'seatCount': seatCount,
+        if (user != null) r'user': user,
       });
 
   Input$CarFilter._(this._$data);
@@ -2634,6 +2858,13 @@ class Input$CarFilter {
           : Input$IntFieldComparison.fromJson(
               (l$seatCount as Map<String, dynamic>));
     }
+    if (data.containsKey('user')) {
+      final l$user = data['user'];
+      result$data['user'] = l$user == null
+          ? null
+          : Input$CarFilterUserFilter.fromJson(
+              (l$user as Map<String, dynamic>));
+    }
     return Input$CarFilter._(result$data);
   }
 
@@ -2654,6 +2885,9 @@ class Input$CarFilter {
 
   Input$IntFieldComparison? get seatCount =>
       (_$data['seatCount'] as Input$IntFieldComparison?);
+
+  Input$CarFilterUserFilter? get user =>
+      (_$data['user'] as Input$CarFilterUserFilter?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -2680,6 +2914,10 @@ class Input$CarFilter {
     if (_$data.containsKey('seatCount')) {
       final l$seatCount = seatCount;
       result$data['seatCount'] = l$seatCount?.toJson();
+    }
+    if (_$data.containsKey('user')) {
+      final l$user = user;
+      result$data['user'] = l$user?.toJson();
     }
     return result$data;
   }
@@ -2770,6 +3008,14 @@ class Input$CarFilter {
     if (l$seatCount != lOther$seatCount) {
       return false;
     }
+    final l$user = user;
+    final lOther$user = other.user;
+    if (_$data.containsKey('user') != other._$data.containsKey('user')) {
+      return false;
+    }
+    if (l$user != lOther$user) {
+      return false;
+    }
     return true;
   }
 
@@ -2781,6 +3027,7 @@ class Input$CarFilter {
     final l$or = or;
     final l$reference = reference;
     final l$seatCount = seatCount;
+    final l$user = user;
     return Object.hashAll([
       _$data.containsKey('and')
           ? l$and == null
@@ -2796,6 +3043,7 @@ class Input$CarFilter {
           : const {},
       _$data.containsKey('reference') ? l$reference : const {},
       _$data.containsKey('seatCount') ? l$seatCount : const {},
+      _$data.containsKey('user') ? l$user : const {},
     ]);
   }
 }
@@ -2816,6 +3064,7 @@ abstract class CopyWith$Input$CarFilter<TRes> {
     List<Input$CarFilter>? or,
     Input$StringFieldComparison? reference,
     Input$IntFieldComparison? seatCount,
+    Input$CarFilterUserFilter? user,
   });
   TRes and(
       Iterable<Input$CarFilter>? Function(
@@ -2829,6 +3078,7 @@ abstract class CopyWith$Input$CarFilter<TRes> {
           _fn);
   CopyWith$Input$StringFieldComparison<TRes> get reference;
   CopyWith$Input$IntFieldComparison<TRes> get seatCount;
+  CopyWith$Input$CarFilterUserFilter<TRes> get user;
 }
 
 class _CopyWithImpl$Input$CarFilter<TRes>
@@ -2851,6 +3101,7 @@ class _CopyWithImpl$Input$CarFilter<TRes>
     Object? or = _undefined,
     Object? reference = _undefined,
     Object? seatCount = _undefined,
+    Object? user = _undefined,
   }) =>
       _then(Input$CarFilter._({
         ..._instance._$data,
@@ -2862,6 +3113,7 @@ class _CopyWithImpl$Input$CarFilter<TRes>
           'reference': (reference as Input$StringFieldComparison?),
         if (seatCount != _undefined)
           'seatCount': (seatCount as Input$IntFieldComparison?),
+        if (user != _undefined) 'user': (user as Input$CarFilterUserFilter?),
       }));
 
   TRes and(
@@ -2914,6 +3166,13 @@ class _CopyWithImpl$Input$CarFilter<TRes>
         : CopyWith$Input$IntFieldComparison(
             local$seatCount, (e) => call(seatCount: e));
   }
+
+  CopyWith$Input$CarFilterUserFilter<TRes> get user {
+    final local$user = _instance.user;
+    return local$user == null
+        ? CopyWith$Input$CarFilterUserFilter.stub(_then(_instance))
+        : CopyWith$Input$CarFilterUserFilter(local$user, (e) => call(user: e));
+  }
 }
 
 class _CopyWithStubImpl$Input$CarFilter<TRes>
@@ -2929,6 +3188,7 @@ class _CopyWithStubImpl$Input$CarFilter<TRes>
     List<Input$CarFilter>? or,
     Input$StringFieldComparison? reference,
     Input$IntFieldComparison? seatCount,
+    Input$CarFilterUserFilter? user,
   }) =>
       _res;
 
@@ -2947,6 +3207,438 @@ class _CopyWithStubImpl$Input$CarFilter<TRes>
 
   CopyWith$Input$IntFieldComparison<TRes> get seatCount =>
       CopyWith$Input$IntFieldComparison.stub(_res);
+
+  CopyWith$Input$CarFilterUserFilter<TRes> get user =>
+      CopyWith$Input$CarFilterUserFilter.stub(_res);
+}
+
+class Input$CarFilterUserFilter {
+  factory Input$CarFilterUserFilter({
+    Input$StringFieldComparison? $_id,
+    List<Input$CarFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$CarFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  }) =>
+      Input$CarFilterUserFilter._({
+        if ($_id != null) r'_id': $_id,
+        if (and != null) r'and': and,
+        if (email != null) r'email': email,
+        if (id != null) r'id': id,
+        if (name != null) r'name': name,
+        if (or != null) r'or': or,
+        if (phone != null) r'phone': phone,
+      });
+
+  Input$CarFilterUserFilter._(this._$data);
+
+  factory Input$CarFilterUserFilter.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('_id')) {
+      final l$$_id = data['_id'];
+      result$data['_id'] = l$$_id == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$$_id as Map<String, dynamic>));
+    }
+    if (data.containsKey('and')) {
+      final l$and = data['and'];
+      result$data['and'] = (l$and as List<dynamic>?)
+          ?.map((e) =>
+              Input$CarFilterUserFilter.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = l$email == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$email as Map<String, dynamic>));
+    }
+    if (data.containsKey('id')) {
+      final l$id = data['id'];
+      result$data['id'] = l$id == null
+          ? null
+          : Input$IDFilterComparison.fromJson((l$id as Map<String, dynamic>));
+    }
+    if (data.containsKey('name')) {
+      final l$name = data['name'];
+      result$data['name'] = l$name == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$name as Map<String, dynamic>));
+    }
+    if (data.containsKey('or')) {
+      final l$or = data['or'];
+      result$data['or'] = (l$or as List<dynamic>?)
+          ?.map((e) =>
+              Input$CarFilterUserFilter.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = l$phone == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$phone as Map<String, dynamic>));
+    }
+    return Input$CarFilterUserFilter._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Input$StringFieldComparison? get $_id =>
+      (_$data['_id'] as Input$StringFieldComparison?);
+
+  List<Input$CarFilterUserFilter>? get and =>
+      (_$data['and'] as List<Input$CarFilterUserFilter>?);
+
+  Input$StringFieldComparison? get email =>
+      (_$data['email'] as Input$StringFieldComparison?);
+
+  Input$IDFilterComparison? get id =>
+      (_$data['id'] as Input$IDFilterComparison?);
+
+  Input$StringFieldComparison? get name =>
+      (_$data['name'] as Input$StringFieldComparison?);
+
+  List<Input$CarFilterUserFilter>? get or =>
+      (_$data['or'] as List<Input$CarFilterUserFilter>?);
+
+  Input$StringFieldComparison? get phone =>
+      (_$data['phone'] as Input$StringFieldComparison?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('_id')) {
+      final l$$_id = $_id;
+      result$data['_id'] = l$$_id?.toJson();
+    }
+    if (_$data.containsKey('and')) {
+      final l$and = and;
+      result$data['and'] = l$and?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email?.toJson();
+    }
+    if (_$data.containsKey('id')) {
+      final l$id = id;
+      result$data['id'] = l$id?.toJson();
+    }
+    if (_$data.containsKey('name')) {
+      final l$name = name;
+      result$data['name'] = l$name?.toJson();
+    }
+    if (_$data.containsKey('or')) {
+      final l$or = or;
+      result$data['or'] = l$or?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone?.toJson();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$CarFilterUserFilter<Input$CarFilterUserFilter> get copyWith =>
+      CopyWith$Input$CarFilterUserFilter(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$CarFilterUserFilter) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$$_id = $_id;
+    final lOther$$_id = other.$_id;
+    if (_$data.containsKey('_id') != other._$data.containsKey('_id')) {
+      return false;
+    }
+    if (l$$_id != lOther$$_id) {
+      return false;
+    }
+    final l$and = and;
+    final lOther$and = other.and;
+    if (_$data.containsKey('and') != other._$data.containsKey('and')) {
+      return false;
+    }
+    if (l$and != null && lOther$and != null) {
+      if (l$and.length != lOther$and.length) {
+        return false;
+      }
+      for (int i = 0; i < l$and.length; i++) {
+        final l$and$entry = l$and[i];
+        final lOther$and$entry = lOther$and[i];
+        if (l$and$entry != lOther$and$entry) {
+          return false;
+        }
+      }
+    } else if (l$and != lOther$and) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (_$data.containsKey('id') != other._$data.containsKey('id')) {
+      return false;
+    }
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (_$data.containsKey('name') != other._$data.containsKey('name')) {
+      return false;
+    }
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$or = or;
+    final lOther$or = other.or;
+    if (_$data.containsKey('or') != other._$data.containsKey('or')) {
+      return false;
+    }
+    if (l$or != null && lOther$or != null) {
+      if (l$or.length != lOther$or.length) {
+        return false;
+      }
+      for (int i = 0; i < l$or.length; i++) {
+        final l$or$entry = l$or[i];
+        final lOther$or$entry = lOther$or[i];
+        if (l$or$entry != lOther$or$entry) {
+          return false;
+        }
+      }
+    } else if (l$or != lOther$or) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$$_id = $_id;
+    final l$and = and;
+    final l$email = email;
+    final l$id = id;
+    final l$name = name;
+    final l$or = or;
+    final l$phone = phone;
+    return Object.hashAll([
+      _$data.containsKey('_id') ? l$$_id : const {},
+      _$data.containsKey('and')
+          ? l$and == null
+              ? null
+              : Object.hashAll(l$and.map((v) => v))
+          : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('name') ? l$name : const {},
+      _$data.containsKey('or')
+          ? l$or == null
+              ? null
+              : Object.hashAll(l$or.map((v) => v))
+          : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$CarFilterUserFilter<TRes> {
+  factory CopyWith$Input$CarFilterUserFilter(
+    Input$CarFilterUserFilter instance,
+    TRes Function(Input$CarFilterUserFilter) then,
+  ) = _CopyWithImpl$Input$CarFilterUserFilter;
+
+  factory CopyWith$Input$CarFilterUserFilter.stub(TRes res) =
+      _CopyWithStubImpl$Input$CarFilterUserFilter;
+
+  TRes call({
+    Input$StringFieldComparison? $_id,
+    List<Input$CarFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$CarFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  });
+  CopyWith$Input$StringFieldComparison<TRes> get $_id;
+  TRes and(
+      Iterable<Input$CarFilterUserFilter>? Function(
+              Iterable<
+                  CopyWith$Input$CarFilterUserFilter<
+                      Input$CarFilterUserFilter>>?)
+          _fn);
+  CopyWith$Input$StringFieldComparison<TRes> get email;
+  CopyWith$Input$IDFilterComparison<TRes> get id;
+  CopyWith$Input$StringFieldComparison<TRes> get name;
+  TRes or(
+      Iterable<Input$CarFilterUserFilter>? Function(
+              Iterable<
+                  CopyWith$Input$CarFilterUserFilter<
+                      Input$CarFilterUserFilter>>?)
+          _fn);
+  CopyWith$Input$StringFieldComparison<TRes> get phone;
+}
+
+class _CopyWithImpl$Input$CarFilterUserFilter<TRes>
+    implements CopyWith$Input$CarFilterUserFilter<TRes> {
+  _CopyWithImpl$Input$CarFilterUserFilter(
+    this._instance,
+    this._then,
+  );
+
+  final Input$CarFilterUserFilter _instance;
+
+  final TRes Function(Input$CarFilterUserFilter) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? $_id = _undefined,
+    Object? and = _undefined,
+    Object? email = _undefined,
+    Object? id = _undefined,
+    Object? name = _undefined,
+    Object? or = _undefined,
+    Object? phone = _undefined,
+  }) =>
+      _then(Input$CarFilterUserFilter._({
+        ..._instance._$data,
+        if ($_id != _undefined) '_id': ($_id as Input$StringFieldComparison?),
+        if (and != _undefined) 'and': (and as List<Input$CarFilterUserFilter>?),
+        if (email != _undefined)
+          'email': (email as Input$StringFieldComparison?),
+        if (id != _undefined) 'id': (id as Input$IDFilterComparison?),
+        if (name != _undefined) 'name': (name as Input$StringFieldComparison?),
+        if (or != _undefined) 'or': (or as List<Input$CarFilterUserFilter>?),
+        if (phone != _undefined)
+          'phone': (phone as Input$StringFieldComparison?),
+      }));
+
+  CopyWith$Input$StringFieldComparison<TRes> get $_id {
+    final local$$_id = _instance.$_id;
+    return local$$_id == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$$_id, (e) => call($_id: e));
+  }
+
+  TRes and(
+          Iterable<Input$CarFilterUserFilter>? Function(
+                  Iterable<
+                      CopyWith$Input$CarFilterUserFilter<
+                          Input$CarFilterUserFilter>>?)
+              _fn) =>
+      call(
+          and: _fn(_instance.and?.map((e) => CopyWith$Input$CarFilterUserFilter(
+                e,
+                (i) => i,
+              )))?.toList());
+
+  CopyWith$Input$StringFieldComparison<TRes> get email {
+    final local$email = _instance.email;
+    return local$email == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$email, (e) => call(email: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get id {
+    final local$id = _instance.id;
+    return local$id == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(local$id, (e) => call(id: e));
+  }
+
+  CopyWith$Input$StringFieldComparison<TRes> get name {
+    final local$name = _instance.name;
+    return local$name == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$name, (e) => call(name: e));
+  }
+
+  TRes or(
+          Iterable<Input$CarFilterUserFilter>? Function(
+                  Iterable<
+                      CopyWith$Input$CarFilterUserFilter<
+                          Input$CarFilterUserFilter>>?)
+              _fn) =>
+      call(
+          or: _fn(_instance.or?.map((e) => CopyWith$Input$CarFilterUserFilter(
+                e,
+                (i) => i,
+              )))?.toList());
+
+  CopyWith$Input$StringFieldComparison<TRes> get phone {
+    final local$phone = _instance.phone;
+    return local$phone == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$phone, (e) => call(phone: e));
+  }
+}
+
+class _CopyWithStubImpl$Input$CarFilterUserFilter<TRes>
+    implements CopyWith$Input$CarFilterUserFilter<TRes> {
+  _CopyWithStubImpl$Input$CarFilterUserFilter(this._res);
+
+  TRes _res;
+
+  call({
+    Input$StringFieldComparison? $_id,
+    List<Input$CarFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$CarFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  }) =>
+      _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get $_id =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  and(_fn) => _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get email =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get id =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get name =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  or(_fn) => _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get phone =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
 }
 
 class Input$CarSort {
@@ -3764,6 +4456,7 @@ class Input$CreateCar {
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   }) =>
       Input$CreateCar._({
         if (createdAt != null) r'createdAt': createdAt,
@@ -3772,6 +4465,7 @@ class Input$CreateCar {
         if (reference != null) r'reference': reference,
         if (seatCount != null) r'seatCount': seatCount,
         if (updatedAt != null) r'updatedAt': updatedAt,
+        if (userId != null) r'userId': userId,
       });
 
   Input$CreateCar._(this._$data);
@@ -3804,6 +4498,10 @@ class Input$CreateCar {
       result$data['updatedAt'] =
           l$updatedAt == null ? null : dateTimeFromJson(l$updatedAt);
     }
+    if (data.containsKey('userId')) {
+      final l$userId = data['userId'];
+      result$data['userId'] = (l$userId as String?);
+    }
     return Input$CreateCar._(result$data);
   }
 
@@ -3820,6 +4518,8 @@ class Input$CreateCar {
   int? get seatCount => (_$data['seatCount'] as int?);
 
   DateTime? get updatedAt => (_$data['updatedAt'] as DateTime?);
+
+  String? get userId => (_$data['userId'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -3848,6 +4548,10 @@ class Input$CreateCar {
       final l$updatedAt = updatedAt;
       result$data['updatedAt'] =
           l$updatedAt == null ? null : dateTimeToJson(l$updatedAt);
+    }
+    if (_$data.containsKey('userId')) {
+      final l$userId = userId;
+      result$data['userId'] = l$userId;
     }
     return result$data;
   }
@@ -3918,6 +4622,14 @@ class Input$CreateCar {
     if (l$updatedAt != lOther$updatedAt) {
       return false;
     }
+    final l$userId = userId;
+    final lOther$userId = other.userId;
+    if (_$data.containsKey('userId') != other._$data.containsKey('userId')) {
+      return false;
+    }
+    if (l$userId != lOther$userId) {
+      return false;
+    }
     return true;
   }
 
@@ -3929,6 +4641,7 @@ class Input$CreateCar {
     final l$reference = reference;
     final l$seatCount = seatCount;
     final l$updatedAt = updatedAt;
+    final l$userId = userId;
     return Object.hashAll([
       _$data.containsKey('createdAt') ? l$createdAt : const {},
       _$data.containsKey('id') ? l$id : const {},
@@ -3936,6 +4649,7 @@ class Input$CreateCar {
       _$data.containsKey('reference') ? l$reference : const {},
       _$data.containsKey('seatCount') ? l$seatCount : const {},
       _$data.containsKey('updatedAt') ? l$updatedAt : const {},
+      _$data.containsKey('userId') ? l$userId : const {},
     ]);
   }
 }
@@ -3956,6 +4670,7 @@ abstract class CopyWith$Input$CreateCar<TRes> {
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   });
 }
 
@@ -3979,6 +4694,7 @@ class _CopyWithImpl$Input$CreateCar<TRes>
     Object? reference = _undefined,
     Object? seatCount = _undefined,
     Object? updatedAt = _undefined,
+    Object? userId = _undefined,
   }) =>
       _then(Input$CreateCar._({
         ..._instance._$data,
@@ -3988,6 +4704,7 @@ class _CopyWithImpl$Input$CreateCar<TRes>
         if (reference != _undefined) 'reference': (reference as String?),
         if (seatCount != _undefined) 'seatCount': (seatCount as int?),
         if (updatedAt != _undefined) 'updatedAt': (updatedAt as DateTime?),
+        if (userId != _undefined) 'userId': (userId as String?),
       }));
 }
 
@@ -4004,6 +4721,7 @@ class _CopyWithStubImpl$Input$CreateCar<TRes>
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   }) =>
       _res;
 }
@@ -5621,6 +6339,7 @@ class Input$CreateTravel {
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -5633,6 +6352,7 @@ class Input$CreateTravel {
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (carId != null) r'carId': carId,
         if (createdAt != null) r'createdAt': createdAt,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departureId != null) r'departureId': departureId,
         if (duration != null) r'duration': duration,
@@ -5658,6 +6378,10 @@ class Input$CreateTravel {
       final l$createdAt = data['createdAt'];
       result$data['createdAt'] =
           l$createdAt == null ? null : dateTimeFromJson(l$createdAt);
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = (l$createdById as String?);
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -5699,6 +6423,8 @@ class Input$CreateTravel {
 
   DateTime? get createdAt => (_$data['createdAt'] as DateTime?);
 
+  String? get createdById => (_$data['createdById'] as String?);
+
   String? get date => (_$data['date'] as String?);
 
   String? get departureId => (_$data['departureId'] as String?);
@@ -5727,6 +6453,10 @@ class Input$CreateTravel {
       final l$createdAt = createdAt;
       result$data['createdAt'] =
           l$createdAt == null ? null : dateTimeToJson(l$createdAt);
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById;
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -5800,6 +6530,15 @@ class Input$CreateTravel {
     if (l$createdAt != lOther$createdAt) {
       return false;
     }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -5867,6 +6606,7 @@ class Input$CreateTravel {
     final l$arrivalId = arrivalId;
     final l$carId = carId;
     final l$createdAt = createdAt;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departureId = departureId;
     final l$duration = duration;
@@ -5878,6 +6618,7 @@ class Input$CreateTravel {
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('carId') ? l$carId : const {},
       _$data.containsKey('createdAt') ? l$createdAt : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
       _$data.containsKey('duration') ? l$duration : const {},
@@ -5902,6 +6643,7 @@ abstract class CopyWith$Input$CreateTravel<TRes> {
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -5929,6 +6671,7 @@ class _CopyWithImpl$Input$CreateTravel<TRes>
     Object? arrivalId = _undefined,
     Object? carId = _undefined,
     Object? createdAt = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departureId = _undefined,
     Object? duration = _undefined,
@@ -5942,6 +6685,7 @@ class _CopyWithImpl$Input$CreateTravel<TRes>
         if (arrivalId != _undefined) 'arrivalId': (arrivalId as String?),
         if (carId != _undefined) 'carId': (carId as String?),
         if (createdAt != _undefined) 'createdAt': (createdAt as DateTime?),
+        if (createdById != _undefined) 'createdById': (createdById as String?),
         if (date != _undefined) 'date': (date as String?),
         if (departureId != _undefined) 'departureId': (departureId as String?),
         if (duration != _undefined) 'duration': (duration as int?),
@@ -5962,6 +6706,7 @@ class _CopyWithStubImpl$Input$CreateTravel<TRes>
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -5975,45 +6720,69 @@ class _CopyWithStubImpl$Input$CreateTravel<TRes>
 
 class Input$CreateUserInput {
   factory Input$CreateUserInput({
-    required String $_id,
-    required String email,
-    required String phone,
+    String? $_id,
+    String? email,
+    String? name,
+    String? phone,
   }) =>
       Input$CreateUserInput._({
-        r'_id': $_id,
-        r'email': email,
-        r'phone': phone,
+        if ($_id != null) r'_id': $_id,
+        if (email != null) r'email': email,
+        if (name != null) r'name': name,
+        if (phone != null) r'phone': phone,
       });
 
   Input$CreateUserInput._(this._$data);
 
   factory Input$CreateUserInput.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$$_id = data['_id'];
-    result$data['_id'] = (l$$_id as String);
-    final l$email = data['email'];
-    result$data['email'] = (l$email as String);
-    final l$phone = data['phone'];
-    result$data['phone'] = (l$phone as String);
+    if (data.containsKey('_id')) {
+      final l$$_id = data['_id'];
+      result$data['_id'] = (l$$_id as String?);
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = (l$email as String?);
+    }
+    if (data.containsKey('name')) {
+      final l$name = data['name'];
+      result$data['name'] = (l$name as String?);
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
     return Input$CreateUserInput._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  String get $_id => (_$data['_id'] as String);
+  String? get $_id => (_$data['_id'] as String?);
 
-  String get email => (_$data['email'] as String);
+  String? get email => (_$data['email'] as String?);
 
-  String get phone => (_$data['phone'] as String);
+  String? get name => (_$data['name'] as String?);
+
+  String? get phone => (_$data['phone'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$$_id = $_id;
-    result$data['_id'] = l$$_id;
-    final l$email = email;
-    result$data['email'] = l$email;
-    final l$phone = phone;
-    result$data['phone'] = l$phone;
+    if (_$data.containsKey('_id')) {
+      final l$$_id = $_id;
+      result$data['_id'] = l$$_id;
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email;
+    }
+    if (_$data.containsKey('name')) {
+      final l$name = name;
+      result$data['name'] = l$name;
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
     return result$data;
   }
 
@@ -6033,16 +6802,33 @@ class Input$CreateUserInput {
     }
     final l$$_id = $_id;
     final lOther$$_id = other.$_id;
+    if (_$data.containsKey('_id') != other._$data.containsKey('_id')) {
+      return false;
+    }
     if (l$$_id != lOther$$_id) {
       return false;
     }
     final l$email = email;
     final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
     if (l$email != lOther$email) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (_$data.containsKey('name') != other._$data.containsKey('name')) {
+      return false;
+    }
+    if (l$name != lOther$name) {
       return false;
     }
     final l$phone = phone;
     final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
     if (l$phone != lOther$phone) {
       return false;
     }
@@ -6053,11 +6839,13 @@ class Input$CreateUserInput {
   int get hashCode {
     final l$$_id = $_id;
     final l$email = email;
+    final l$name = name;
     final l$phone = phone;
     return Object.hashAll([
-      l$$_id,
-      l$email,
-      l$phone,
+      _$data.containsKey('_id') ? l$$_id : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      _$data.containsKey('name') ? l$name : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
     ]);
   }
 }
@@ -6074,6 +6862,7 @@ abstract class CopyWith$Input$CreateUserInput<TRes> {
   TRes call({
     String? $_id,
     String? email,
+    String? name,
     String? phone,
   });
 }
@@ -6094,13 +6883,15 @@ class _CopyWithImpl$Input$CreateUserInput<TRes>
   TRes call({
     Object? $_id = _undefined,
     Object? email = _undefined,
+    Object? name = _undefined,
     Object? phone = _undefined,
   }) =>
       _then(Input$CreateUserInput._({
         ..._instance._$data,
-        if ($_id != _undefined && $_id != null) '_id': ($_id as String),
-        if (email != _undefined && email != null) 'email': (email as String),
-        if (phone != _undefined && phone != null) 'phone': (phone as String),
+        if ($_id != _undefined) '_id': ($_id as String?),
+        if (email != _undefined) 'email': (email as String?),
+        if (name != _undefined) 'name': (name as String?),
+        if (phone != _undefined) 'phone': (phone as String?),
       }));
 }
 
@@ -6113,6 +6904,7 @@ class _CopyWithStubImpl$Input$CreateUserInput<TRes>
   call({
     String? $_id,
     String? email,
+    String? name,
     String? phone,
   }) =>
       _res;
@@ -11879,6 +12671,142 @@ class _CopyWithStubImpl$Input$SetArrivalOnTravelInput<TRes>
       _res;
 }
 
+class Input$SetBookingsOnTravelInput {
+  factory Input$SetBookingsOnTravelInput({
+    required String id,
+    required List<String> relationIds,
+  }) =>
+      Input$SetBookingsOnTravelInput._({
+        r'id': id,
+        r'relationIds': relationIds,
+      });
+
+  Input$SetBookingsOnTravelInput._(this._$data);
+
+  factory Input$SetBookingsOnTravelInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationIds = data['relationIds'];
+    result$data['relationIds'] =
+        (l$relationIds as List<dynamic>).map((e) => (e as String)).toList();
+    return Input$SetBookingsOnTravelInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  List<String> get relationIds => (_$data['relationIds'] as List<String>);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationIds = relationIds;
+    result$data['relationIds'] = l$relationIds.map((e) => e).toList();
+    return result$data;
+  }
+
+  CopyWith$Input$SetBookingsOnTravelInput<Input$SetBookingsOnTravelInput>
+      get copyWith => CopyWith$Input$SetBookingsOnTravelInput(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$SetBookingsOnTravelInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationIds = relationIds;
+    final lOther$relationIds = other.relationIds;
+    if (l$relationIds.length != lOther$relationIds.length) {
+      return false;
+    }
+    for (int i = 0; i < l$relationIds.length; i++) {
+      final l$relationIds$entry = l$relationIds[i];
+      final lOther$relationIds$entry = lOther$relationIds[i];
+      if (l$relationIds$entry != lOther$relationIds$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationIds = relationIds;
+    return Object.hashAll([
+      l$id,
+      Object.hashAll(l$relationIds.map((v) => v)),
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$SetBookingsOnTravelInput<TRes> {
+  factory CopyWith$Input$SetBookingsOnTravelInput(
+    Input$SetBookingsOnTravelInput instance,
+    TRes Function(Input$SetBookingsOnTravelInput) then,
+  ) = _CopyWithImpl$Input$SetBookingsOnTravelInput;
+
+  factory CopyWith$Input$SetBookingsOnTravelInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$SetBookingsOnTravelInput;
+
+  TRes call({
+    String? id,
+    List<String>? relationIds,
+  });
+}
+
+class _CopyWithImpl$Input$SetBookingsOnTravelInput<TRes>
+    implements CopyWith$Input$SetBookingsOnTravelInput<TRes> {
+  _CopyWithImpl$Input$SetBookingsOnTravelInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$SetBookingsOnTravelInput _instance;
+
+  final TRes Function(Input$SetBookingsOnTravelInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationIds = _undefined,
+  }) =>
+      _then(Input$SetBookingsOnTravelInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationIds != _undefined && relationIds != null)
+          'relationIds': (relationIds as List<String>),
+      }));
+}
+
+class _CopyWithStubImpl$Input$SetBookingsOnTravelInput<TRes>
+    implements CopyWith$Input$SetBookingsOnTravelInput<TRes> {
+  _CopyWithStubImpl$Input$SetBookingsOnTravelInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    List<String>? relationIds,
+  }) =>
+      _res;
+}
+
 class Input$SetCarOnTravelInput {
   factory Input$SetCarOnTravelInput({
     required String id,
@@ -11997,6 +12925,134 @@ class _CopyWithImpl$Input$SetCarOnTravelInput<TRes>
 class _CopyWithStubImpl$Input$SetCarOnTravelInput<TRes>
     implements CopyWith$Input$SetCarOnTravelInput<TRes> {
   _CopyWithStubImpl$Input$SetCarOnTravelInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    String? relationId,
+  }) =>
+      _res;
+}
+
+class Input$SetCreatedByOnTravelInput {
+  factory Input$SetCreatedByOnTravelInput({
+    required String id,
+    required String relationId,
+  }) =>
+      Input$SetCreatedByOnTravelInput._({
+        r'id': id,
+        r'relationId': relationId,
+      });
+
+  Input$SetCreatedByOnTravelInput._(this._$data);
+
+  factory Input$SetCreatedByOnTravelInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationId = data['relationId'];
+    result$data['relationId'] = (l$relationId as String);
+    return Input$SetCreatedByOnTravelInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  String get relationId => (_$data['relationId'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationId = relationId;
+    result$data['relationId'] = l$relationId;
+    return result$data;
+  }
+
+  CopyWith$Input$SetCreatedByOnTravelInput<Input$SetCreatedByOnTravelInput>
+      get copyWith => CopyWith$Input$SetCreatedByOnTravelInput(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$SetCreatedByOnTravelInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationId = relationId;
+    final lOther$relationId = other.relationId;
+    if (l$relationId != lOther$relationId) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationId = relationId;
+    return Object.hashAll([
+      l$id,
+      l$relationId,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$SetCreatedByOnTravelInput<TRes> {
+  factory CopyWith$Input$SetCreatedByOnTravelInput(
+    Input$SetCreatedByOnTravelInput instance,
+    TRes Function(Input$SetCreatedByOnTravelInput) then,
+  ) = _CopyWithImpl$Input$SetCreatedByOnTravelInput;
+
+  factory CopyWith$Input$SetCreatedByOnTravelInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$SetCreatedByOnTravelInput;
+
+  TRes call({
+    String? id,
+    String? relationId,
+  });
+}
+
+class _CopyWithImpl$Input$SetCreatedByOnTravelInput<TRes>
+    implements CopyWith$Input$SetCreatedByOnTravelInput<TRes> {
+  _CopyWithImpl$Input$SetCreatedByOnTravelInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$SetCreatedByOnTravelInput _instance;
+
+  final TRes Function(Input$SetCreatedByOnTravelInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationId = _undefined,
+  }) =>
+      _then(Input$SetCreatedByOnTravelInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationId != _undefined && relationId != null)
+          'relationId': (relationId as String),
+      }));
+}
+
+class _CopyWithStubImpl$Input$SetCreatedByOnTravelInput<TRes>
+    implements CopyWith$Input$SetCreatedByOnTravelInput<TRes> {
+  _CopyWithStubImpl$Input$SetCreatedByOnTravelInput(this._res);
 
   TRes _res;
 
@@ -12781,6 +13837,134 @@ class _CopyWithImpl$Input$SetUserOnBookingInput<TRes>
 class _CopyWithStubImpl$Input$SetUserOnBookingInput<TRes>
     implements CopyWith$Input$SetUserOnBookingInput<TRes> {
   _CopyWithStubImpl$Input$SetUserOnBookingInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    String? relationId,
+  }) =>
+      _res;
+}
+
+class Input$SetUserOnCarInput {
+  factory Input$SetUserOnCarInput({
+    required String id,
+    required String relationId,
+  }) =>
+      Input$SetUserOnCarInput._({
+        r'id': id,
+        r'relationId': relationId,
+      });
+
+  Input$SetUserOnCarInput._(this._$data);
+
+  factory Input$SetUserOnCarInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationId = data['relationId'];
+    result$data['relationId'] = (l$relationId as String);
+    return Input$SetUserOnCarInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  String get relationId => (_$data['relationId'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationId = relationId;
+    result$data['relationId'] = l$relationId;
+    return result$data;
+  }
+
+  CopyWith$Input$SetUserOnCarInput<Input$SetUserOnCarInput> get copyWith =>
+      CopyWith$Input$SetUserOnCarInput(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$SetUserOnCarInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationId = relationId;
+    final lOther$relationId = other.relationId;
+    if (l$relationId != lOther$relationId) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationId = relationId;
+    return Object.hashAll([
+      l$id,
+      l$relationId,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$SetUserOnCarInput<TRes> {
+  factory CopyWith$Input$SetUserOnCarInput(
+    Input$SetUserOnCarInput instance,
+    TRes Function(Input$SetUserOnCarInput) then,
+  ) = _CopyWithImpl$Input$SetUserOnCarInput;
+
+  factory CopyWith$Input$SetUserOnCarInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$SetUserOnCarInput;
+
+  TRes call({
+    String? id,
+    String? relationId,
+  });
+}
+
+class _CopyWithImpl$Input$SetUserOnCarInput<TRes>
+    implements CopyWith$Input$SetUserOnCarInput<TRes> {
+  _CopyWithImpl$Input$SetUserOnCarInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$SetUserOnCarInput _instance;
+
+  final TRes Function(Input$SetUserOnCarInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationId = _undefined,
+  }) =>
+      _then(Input$SetUserOnCarInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationId != _undefined && relationId != null)
+          'relationId': (relationId as String),
+      }));
+}
+
+class _CopyWithStubImpl$Input$SetUserOnCarInput<TRes>
+    implements CopyWith$Input$SetUserOnCarInput<TRes> {
+  _CopyWithStubImpl$Input$SetUserOnCarInput(this._res);
 
   TRes _res;
 
@@ -13768,6 +14952,7 @@ class Input$TravelDeleteFilter {
     List<Input$TravelDeleteFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -13779,6 +14964,7 @@ class Input$TravelDeleteFilter {
         if (and != null) r'and': and,
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (carId != null) r'carId': carId,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departureId != null) r'departureId': departureId,
         if (feeId != null) r'feeId': feeId,
@@ -13811,6 +14997,13 @@ class Input$TravelDeleteFilter {
           ? null
           : Input$IDFilterComparison.fromJson(
               (l$carId as Map<String, dynamic>));
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = l$createdById == null
+          ? null
+          : Input$IDFilterComparison.fromJson(
+              (l$createdById as Map<String, dynamic>));
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -13867,6 +15060,9 @@ class Input$TravelDeleteFilter {
   Input$IDFilterComparison? get carId =>
       (_$data['carId'] as Input$IDFilterComparison?);
 
+  Input$IDFilterComparison? get createdById =>
+      (_$data['createdById'] as Input$IDFilterComparison?);
+
   Input$DateFieldComparison? get date =>
       (_$data['date'] as Input$DateFieldComparison?);
 
@@ -13898,6 +15094,10 @@ class Input$TravelDeleteFilter {
     if (_$data.containsKey('carId')) {
       final l$carId = carId;
       result$data['carId'] = l$carId?.toJson();
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById?.toJson();
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -13977,6 +15177,15 @@ class Input$TravelDeleteFilter {
     if (l$carId != lOther$carId) {
       return false;
     }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -14045,6 +15254,7 @@ class Input$TravelDeleteFilter {
     final l$and = and;
     final l$arrivalId = arrivalId;
     final l$carId = carId;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departureId = departureId;
     final l$feeId = feeId;
@@ -14059,6 +15269,7 @@ class Input$TravelDeleteFilter {
           : const {},
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('carId') ? l$carId : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
       _$data.containsKey('feeId') ? l$feeId : const {},
@@ -14086,6 +15297,7 @@ abstract class CopyWith$Input$TravelDeleteFilter<TRes> {
     List<Input$TravelDeleteFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -14100,6 +15312,7 @@ abstract class CopyWith$Input$TravelDeleteFilter<TRes> {
           _fn);
   CopyWith$Input$IDFilterComparison<TRes> get arrivalId;
   CopyWith$Input$IDFilterComparison<TRes> get carId;
+  CopyWith$Input$IDFilterComparison<TRes> get createdById;
   CopyWith$Input$DateFieldComparison<TRes> get date;
   CopyWith$Input$IDFilterComparison<TRes> get departureId;
   CopyWith$Input$IDFilterComparison<TRes> get feeId;
@@ -14129,6 +15342,7 @@ class _CopyWithImpl$Input$TravelDeleteFilter<TRes>
     Object? and = _undefined,
     Object? arrivalId = _undefined,
     Object? carId = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departureId = _undefined,
     Object? feeId = _undefined,
@@ -14142,6 +15356,8 @@ class _CopyWithImpl$Input$TravelDeleteFilter<TRes>
         if (arrivalId != _undefined)
           'arrivalId': (arrivalId as Input$IDFilterComparison?),
         if (carId != _undefined) 'carId': (carId as Input$IDFilterComparison?),
+        if (createdById != _undefined)
+          'createdById': (createdById as Input$IDFilterComparison?),
         if (date != _undefined) 'date': (date as Input$DateFieldComparison?),
         if (departureId != _undefined)
           'departureId': (departureId as Input$IDFilterComparison?),
@@ -14176,6 +15392,14 @@ class _CopyWithImpl$Input$TravelDeleteFilter<TRes>
     return local$carId == null
         ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
         : CopyWith$Input$IDFilterComparison(local$carId, (e) => call(carId: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById {
+    final local$createdById = _instance.createdById;
+    return local$createdById == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(
+            local$createdById, (e) => call(createdById: e));
   }
 
   CopyWith$Input$DateFieldComparison<TRes> get date {
@@ -14237,6 +15461,7 @@ class _CopyWithStubImpl$Input$TravelDeleteFilter<TRes>
     List<Input$TravelDeleteFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -14252,6 +15477,9 @@ class _CopyWithStubImpl$Input$TravelDeleteFilter<TRes>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$IDFilterComparison<TRes> get carId =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById =>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$DateFieldComparison<TRes> get date =>
@@ -14279,6 +15507,8 @@ class Input$TravelFilter {
     Input$IDFilterComparison? arrivalId,
     Input$TravelFilterCarFilter? car,
     Input$IDFilterComparison? carId,
+    Input$TravelFilterUserFilter? createdBy,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$TravelFilterLocationFilter? departure,
     Input$IDFilterComparison? departureId,
@@ -14294,6 +15524,8 @@ class Input$TravelFilter {
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (car != null) r'car': car,
         if (carId != null) r'carId': carId,
+        if (createdBy != null) r'createdBy': createdBy,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departure != null) r'departure': departure,
         if (departureId != null) r'departureId': departureId,
@@ -14341,6 +15573,20 @@ class Input$TravelFilter {
           ? null
           : Input$IDFilterComparison.fromJson(
               (l$carId as Map<String, dynamic>));
+    }
+    if (data.containsKey('createdBy')) {
+      final l$createdBy = data['createdBy'];
+      result$data['createdBy'] = l$createdBy == null
+          ? null
+          : Input$TravelFilterUserFilter.fromJson(
+              (l$createdBy as Map<String, dynamic>));
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = l$createdById == null
+          ? null
+          : Input$IDFilterComparison.fromJson(
+              (l$createdById as Map<String, dynamic>));
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -14416,6 +15662,12 @@ class Input$TravelFilter {
   Input$IDFilterComparison? get carId =>
       (_$data['carId'] as Input$IDFilterComparison?);
 
+  Input$TravelFilterUserFilter? get createdBy =>
+      (_$data['createdBy'] as Input$TravelFilterUserFilter?);
+
+  Input$IDFilterComparison? get createdById =>
+      (_$data['createdById'] as Input$IDFilterComparison?);
+
   Input$DateFieldComparison? get date =>
       (_$data['date'] as Input$DateFieldComparison?);
 
@@ -14461,6 +15713,14 @@ class Input$TravelFilter {
     if (_$data.containsKey('carId')) {
       final l$carId = carId;
       result$data['carId'] = l$carId?.toJson();
+    }
+    if (_$data.containsKey('createdBy')) {
+      final l$createdBy = createdBy;
+      result$data['createdBy'] = l$createdBy?.toJson();
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById?.toJson();
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -14563,6 +15823,24 @@ class Input$TravelFilter {
     if (l$carId != lOther$carId) {
       return false;
     }
+    final l$createdBy = createdBy;
+    final lOther$createdBy = other.createdBy;
+    if (_$data.containsKey('createdBy') !=
+        other._$data.containsKey('createdBy')) {
+      return false;
+    }
+    if (l$createdBy != lOther$createdBy) {
+      return false;
+    }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -14650,6 +15928,8 @@ class Input$TravelFilter {
     final l$arrivalId = arrivalId;
     final l$car = car;
     final l$carId = carId;
+    final l$createdBy = createdBy;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departure = departure;
     final l$departureId = departureId;
@@ -14668,6 +15948,8 @@ class Input$TravelFilter {
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('car') ? l$car : const {},
       _$data.containsKey('carId') ? l$carId : const {},
+      _$data.containsKey('createdBy') ? l$createdBy : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departure') ? l$departure : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
@@ -14699,6 +15981,8 @@ abstract class CopyWith$Input$TravelFilter<TRes> {
     Input$IDFilterComparison? arrivalId,
     Input$TravelFilterCarFilter? car,
     Input$IDFilterComparison? carId,
+    Input$TravelFilterUserFilter? createdBy,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$TravelFilterLocationFilter? departure,
     Input$IDFilterComparison? departureId,
@@ -14716,6 +16000,8 @@ abstract class CopyWith$Input$TravelFilter<TRes> {
   CopyWith$Input$IDFilterComparison<TRes> get arrivalId;
   CopyWith$Input$TravelFilterCarFilter<TRes> get car;
   CopyWith$Input$IDFilterComparison<TRes> get carId;
+  CopyWith$Input$TravelFilterUserFilter<TRes> get createdBy;
+  CopyWith$Input$IDFilterComparison<TRes> get createdById;
   CopyWith$Input$DateFieldComparison<TRes> get date;
   CopyWith$Input$TravelFilterLocationFilter<TRes> get departure;
   CopyWith$Input$IDFilterComparison<TRes> get departureId;
@@ -14748,6 +16034,8 @@ class _CopyWithImpl$Input$TravelFilter<TRes>
     Object? arrivalId = _undefined,
     Object? car = _undefined,
     Object? carId = _undefined,
+    Object? createdBy = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departure = _undefined,
     Object? departureId = _undefined,
@@ -14766,6 +16054,10 @@ class _CopyWithImpl$Input$TravelFilter<TRes>
           'arrivalId': (arrivalId as Input$IDFilterComparison?),
         if (car != _undefined) 'car': (car as Input$TravelFilterCarFilter?),
         if (carId != _undefined) 'carId': (carId as Input$IDFilterComparison?),
+        if (createdBy != _undefined)
+          'createdBy': (createdBy as Input$TravelFilterUserFilter?),
+        if (createdById != _undefined)
+          'createdById': (createdById as Input$IDFilterComparison?),
         if (date != _undefined) 'date': (date as Input$DateFieldComparison?),
         if (departure != _undefined)
           'departure': (departure as Input$TravelFilterLocationFilter?),
@@ -14816,6 +16108,22 @@ class _CopyWithImpl$Input$TravelFilter<TRes>
     return local$carId == null
         ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
         : CopyWith$Input$IDFilterComparison(local$carId, (e) => call(carId: e));
+  }
+
+  CopyWith$Input$TravelFilterUserFilter<TRes> get createdBy {
+    final local$createdBy = _instance.createdBy;
+    return local$createdBy == null
+        ? CopyWith$Input$TravelFilterUserFilter.stub(_then(_instance))
+        : CopyWith$Input$TravelFilterUserFilter(
+            local$createdBy, (e) => call(createdBy: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById {
+    final local$createdById = _instance.createdById;
+    return local$createdById == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(
+            local$createdById, (e) => call(createdById: e));
   }
 
   CopyWith$Input$DateFieldComparison<TRes> get date {
@@ -14892,6 +16200,8 @@ class _CopyWithStubImpl$Input$TravelFilter<TRes>
     Input$IDFilterComparison? arrivalId,
     Input$TravelFilterCarFilter? car,
     Input$IDFilterComparison? carId,
+    Input$TravelFilterUserFilter? createdBy,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$TravelFilterLocationFilter? departure,
     Input$IDFilterComparison? departureId,
@@ -14915,6 +16225,12 @@ class _CopyWithStubImpl$Input$TravelFilter<TRes>
       CopyWith$Input$TravelFilterCarFilter.stub(_res);
 
   CopyWith$Input$IDFilterComparison<TRes> get carId =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$TravelFilterUserFilter<TRes> get createdBy =>
+      CopyWith$Input$TravelFilterUserFilter.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById =>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$DateFieldComparison<TRes> get date =>
@@ -16023,6 +17339,438 @@ class _CopyWithStubImpl$Input$TravelFilterLocationFilter<TRes>
   or(_fn) => _res;
 }
 
+class Input$TravelFilterUserFilter {
+  factory Input$TravelFilterUserFilter({
+    Input$StringFieldComparison? $_id,
+    List<Input$TravelFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$TravelFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  }) =>
+      Input$TravelFilterUserFilter._({
+        if ($_id != null) r'_id': $_id,
+        if (and != null) r'and': and,
+        if (email != null) r'email': email,
+        if (id != null) r'id': id,
+        if (name != null) r'name': name,
+        if (or != null) r'or': or,
+        if (phone != null) r'phone': phone,
+      });
+
+  Input$TravelFilterUserFilter._(this._$data);
+
+  factory Input$TravelFilterUserFilter.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('_id')) {
+      final l$$_id = data['_id'];
+      result$data['_id'] = l$$_id == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$$_id as Map<String, dynamic>));
+    }
+    if (data.containsKey('and')) {
+      final l$and = data['and'];
+      result$data['and'] = (l$and as List<dynamic>?)
+          ?.map((e) => Input$TravelFilterUserFilter.fromJson(
+              (e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = l$email == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$email as Map<String, dynamic>));
+    }
+    if (data.containsKey('id')) {
+      final l$id = data['id'];
+      result$data['id'] = l$id == null
+          ? null
+          : Input$IDFilterComparison.fromJson((l$id as Map<String, dynamic>));
+    }
+    if (data.containsKey('name')) {
+      final l$name = data['name'];
+      result$data['name'] = l$name == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$name as Map<String, dynamic>));
+    }
+    if (data.containsKey('or')) {
+      final l$or = data['or'];
+      result$data['or'] = (l$or as List<dynamic>?)
+          ?.map((e) => Input$TravelFilterUserFilter.fromJson(
+              (e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = l$phone == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$phone as Map<String, dynamic>));
+    }
+    return Input$TravelFilterUserFilter._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Input$StringFieldComparison? get $_id =>
+      (_$data['_id'] as Input$StringFieldComparison?);
+
+  List<Input$TravelFilterUserFilter>? get and =>
+      (_$data['and'] as List<Input$TravelFilterUserFilter>?);
+
+  Input$StringFieldComparison? get email =>
+      (_$data['email'] as Input$StringFieldComparison?);
+
+  Input$IDFilterComparison? get id =>
+      (_$data['id'] as Input$IDFilterComparison?);
+
+  Input$StringFieldComparison? get name =>
+      (_$data['name'] as Input$StringFieldComparison?);
+
+  List<Input$TravelFilterUserFilter>? get or =>
+      (_$data['or'] as List<Input$TravelFilterUserFilter>?);
+
+  Input$StringFieldComparison? get phone =>
+      (_$data['phone'] as Input$StringFieldComparison?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('_id')) {
+      final l$$_id = $_id;
+      result$data['_id'] = l$$_id?.toJson();
+    }
+    if (_$data.containsKey('and')) {
+      final l$and = and;
+      result$data['and'] = l$and?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email?.toJson();
+    }
+    if (_$data.containsKey('id')) {
+      final l$id = id;
+      result$data['id'] = l$id?.toJson();
+    }
+    if (_$data.containsKey('name')) {
+      final l$name = name;
+      result$data['name'] = l$name?.toJson();
+    }
+    if (_$data.containsKey('or')) {
+      final l$or = or;
+      result$data['or'] = l$or?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone?.toJson();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$TravelFilterUserFilter<Input$TravelFilterUserFilter>
+      get copyWith => CopyWith$Input$TravelFilterUserFilter(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$TravelFilterUserFilter) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$$_id = $_id;
+    final lOther$$_id = other.$_id;
+    if (_$data.containsKey('_id') != other._$data.containsKey('_id')) {
+      return false;
+    }
+    if (l$$_id != lOther$$_id) {
+      return false;
+    }
+    final l$and = and;
+    final lOther$and = other.and;
+    if (_$data.containsKey('and') != other._$data.containsKey('and')) {
+      return false;
+    }
+    if (l$and != null && lOther$and != null) {
+      if (l$and.length != lOther$and.length) {
+        return false;
+      }
+      for (int i = 0; i < l$and.length; i++) {
+        final l$and$entry = l$and[i];
+        final lOther$and$entry = lOther$and[i];
+        if (l$and$entry != lOther$and$entry) {
+          return false;
+        }
+      }
+    } else if (l$and != lOther$and) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (_$data.containsKey('id') != other._$data.containsKey('id')) {
+      return false;
+    }
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (_$data.containsKey('name') != other._$data.containsKey('name')) {
+      return false;
+    }
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$or = or;
+    final lOther$or = other.or;
+    if (_$data.containsKey('or') != other._$data.containsKey('or')) {
+      return false;
+    }
+    if (l$or != null && lOther$or != null) {
+      if (l$or.length != lOther$or.length) {
+        return false;
+      }
+      for (int i = 0; i < l$or.length; i++) {
+        final l$or$entry = l$or[i];
+        final lOther$or$entry = lOther$or[i];
+        if (l$or$entry != lOther$or$entry) {
+          return false;
+        }
+      }
+    } else if (l$or != lOther$or) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$$_id = $_id;
+    final l$and = and;
+    final l$email = email;
+    final l$id = id;
+    final l$name = name;
+    final l$or = or;
+    final l$phone = phone;
+    return Object.hashAll([
+      _$data.containsKey('_id') ? l$$_id : const {},
+      _$data.containsKey('and')
+          ? l$and == null
+              ? null
+              : Object.hashAll(l$and.map((v) => v))
+          : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('name') ? l$name : const {},
+      _$data.containsKey('or')
+          ? l$or == null
+              ? null
+              : Object.hashAll(l$or.map((v) => v))
+          : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$TravelFilterUserFilter<TRes> {
+  factory CopyWith$Input$TravelFilterUserFilter(
+    Input$TravelFilterUserFilter instance,
+    TRes Function(Input$TravelFilterUserFilter) then,
+  ) = _CopyWithImpl$Input$TravelFilterUserFilter;
+
+  factory CopyWith$Input$TravelFilterUserFilter.stub(TRes res) =
+      _CopyWithStubImpl$Input$TravelFilterUserFilter;
+
+  TRes call({
+    Input$StringFieldComparison? $_id,
+    List<Input$TravelFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$TravelFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  });
+  CopyWith$Input$StringFieldComparison<TRes> get $_id;
+  TRes and(
+      Iterable<Input$TravelFilterUserFilter>? Function(
+              Iterable<
+                  CopyWith$Input$TravelFilterUserFilter<
+                      Input$TravelFilterUserFilter>>?)
+          _fn);
+  CopyWith$Input$StringFieldComparison<TRes> get email;
+  CopyWith$Input$IDFilterComparison<TRes> get id;
+  CopyWith$Input$StringFieldComparison<TRes> get name;
+  TRes or(
+      Iterable<Input$TravelFilterUserFilter>? Function(
+              Iterable<
+                  CopyWith$Input$TravelFilterUserFilter<
+                      Input$TravelFilterUserFilter>>?)
+          _fn);
+  CopyWith$Input$StringFieldComparison<TRes> get phone;
+}
+
+class _CopyWithImpl$Input$TravelFilterUserFilter<TRes>
+    implements CopyWith$Input$TravelFilterUserFilter<TRes> {
+  _CopyWithImpl$Input$TravelFilterUserFilter(
+    this._instance,
+    this._then,
+  );
+
+  final Input$TravelFilterUserFilter _instance;
+
+  final TRes Function(Input$TravelFilterUserFilter) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? $_id = _undefined,
+    Object? and = _undefined,
+    Object? email = _undefined,
+    Object? id = _undefined,
+    Object? name = _undefined,
+    Object? or = _undefined,
+    Object? phone = _undefined,
+  }) =>
+      _then(Input$TravelFilterUserFilter._({
+        ..._instance._$data,
+        if ($_id != _undefined) '_id': ($_id as Input$StringFieldComparison?),
+        if (and != _undefined)
+          'and': (and as List<Input$TravelFilterUserFilter>?),
+        if (email != _undefined)
+          'email': (email as Input$StringFieldComparison?),
+        if (id != _undefined) 'id': (id as Input$IDFilterComparison?),
+        if (name != _undefined) 'name': (name as Input$StringFieldComparison?),
+        if (or != _undefined) 'or': (or as List<Input$TravelFilterUserFilter>?),
+        if (phone != _undefined)
+          'phone': (phone as Input$StringFieldComparison?),
+      }));
+
+  CopyWith$Input$StringFieldComparison<TRes> get $_id {
+    final local$$_id = _instance.$_id;
+    return local$$_id == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$$_id, (e) => call($_id: e));
+  }
+
+  TRes and(
+          Iterable<Input$TravelFilterUserFilter>? Function(
+                  Iterable<
+                      CopyWith$Input$TravelFilterUserFilter<
+                          Input$TravelFilterUserFilter>>?)
+              _fn) =>
+      call(
+          and: _fn(
+              _instance.and?.map((e) => CopyWith$Input$TravelFilterUserFilter(
+                    e,
+                    (i) => i,
+                  )))?.toList());
+
+  CopyWith$Input$StringFieldComparison<TRes> get email {
+    final local$email = _instance.email;
+    return local$email == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$email, (e) => call(email: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get id {
+    final local$id = _instance.id;
+    return local$id == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(local$id, (e) => call(id: e));
+  }
+
+  CopyWith$Input$StringFieldComparison<TRes> get name {
+    final local$name = _instance.name;
+    return local$name == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$name, (e) => call(name: e));
+  }
+
+  TRes or(
+          Iterable<Input$TravelFilterUserFilter>? Function(
+                  Iterable<
+                      CopyWith$Input$TravelFilterUserFilter<
+                          Input$TravelFilterUserFilter>>?)
+              _fn) =>
+      call(
+          or: _fn(
+              _instance.or?.map((e) => CopyWith$Input$TravelFilterUserFilter(
+                    e,
+                    (i) => i,
+                  )))?.toList());
+
+  CopyWith$Input$StringFieldComparison<TRes> get phone {
+    final local$phone = _instance.phone;
+    return local$phone == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$phone, (e) => call(phone: e));
+  }
+}
+
+class _CopyWithStubImpl$Input$TravelFilterUserFilter<TRes>
+    implements CopyWith$Input$TravelFilterUserFilter<TRes> {
+  _CopyWithStubImpl$Input$TravelFilterUserFilter(this._res);
+
+  TRes _res;
+
+  call({
+    Input$StringFieldComparison? $_id,
+    List<Input$TravelFilterUserFilter>? and,
+    Input$StringFieldComparison? email,
+    Input$IDFilterComparison? id,
+    Input$StringFieldComparison? name,
+    List<Input$TravelFilterUserFilter>? or,
+    Input$StringFieldComparison? phone,
+  }) =>
+      _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get $_id =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  and(_fn) => _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get email =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get id =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get name =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  or(_fn) => _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get phone =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+}
+
 class Input$TravelSort {
   factory Input$TravelSort({
     required Enum$SortDirection direction,
@@ -16186,6 +17934,7 @@ class Input$TravelUpdateFilter {
     List<Input$TravelUpdateFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -16197,6 +17946,7 @@ class Input$TravelUpdateFilter {
         if (and != null) r'and': and,
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (carId != null) r'carId': carId,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departureId != null) r'departureId': departureId,
         if (feeId != null) r'feeId': feeId,
@@ -16229,6 +17979,13 @@ class Input$TravelUpdateFilter {
           ? null
           : Input$IDFilterComparison.fromJson(
               (l$carId as Map<String, dynamic>));
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = l$createdById == null
+          ? null
+          : Input$IDFilterComparison.fromJson(
+              (l$createdById as Map<String, dynamic>));
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -16285,6 +18042,9 @@ class Input$TravelUpdateFilter {
   Input$IDFilterComparison? get carId =>
       (_$data['carId'] as Input$IDFilterComparison?);
 
+  Input$IDFilterComparison? get createdById =>
+      (_$data['createdById'] as Input$IDFilterComparison?);
+
   Input$DateFieldComparison? get date =>
       (_$data['date'] as Input$DateFieldComparison?);
 
@@ -16316,6 +18076,10 @@ class Input$TravelUpdateFilter {
     if (_$data.containsKey('carId')) {
       final l$carId = carId;
       result$data['carId'] = l$carId?.toJson();
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById?.toJson();
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -16395,6 +18159,15 @@ class Input$TravelUpdateFilter {
     if (l$carId != lOther$carId) {
       return false;
     }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -16463,6 +18236,7 @@ class Input$TravelUpdateFilter {
     final l$and = and;
     final l$arrivalId = arrivalId;
     final l$carId = carId;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departureId = departureId;
     final l$feeId = feeId;
@@ -16477,6 +18251,7 @@ class Input$TravelUpdateFilter {
           : const {},
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('carId') ? l$carId : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
       _$data.containsKey('feeId') ? l$feeId : const {},
@@ -16504,6 +18279,7 @@ abstract class CopyWith$Input$TravelUpdateFilter<TRes> {
     List<Input$TravelUpdateFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -16518,6 +18294,7 @@ abstract class CopyWith$Input$TravelUpdateFilter<TRes> {
           _fn);
   CopyWith$Input$IDFilterComparison<TRes> get arrivalId;
   CopyWith$Input$IDFilterComparison<TRes> get carId;
+  CopyWith$Input$IDFilterComparison<TRes> get createdById;
   CopyWith$Input$DateFieldComparison<TRes> get date;
   CopyWith$Input$IDFilterComparison<TRes> get departureId;
   CopyWith$Input$IDFilterComparison<TRes> get feeId;
@@ -16547,6 +18324,7 @@ class _CopyWithImpl$Input$TravelUpdateFilter<TRes>
     Object? and = _undefined,
     Object? arrivalId = _undefined,
     Object? carId = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departureId = _undefined,
     Object? feeId = _undefined,
@@ -16560,6 +18338,8 @@ class _CopyWithImpl$Input$TravelUpdateFilter<TRes>
         if (arrivalId != _undefined)
           'arrivalId': (arrivalId as Input$IDFilterComparison?),
         if (carId != _undefined) 'carId': (carId as Input$IDFilterComparison?),
+        if (createdById != _undefined)
+          'createdById': (createdById as Input$IDFilterComparison?),
         if (date != _undefined) 'date': (date as Input$DateFieldComparison?),
         if (departureId != _undefined)
           'departureId': (departureId as Input$IDFilterComparison?),
@@ -16594,6 +18374,14 @@ class _CopyWithImpl$Input$TravelUpdateFilter<TRes>
     return local$carId == null
         ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
         : CopyWith$Input$IDFilterComparison(local$carId, (e) => call(carId: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById {
+    final local$createdById = _instance.createdById;
+    return local$createdById == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(
+            local$createdById, (e) => call(createdById: e));
   }
 
   CopyWith$Input$DateFieldComparison<TRes> get date {
@@ -16655,6 +18443,7 @@ class _CopyWithStubImpl$Input$TravelUpdateFilter<TRes>
     List<Input$TravelUpdateFilter>? and,
     Input$IDFilterComparison? arrivalId,
     Input$IDFilterComparison? carId,
+    Input$IDFilterComparison? createdById,
     Input$DateFieldComparison? date,
     Input$IDFilterComparison? departureId,
     Input$IDFilterComparison? feeId,
@@ -16670,6 +18459,9 @@ class _CopyWithStubImpl$Input$TravelUpdateFilter<TRes>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$IDFilterComparison<TRes> get carId =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get createdById =>
       CopyWith$Input$IDFilterComparison.stub(_res);
 
   CopyWith$Input$DateFieldComparison<TRes> get date =>
@@ -16966,6 +18758,7 @@ class Input$UpdateCar {
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   }) =>
       Input$UpdateCar._({
         if (createdAt != null) r'createdAt': createdAt,
@@ -16974,6 +18767,7 @@ class Input$UpdateCar {
         if (reference != null) r'reference': reference,
         if (seatCount != null) r'seatCount': seatCount,
         if (updatedAt != null) r'updatedAt': updatedAt,
+        if (userId != null) r'userId': userId,
       });
 
   Input$UpdateCar._(this._$data);
@@ -17006,6 +18800,10 @@ class Input$UpdateCar {
       result$data['updatedAt'] =
           l$updatedAt == null ? null : dateTimeFromJson(l$updatedAt);
     }
+    if (data.containsKey('userId')) {
+      final l$userId = data['userId'];
+      result$data['userId'] = (l$userId as String?);
+    }
     return Input$UpdateCar._(result$data);
   }
 
@@ -17022,6 +18820,8 @@ class Input$UpdateCar {
   int? get seatCount => (_$data['seatCount'] as int?);
 
   DateTime? get updatedAt => (_$data['updatedAt'] as DateTime?);
+
+  String? get userId => (_$data['userId'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -17050,6 +18850,10 @@ class Input$UpdateCar {
       final l$updatedAt = updatedAt;
       result$data['updatedAt'] =
           l$updatedAt == null ? null : dateTimeToJson(l$updatedAt);
+    }
+    if (_$data.containsKey('userId')) {
+      final l$userId = userId;
+      result$data['userId'] = l$userId;
     }
     return result$data;
   }
@@ -17120,6 +18924,14 @@ class Input$UpdateCar {
     if (l$updatedAt != lOther$updatedAt) {
       return false;
     }
+    final l$userId = userId;
+    final lOther$userId = other.userId;
+    if (_$data.containsKey('userId') != other._$data.containsKey('userId')) {
+      return false;
+    }
+    if (l$userId != lOther$userId) {
+      return false;
+    }
     return true;
   }
 
@@ -17131,6 +18943,7 @@ class Input$UpdateCar {
     final l$reference = reference;
     final l$seatCount = seatCount;
     final l$updatedAt = updatedAt;
+    final l$userId = userId;
     return Object.hashAll([
       _$data.containsKey('createdAt') ? l$createdAt : const {},
       _$data.containsKey('id') ? l$id : const {},
@@ -17138,6 +18951,7 @@ class Input$UpdateCar {
       _$data.containsKey('reference') ? l$reference : const {},
       _$data.containsKey('seatCount') ? l$seatCount : const {},
       _$data.containsKey('updatedAt') ? l$updatedAt : const {},
+      _$data.containsKey('userId') ? l$userId : const {},
     ]);
   }
 }
@@ -17158,6 +18972,7 @@ abstract class CopyWith$Input$UpdateCar<TRes> {
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   });
 }
 
@@ -17181,6 +18996,7 @@ class _CopyWithImpl$Input$UpdateCar<TRes>
     Object? reference = _undefined,
     Object? seatCount = _undefined,
     Object? updatedAt = _undefined,
+    Object? userId = _undefined,
   }) =>
       _then(Input$UpdateCar._({
         ..._instance._$data,
@@ -17190,6 +19006,7 @@ class _CopyWithImpl$Input$UpdateCar<TRes>
         if (reference != _undefined) 'reference': (reference as String?),
         if (seatCount != _undefined) 'seatCount': (seatCount as int?),
         if (updatedAt != _undefined) 'updatedAt': (updatedAt as DateTime?),
+        if (userId != _undefined) 'userId': (userId as String?),
       }));
 }
 
@@ -17206,6 +19023,7 @@ class _CopyWithStubImpl$Input$UpdateCar<TRes>
     String? reference,
     int? seatCount,
     DateTime? updatedAt,
+    String? userId,
   }) =>
       _res;
 }
@@ -19108,6 +20926,7 @@ class Input$UpdateTravel {
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -19120,6 +20939,7 @@ class Input$UpdateTravel {
         if (arrivalId != null) r'arrivalId': arrivalId,
         if (carId != null) r'carId': carId,
         if (createdAt != null) r'createdAt': createdAt,
+        if (createdById != null) r'createdById': createdById,
         if (date != null) r'date': date,
         if (departureId != null) r'departureId': departureId,
         if (duration != null) r'duration': duration,
@@ -19145,6 +20965,10 @@ class Input$UpdateTravel {
       final l$createdAt = data['createdAt'];
       result$data['createdAt'] =
           l$createdAt == null ? null : dateTimeFromJson(l$createdAt);
+    }
+    if (data.containsKey('createdById')) {
+      final l$createdById = data['createdById'];
+      result$data['createdById'] = (l$createdById as String?);
     }
     if (data.containsKey('date')) {
       final l$date = data['date'];
@@ -19186,6 +21010,8 @@ class Input$UpdateTravel {
 
   DateTime? get createdAt => (_$data['createdAt'] as DateTime?);
 
+  String? get createdById => (_$data['createdById'] as String?);
+
   String? get date => (_$data['date'] as String?);
 
   String? get departureId => (_$data['departureId'] as String?);
@@ -19214,6 +21040,10 @@ class Input$UpdateTravel {
       final l$createdAt = createdAt;
       result$data['createdAt'] =
           l$createdAt == null ? null : dateTimeToJson(l$createdAt);
+    }
+    if (_$data.containsKey('createdById')) {
+      final l$createdById = createdById;
+      result$data['createdById'] = l$createdById;
     }
     if (_$data.containsKey('date')) {
       final l$date = date;
@@ -19287,6 +21117,15 @@ class Input$UpdateTravel {
     if (l$createdAt != lOther$createdAt) {
       return false;
     }
+    final l$createdById = createdById;
+    final lOther$createdById = other.createdById;
+    if (_$data.containsKey('createdById') !=
+        other._$data.containsKey('createdById')) {
+      return false;
+    }
+    if (l$createdById != lOther$createdById) {
+      return false;
+    }
     final l$date = date;
     final lOther$date = other.date;
     if (_$data.containsKey('date') != other._$data.containsKey('date')) {
@@ -19354,6 +21193,7 @@ class Input$UpdateTravel {
     final l$arrivalId = arrivalId;
     final l$carId = carId;
     final l$createdAt = createdAt;
+    final l$createdById = createdById;
     final l$date = date;
     final l$departureId = departureId;
     final l$duration = duration;
@@ -19365,6 +21205,7 @@ class Input$UpdateTravel {
       _$data.containsKey('arrivalId') ? l$arrivalId : const {},
       _$data.containsKey('carId') ? l$carId : const {},
       _$data.containsKey('createdAt') ? l$createdAt : const {},
+      _$data.containsKey('createdById') ? l$createdById : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('departureId') ? l$departureId : const {},
       _$data.containsKey('duration') ? l$duration : const {},
@@ -19389,6 +21230,7 @@ abstract class CopyWith$Input$UpdateTravel<TRes> {
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -19416,6 +21258,7 @@ class _CopyWithImpl$Input$UpdateTravel<TRes>
     Object? arrivalId = _undefined,
     Object? carId = _undefined,
     Object? createdAt = _undefined,
+    Object? createdById = _undefined,
     Object? date = _undefined,
     Object? departureId = _undefined,
     Object? duration = _undefined,
@@ -19429,6 +21272,7 @@ class _CopyWithImpl$Input$UpdateTravel<TRes>
         if (arrivalId != _undefined) 'arrivalId': (arrivalId as String?),
         if (carId != _undefined) 'carId': (carId as String?),
         if (createdAt != _undefined) 'createdAt': (createdAt as DateTime?),
+        if (createdById != _undefined) 'createdById': (createdById as String?),
         if (date != _undefined) 'date': (date as String?),
         if (departureId != _undefined) 'departureId': (departureId as String?),
         if (duration != _undefined) 'duration': (duration as int?),
@@ -19449,6 +21293,7 @@ class _CopyWithStubImpl$Input$UpdateTravel<TRes>
     String? arrivalId,
     String? carId,
     DateTime? createdAt,
+    String? createdById,
     String? date,
     String? departureId,
     int? duration,
@@ -19465,12 +21310,14 @@ class Input$UpdateUserInput {
     String? $_id,
     String? email,
     required String id,
+    String? name,
     String? phone,
   }) =>
       Input$UpdateUserInput._({
         if ($_id != null) r'_id': $_id,
         if (email != null) r'email': email,
         r'id': id,
+        if (name != null) r'name': name,
         if (phone != null) r'phone': phone,
       });
 
@@ -19488,6 +21335,10 @@ class Input$UpdateUserInput {
     }
     final l$id = data['id'];
     result$data['id'] = (l$id as String);
+    if (data.containsKey('name')) {
+      final l$name = data['name'];
+      result$data['name'] = (l$name as String?);
+    }
     if (data.containsKey('phone')) {
       final l$phone = data['phone'];
       result$data['phone'] = (l$phone as String?);
@@ -19503,6 +21354,8 @@ class Input$UpdateUserInput {
 
   String get id => (_$data['id'] as String);
 
+  String? get name => (_$data['name'] as String?);
+
   String? get phone => (_$data['phone'] as String?);
 
   Map<String, dynamic> toJson() {
@@ -19517,6 +21370,10 @@ class Input$UpdateUserInput {
     }
     final l$id = id;
     result$data['id'] = l$id;
+    if (_$data.containsKey('name')) {
+      final l$name = name;
+      result$data['name'] = l$name;
+    }
     if (_$data.containsKey('phone')) {
       final l$phone = phone;
       result$data['phone'] = l$phone;
@@ -19559,6 +21416,14 @@ class Input$UpdateUserInput {
     if (l$id != lOther$id) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (_$data.containsKey('name') != other._$data.containsKey('name')) {
+      return false;
+    }
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$phone = phone;
     final lOther$phone = other.phone;
     if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
@@ -19575,11 +21440,13 @@ class Input$UpdateUserInput {
     final l$$_id = $_id;
     final l$email = email;
     final l$id = id;
+    final l$name = name;
     final l$phone = phone;
     return Object.hashAll([
       _$data.containsKey('_id') ? l$$_id : const {},
       _$data.containsKey('email') ? l$email : const {},
       l$id,
+      _$data.containsKey('name') ? l$name : const {},
       _$data.containsKey('phone') ? l$phone : const {},
     ]);
   }
@@ -19598,6 +21465,7 @@ abstract class CopyWith$Input$UpdateUserInput<TRes> {
     String? $_id,
     String? email,
     String? id,
+    String? name,
     String? phone,
   });
 }
@@ -19619,6 +21487,7 @@ class _CopyWithImpl$Input$UpdateUserInput<TRes>
     Object? $_id = _undefined,
     Object? email = _undefined,
     Object? id = _undefined,
+    Object? name = _undefined,
     Object? phone = _undefined,
   }) =>
       _then(Input$UpdateUserInput._({
@@ -19626,6 +21495,7 @@ class _CopyWithImpl$Input$UpdateUserInput<TRes>
         if ($_id != _undefined) '_id': ($_id as String?),
         if (email != _undefined) 'email': (email as String?),
         if (id != _undefined && id != null) 'id': (id as String),
+        if (name != _undefined) 'name': (name as String?),
         if (phone != _undefined) 'phone': (phone as String?),
       }));
 }
@@ -19640,6 +21510,7 @@ class _CopyWithStubImpl$Input$UpdateUserInput<TRes>
     String? $_id,
     String? email,
     String? id,
+    String? name,
     String? phone,
   }) =>
       _res;
@@ -19828,6 +21699,7 @@ Enum$SortNulls fromJson$Enum$SortNulls(String value) {
 enum Enum$TravelSortFields {
   arrivalId,
   carId,
+  createdById,
   date,
   departureId,
   feeId,
@@ -19842,6 +21714,8 @@ String toJson$Enum$TravelSortFields(Enum$TravelSortFields e) {
       return r'arrivalId';
     case Enum$TravelSortFields.carId:
       return r'carId';
+    case Enum$TravelSortFields.createdById:
+      return r'createdById';
     case Enum$TravelSortFields.date:
       return r'date';
     case Enum$TravelSortFields.departureId:
@@ -19863,6 +21737,8 @@ Enum$TravelSortFields fromJson$Enum$TravelSortFields(String value) {
       return Enum$TravelSortFields.arrivalId;
     case r'carId':
       return Enum$TravelSortFields.carId;
+    case r'createdById':
+      return Enum$TravelSortFields.createdById;
     case r'date':
       return Enum$TravelSortFields.date;
     case r'departureId':

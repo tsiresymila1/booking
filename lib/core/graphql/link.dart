@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:appwrite/appwrite.dart';
+import 'package:booking/core/logger.dart';
 import 'package:booking/presentation/widgets/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,6 +17,7 @@ Link graphqlLink(BuildContext context) {
       jwt = jwtApp.jwt;
     } catch (e) {
       /**/
+      logger.e(e);
     }
     return 'Bearer $jwt';
   });

@@ -1,32 +1,34 @@
-query travels($filter:TravelFilter!){
-  travels(filter:$filter){
-    nodes {
-      id
-      departure{
-        id
-        name
-      }
-      arrival{
-        id
-        name
-      }
-      fee{
-        value
-      }
-      car{
-        name,
-        reference
-        seatCount
-      }
-      duration
-      time
-      date
-      seats{
-        totalCount,
-        nodes{
-          seat
+query travels($filter: TravelFilter = {}, $paging: OffsetPaging = {limit: 100}, $sorting: [TravelSort!] = []){
+    travels(filter:$filter,paging: $paging, sorting:$sorting){
+        nodes {
+            id
+            departure{
+                id
+                name
+                abbreviation
+            }
+            arrival{
+                id
+                name
+                abbreviation
+            }
+            fee{
+                value
+            }
+            car{
+                name,
+                reference
+                seatCount
+            }
+            duration
+            time
+            date
+            seats{
+                totalCount,
+                nodes{
+                    seat
+                }
+            }
         }
-      }
     }
-  }
 }

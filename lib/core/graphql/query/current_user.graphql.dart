@@ -356,8 +356,8 @@ class Query$CurrentUser$currentUser {
     required this.createdAt,
     required this.updatedAt,
     required this.$_id,
-    required this.phone,
-    required this.email,
+    this.phone,
+    this.email,
     this.$__typename = 'User',
   });
 
@@ -374,8 +374,8 @@ class Query$CurrentUser$currentUser {
       createdAt: dateTimeFromJson(l$createdAt),
       updatedAt: dateTimeFromJson(l$updatedAt),
       $_id: (l$$_id as String),
-      phone: (l$phone as String),
-      email: (l$email as String),
+      phone: (l$phone as String?),
+      email: (l$email as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -388,9 +388,9 @@ class Query$CurrentUser$currentUser {
 
   final String $_id;
 
-  final String phone;
+  final String? phone;
 
-  final String email;
+  final String? email;
 
   final String $__typename;
 
@@ -543,12 +543,8 @@ class _CopyWithImpl$Query$CurrentUser$currentUser<TRes>
         $_id: $_id == _undefined || $_id == null
             ? _instance.$_id
             : ($_id as String),
-        phone: phone == _undefined || phone == null
-            ? _instance.phone
-            : (phone as String),
-        email: email == _undefined || email == null
-            ? _instance.email
-            : (email as String),
+        phone: phone == _undefined ? _instance.phone : (phone as String?),
+        email: email == _undefined ? _instance.email : (email as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),

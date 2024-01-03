@@ -17,6 +17,27 @@ class OTPPage extends StatelessWidget {
 
   const OTPPage({Key? key, required this.userId}) : super(key: key);
 
+  processOtp(BuildContext context, FormBuilderState? state, mutate) async {
+    if (state != null) {
+      state.save();
+      final account = Account(context.appWrite);
+      await errorHandler(context, () async {
+        await account.updatePhoneVerification(
+            userId: userId, secret: state.value["otp"]);
+        final user = await account.get();
+        final jwt = await account.createJWT();
+        logger.i(jwt.jwt);
+        GetStorage().write(
+          "JWT",
+          jwt.jwt,
+        );
+        mutate(Variables$Mutation$UserRegister(
+            input: Input$CreateUserInput(
+                $_id: jwt.jwt, phone: user.phone, email: user.email)));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormBuilderState>();
@@ -70,24 +91,7 @@ class OTPPage extends StatelessWidget {
                           child: CustomElevatedButton(
                               onPressed: () async {
                                 final state = formKey.currentState;
-                                if (state != null) {
-                                  state.save();
-                                  final account = Account(context.appWrite);
-                                  await errorHandler(context, () async {
-                                    await account.updatePhoneVerification(
-                                        userId: userId,
-                                        secret: state.value["otp"]);
-                                    final user = await account.get();
-                                    final jwt = await account.createJWT();
-                                    logger.i(jwt.jwt);
-                                    GetStorage().write("JWT", jwt.jwt,);
-                                    mutate(Variables$Mutation$UserRegister(
-                                        input: Input$CreateUserInput(
-                                            $_id: jwt.jwt,
-                                            phone: user.phone,
-                                            email: user.email)));
-                                  });
-                                }
+                                processOtp(context, state, mutate);
                               },
                               icon: const Icon(Icons.send),
                               child: Padding(

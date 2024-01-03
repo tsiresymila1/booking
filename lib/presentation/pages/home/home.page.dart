@@ -4,6 +4,8 @@ import 'package:booking/presentation/blocs/error/error_event.dart';
 import 'package:booking/presentation/pages/home/location.graphql.dart';
 import 'package:booking/presentation/pages/home/travel.graphql.dart';
 import 'package:booking/presentation/pages/home/widgets/select_city.dart';
+import 'package:booking/presentation/pages/home/widgets/today_travel.dart';
+import 'package:booking/presentation/pages/home/widgets/today_travel_header.dart';
 import 'package:booking/presentation/widgets/user_provider.dart';
 import 'package:booking/schema.graphql.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +19,7 @@ import "package:intl/intl.dart";
 
 import '../../../core/constant.dart';
 import '../../widgets/elevated_button.widget.dart';
+import 'widgets/today_travel_builder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +30,52 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool loading = false;
+  List<Query$travels$travels$nodes> datas = [];
   final _formkey = GlobalKey<FormBuilderState>();
+
+  processSearch(BuildContext context, GraphQLClient client) {
+    _formkey.currentState?.save();
+    logger.i(_formkey.currentState?.value);
+    if (_formkey.currentState != null) {
+      setState(() {
+        loading = true;
+      });
+      Map<String, dynamic> formData = _formkey.currentState!.value;
+      Query$Locations$locations$nodes arrival = formData['arrival'];
+      Query$Locations$locations$nodes departure = formData['departure'];
+      DateTime departureDate = formData['date'];
+      client
+          .query$travels(Options$Query$travels(
+              fetchPolicy: FetchPolicy.networkOnly,
+              variables: Variables$Query$travels(
+                  filter: Input$TravelFilter(
+                date: Input$DateFieldComparison(
+                    eq: departureDate.copyWith(
+                        hour: 0,
+                        minute: 0,
+                        second: 0,
+                        microsecond: 0,
+                        millisecond: 0)),
+                arrival: Input$TravelFilterLocationFilter(
+                  id: Input$IDFilterComparison(eq: arrival.id),
+                  abbreviation:
+                      Input$StringFieldComparison(eq: arrival.abbreviation),
+                ),
+                departure: Input$TravelFilterLocationFilter(
+                  id: Input$IDFilterComparison(eq: departure.id),
+                  abbreviation:
+                      Input$StringFieldComparison(eq: departure.abbreviation),
+                ),
+              ))))
+          .then((value) {
+        logger.i(value.parsedData);
+        context.pushNamed("suggest", extra: value.parsedData);
+      }).catchError((e) {
+        logger.e(e);
+        context.read<ErrorBloc>().add(ShowErrorEvent(error: e));
+      }).whenComplete(() => setState(() => loading = false));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +90,7 @@ class _HomePageState extends State<HomePage> {
           ),
           scrolledUnderElevation: 0,
           bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(160.0),
+              preferredSize: const Size.fromHeight(100.0),
               child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -54,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           "Start Booking",
                           style: TextStyle(
-                              fontSize: 42, fontWeight: FontWeight.bold),
+                              fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       ),
                       IconButton(
@@ -83,8 +131,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: GraphQLConsumer(builder: (client) {
-          return SingleChildScrollView(
-            child: Column(
+          return TodayTravelBuilder(
+              builder: (todaytavels, {fetchMore, refetch}) {
+            return Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -98,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Query$Locations$Widget(
                               options: Options$Query$Locations(
+                                  fetchPolicy: FetchPolicy.networkOnly,
                                   variables: Variables$Query$Locations(
                                       paging: Input$OffsetPaging(limit: 100))),
                               builder: (result, {fetchMore, refetch}) {
@@ -124,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                               }),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 6),
+                                horizontal: 8, vertical: 2),
                             child: FormBuilderDateTimePicker(
                               autocorrect: false,
                               name: "date",
@@ -141,60 +191,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 16),
+                                horizontal: 8, vertical: 12),
                             child: CustomElevatedButton(
                               onPressed: () async {
-                                _formkey.currentState?.save();
-                                logger.i(_formkey.currentState?.value);
-                                if (_formkey.currentState != null) {
-                                  setState(() {
-                                    loading = true;
-                                  });
-                                  Map<String, dynamic> formData =
-                                      _formkey.currentState!.value;
-                                  Query$Locations$locations$nodes arrival =
-                                      formData['arrival'];
-                                  Query$Locations$locations$nodes departure =
-                                      formData['departure'];
-                                  DateTime departureDate = formData['date'];
-                                  client
-                                      .query$travels(Options$Query$travels(
-                                          fetchPolicy: FetchPolicy.networkOnly,
-                                          variables: Variables$Query$travels(
-                                              filter: Input$TravelFilter(
-                                                  date:
-                                                      Input$DateFieldComparison(
-                                                          eq: departureDate
-                                                              .copyWith(
-                                                                  hour: 0,
-                                                                  minute: 0,
-                                                                  second: 0,
-                                                                  microsecond:
-                                                                      0,
-                                                                  millisecond:
-                                                                      0)),
-                                                  arrival:
-                                                      Input$TravelFilterLocationFilter(
-                                                    id: Input$IDFilterComparison(
-                                                        eq: arrival.id),
-                                                  ),
-                                                  departure:
-                                                      Input$TravelFilterLocationFilter(
-                                                          id: Input$IDFilterComparison(
-                                                              eq: departure
-                                                                  .id))))))
-                                      .then((value) {
-                                    logger.i(value.parsedData);
-                                    context.push('/suggest',
-                                        extra: value.parsedData);
-                                  }).catchError((e) {
-                                    logger.e(e);
-                                    context
-                                        .read<ErrorBloc>()
-                                        .add(ShowErrorEvent(error: e));
-                                  }).whenComplete(() =>
-                                          setState(() => loading = false));
-                                }
+                                processSearch(context, client);
                               },
                               icon: Padding(
                                 padding:
@@ -219,9 +219,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                TodayTravelHeader(onViewMore: refetch),
+                TodayTravel(travels: todaytavels)
               ],
-            ),
-          );
+            );
+          });
         }),
       );
     });

@@ -21,8 +21,11 @@ class SelectCity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    data.sort((a,b) {
+      return a.name.compareTo(b.name);
+    });
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: FormBuilderSearchableDropdown<Query$Locations$locations$nodes>(
         name: name,
         decoration: inputDecorator.copyWith(

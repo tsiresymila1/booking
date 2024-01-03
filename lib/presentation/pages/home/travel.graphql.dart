@@ -6,29 +6,65 @@ import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Query$travels {
-  factory Variables$Query$travels({required Input$TravelFilter filter}) =>
+  factory Variables$Query$travels({
+    Input$TravelFilter? filter,
+    Input$OffsetPaging? paging,
+    List<Input$TravelSort>? sorting,
+  }) =>
       Variables$Query$travels._({
-        r'filter': filter,
+        if (filter != null) r'filter': filter,
+        if (paging != null) r'paging': paging,
+        if (sorting != null) r'sorting': sorting,
       });
 
   Variables$Query$travels._(this._$data);
 
   factory Variables$Query$travels.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$filter = data['filter'];
-    result$data['filter'] =
-        Input$TravelFilter.fromJson((l$filter as Map<String, dynamic>));
+    if (data.containsKey('filter')) {
+      final l$filter = data['filter'];
+      result$data['filter'] = l$filter == null
+          ? null
+          : Input$TravelFilter.fromJson((l$filter as Map<String, dynamic>));
+    }
+    if (data.containsKey('paging')) {
+      final l$paging = data['paging'];
+      result$data['paging'] = l$paging == null
+          ? null
+          : Input$OffsetPaging.fromJson((l$paging as Map<String, dynamic>));
+    }
+    if (data.containsKey('sorting')) {
+      final l$sorting = data['sorting'];
+      result$data['sorting'] = (l$sorting as List<dynamic>?)
+          ?.map((e) => Input$TravelSort.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
     return Variables$Query$travels._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  Input$TravelFilter get filter => (_$data['filter'] as Input$TravelFilter);
+  Input$TravelFilter? get filter => (_$data['filter'] as Input$TravelFilter?);
+
+  Input$OffsetPaging? get paging => (_$data['paging'] as Input$OffsetPaging?);
+
+  List<Input$TravelSort>? get sorting =>
+      (_$data['sorting'] as List<Input$TravelSort>?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$filter = filter;
-    result$data['filter'] = l$filter.toJson();
+    if (_$data.containsKey('filter')) {
+      final l$filter = filter;
+      result$data['filter'] = l$filter?.toJson();
+    }
+    if (_$data.containsKey('paging')) {
+      final l$paging = paging;
+      result$data['paging'] = l$paging?.toJson();
+    }
+    if (_$data.containsKey('sorting')) {
+      final l$sorting = sorting;
+      result$data['sorting'] = l$sorting?.map((e) => e.toJson()).toList();
+    }
     return result$data;
   }
 
@@ -49,7 +85,37 @@ class Variables$Query$travels {
     }
     final l$filter = filter;
     final lOther$filter = other.filter;
+    if (_$data.containsKey('filter') != other._$data.containsKey('filter')) {
+      return false;
+    }
     if (l$filter != lOther$filter) {
+      return false;
+    }
+    final l$paging = paging;
+    final lOther$paging = other.paging;
+    if (_$data.containsKey('paging') != other._$data.containsKey('paging')) {
+      return false;
+    }
+    if (l$paging != lOther$paging) {
+      return false;
+    }
+    final l$sorting = sorting;
+    final lOther$sorting = other.sorting;
+    if (_$data.containsKey('sorting') != other._$data.containsKey('sorting')) {
+      return false;
+    }
+    if (l$sorting != null && lOther$sorting != null) {
+      if (l$sorting.length != lOther$sorting.length) {
+        return false;
+      }
+      for (int i = 0; i < l$sorting.length; i++) {
+        final l$sorting$entry = l$sorting[i];
+        final lOther$sorting$entry = lOther$sorting[i];
+        if (l$sorting$entry != lOther$sorting$entry) {
+          return false;
+        }
+      }
+    } else if (l$sorting != lOther$sorting) {
       return false;
     }
     return true;
@@ -58,7 +124,17 @@ class Variables$Query$travels {
   @override
   int get hashCode {
     final l$filter = filter;
-    return Object.hashAll([l$filter]);
+    final l$paging = paging;
+    final l$sorting = sorting;
+    return Object.hashAll([
+      _$data.containsKey('filter') ? l$filter : const {},
+      _$data.containsKey('paging') ? l$paging : const {},
+      _$data.containsKey('sorting')
+          ? l$sorting == null
+              ? null
+              : Object.hashAll(l$sorting.map((v) => v))
+          : const {},
+    ]);
   }
 }
 
@@ -71,7 +147,11 @@ abstract class CopyWith$Variables$Query$travels<TRes> {
   factory CopyWith$Variables$Query$travels.stub(TRes res) =
       _CopyWithStubImpl$Variables$Query$travels;
 
-  TRes call({Input$TravelFilter? filter});
+  TRes call({
+    Input$TravelFilter? filter,
+    Input$OffsetPaging? paging,
+    List<Input$TravelSort>? sorting,
+  });
 }
 
 class _CopyWithImpl$Variables$Query$travels<TRes>
@@ -87,10 +167,17 @@ class _CopyWithImpl$Variables$Query$travels<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? filter = _undefined}) => _then(Variables$Query$travels._({
+  TRes call({
+    Object? filter = _undefined,
+    Object? paging = _undefined,
+    Object? sorting = _undefined,
+  }) =>
+      _then(Variables$Query$travels._({
         ..._instance._$data,
-        if (filter != _undefined && filter != null)
-          'filter': (filter as Input$TravelFilter),
+        if (filter != _undefined) 'filter': (filter as Input$TravelFilter?),
+        if (paging != _undefined) 'paging': (paging as Input$OffsetPaging?),
+        if (sorting != _undefined)
+          'sorting': (sorting as List<Input$TravelSort>?),
       }));
 }
 
@@ -100,7 +187,12 @@ class _CopyWithStubImpl$Variables$Query$travels<TRes>
 
   TRes _res;
 
-  call({Input$TravelFilter? filter}) => _res;
+  call({
+    Input$TravelFilter? filter,
+    Input$OffsetPaging? paging,
+    List<Input$TravelSort>? sorting,
+  }) =>
+      _res;
 }
 
 class Query$travels {
@@ -245,11 +337,38 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
         variable: VariableNode(name: NameNode(value: 'filter')),
         type: NamedTypeNode(
           name: NameNode(value: 'TravelFilter'),
-          isNonNull: true,
+          isNonNull: false,
         ),
-        defaultValue: DefaultValueNode(value: null),
+        defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
         directives: [],
-      )
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'paging')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'OffsetPaging'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(
+            value: ObjectValueNode(fields: [
+          ObjectFieldNode(
+            name: NameNode(value: 'limit'),
+            value: IntValueNode(value: '100'),
+          )
+        ])),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'sorting')),
+        type: ListTypeNode(
+          type: NamedTypeNode(
+            name: NameNode(value: 'TravelSort'),
+            isNonNull: true,
+          ),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: ListValueNode(values: [])),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -260,7 +379,15 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'filter'),
             value: VariableNode(name: NameNode(value: 'filter')),
-          )
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'paging'),
+            value: VariableNode(name: NameNode(value: 'paging')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'sorting'),
+            value: VariableNode(name: NameNode(value: 'sorting')),
+          ),
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
@@ -298,6 +425,13 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
                     selectionSet: null,
                   ),
                   FieldNode(
+                    name: NameNode(value: 'abbreviation'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
                     name: NameNode(value: '__typename'),
                     alias: null,
                     arguments: [],
@@ -321,6 +455,13 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
                   ),
                   FieldNode(
                     name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'abbreviation'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -496,7 +637,7 @@ typedef OnQueryComplete$Query$travels = FutureOr<void> Function(
 class Options$Query$travels extends graphql.QueryOptions<Query$travels> {
   Options$Query$travels({
     String? operationName,
-    required Variables$Query$travels variables,
+    Variables$Query$travels? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -508,7 +649,7 @@ class Options$Query$travels extends graphql.QueryOptions<Query$travels> {
     graphql.OnQueryError? onError,
   })  : onCompleteWithParsed = onComplete,
         super(
-          variables: variables.toJson(),
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -542,7 +683,7 @@ class WatchOptions$Query$travels
     extends graphql.WatchQueryOptions<Query$travels> {
   WatchOptions$Query$travels({
     String? operationName,
-    required Variables$Query$travels variables,
+    Variables$Query$travels? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -554,7 +695,7 @@ class WatchOptions$Query$travels
     bool carryForwardDataOnException = true,
     bool fetchResults = false,
   }) : super(
-          variables: variables.toJson(),
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -573,42 +714,42 @@ class WatchOptions$Query$travels
 class FetchMoreOptions$Query$travels extends graphql.FetchMoreOptions {
   FetchMoreOptions$Query$travels({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Query$travels variables,
+    Variables$Query$travels? variables,
   }) : super(
           updateQuery: updateQuery,
-          variables: variables.toJson(),
+          variables: variables?.toJson() ?? {},
           document: documentNodeQuerytravels,
         );
 }
 
 extension ClientExtension$Query$travels on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$travels>> query$travels(
-          Options$Query$travels options) async =>
-      await this.query(options);
+          [Options$Query$travels? options]) async =>
+      await this.query(options ?? Options$Query$travels());
   graphql.ObservableQuery<Query$travels> watchQuery$travels(
-          WatchOptions$Query$travels options) =>
-      this.watchQuery(options);
+          [WatchOptions$Query$travels? options]) =>
+      this.watchQuery(options ?? WatchOptions$Query$travels());
   void writeQuery$travels({
     required Query$travels data,
-    required Variables$Query$travels variables,
+    Variables$Query$travels? variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
           operation: graphql.Operation(document: documentNodeQuerytravels),
-          variables: variables.toJson(),
+          variables: variables?.toJson() ?? const {},
         ),
         data: data.toJson(),
         broadcast: broadcast,
       );
   Query$travels? readQuery$travels({
-    required Variables$Query$travels variables,
+    Variables$Query$travels? variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
         operation: graphql.Operation(document: documentNodeQuerytravels),
-        variables: variables.toJson(),
+        variables: variables?.toJson() ?? const {},
       ),
       optimistic: optimistic,
     );
@@ -617,20 +758,20 @@ extension ClientExtension$Query$travels on graphql.GraphQLClient {
 }
 
 graphql_flutter.QueryHookResult<Query$travels> useQuery$travels(
-        Options$Query$travels options) =>
-    graphql_flutter.useQuery(options);
+        [Options$Query$travels? options]) =>
+    graphql_flutter.useQuery(options ?? Options$Query$travels());
 graphql.ObservableQuery<Query$travels> useWatchQuery$travels(
-        WatchOptions$Query$travels options) =>
-    graphql_flutter.useWatchQuery(options);
+        [WatchOptions$Query$travels? options]) =>
+    graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$travels());
 
 class Query$travels$Widget extends graphql_flutter.Query<Query$travels> {
   Query$travels$Widget({
     widgets.Key? key,
-    required Options$Query$travels options,
+    Options$Query$travels? options,
     required graphql_flutter.QueryBuilder<Query$travels> builder,
   }) : super(
           key: key,
-          options: options,
+          options: options ?? Options$Query$travels(),
           builder: builder,
         );
 }
@@ -1131,6 +1272,7 @@ class Query$travels$travels$nodes$departure {
   Query$travels$travels$nodes$departure({
     required this.id,
     required this.name,
+    required this.abbreviation,
     this.$__typename = 'Location',
   });
 
@@ -1138,10 +1280,12 @@ class Query$travels$travels$nodes$departure {
       Map<String, dynamic> json) {
     final l$id = json['id'];
     final l$name = json['name'];
+    final l$abbreviation = json['abbreviation'];
     final l$$__typename = json['__typename'];
     return Query$travels$travels$nodes$departure(
       id: (l$id as String),
       name: (l$name as String),
+      abbreviation: (l$abbreviation as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1149,6 +1293,8 @@ class Query$travels$travels$nodes$departure {
   final String id;
 
   final String name;
+
+  final String abbreviation;
 
   final String $__typename;
 
@@ -1158,6 +1304,8 @@ class Query$travels$travels$nodes$departure {
     _resultData['id'] = l$id;
     final l$name = name;
     _resultData['name'] = l$name;
+    final l$abbreviation = abbreviation;
+    _resultData['abbreviation'] = l$abbreviation;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1167,10 +1315,12 @@ class Query$travels$travels$nodes$departure {
   int get hashCode {
     final l$id = id;
     final l$name = name;
+    final l$abbreviation = abbreviation;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
       l$name,
+      l$abbreviation,
       l$$__typename,
     ]);
   }
@@ -1192,6 +1342,11 @@ class Query$travels$travels$nodes$departure {
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) {
+      return false;
+    }
+    final l$abbreviation = abbreviation;
+    final lOther$abbreviation = other.abbreviation;
+    if (l$abbreviation != lOther$abbreviation) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1225,6 +1380,7 @@ abstract class CopyWith$Query$travels$travels$nodes$departure<TRes> {
   TRes call({
     String? id,
     String? name,
+    String? abbreviation,
     String? $__typename,
   });
 }
@@ -1245,6 +1401,7 @@ class _CopyWithImpl$Query$travels$travels$nodes$departure<TRes>
   TRes call({
     Object? id = _undefined,
     Object? name = _undefined,
+    Object? abbreviation = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$travels$travels$nodes$departure(
@@ -1252,6 +1409,9 @@ class _CopyWithImpl$Query$travels$travels$nodes$departure<TRes>
         name: name == _undefined || name == null
             ? _instance.name
             : (name as String),
+        abbreviation: abbreviation == _undefined || abbreviation == null
+            ? _instance.abbreviation
+            : (abbreviation as String),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -1267,6 +1427,7 @@ class _CopyWithStubImpl$Query$travels$travels$nodes$departure<TRes>
   call({
     String? id,
     String? name,
+    String? abbreviation,
     String? $__typename,
   }) =>
       _res;
@@ -1276,6 +1437,7 @@ class Query$travels$travels$nodes$arrival {
   Query$travels$travels$nodes$arrival({
     required this.id,
     required this.name,
+    required this.abbreviation,
     this.$__typename = 'Location',
   });
 
@@ -1283,10 +1445,12 @@ class Query$travels$travels$nodes$arrival {
       Map<String, dynamic> json) {
     final l$id = json['id'];
     final l$name = json['name'];
+    final l$abbreviation = json['abbreviation'];
     final l$$__typename = json['__typename'];
     return Query$travels$travels$nodes$arrival(
       id: (l$id as String),
       name: (l$name as String),
+      abbreviation: (l$abbreviation as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1294,6 +1458,8 @@ class Query$travels$travels$nodes$arrival {
   final String id;
 
   final String name;
+
+  final String abbreviation;
 
   final String $__typename;
 
@@ -1303,6 +1469,8 @@ class Query$travels$travels$nodes$arrival {
     _resultData['id'] = l$id;
     final l$name = name;
     _resultData['name'] = l$name;
+    final l$abbreviation = abbreviation;
+    _resultData['abbreviation'] = l$abbreviation;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1312,10 +1480,12 @@ class Query$travels$travels$nodes$arrival {
   int get hashCode {
     final l$id = id;
     final l$name = name;
+    final l$abbreviation = abbreviation;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
       l$name,
+      l$abbreviation,
       l$$__typename,
     ]);
   }
@@ -1337,6 +1507,11 @@ class Query$travels$travels$nodes$arrival {
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) {
+      return false;
+    }
+    final l$abbreviation = abbreviation;
+    final lOther$abbreviation = other.abbreviation;
+    if (l$abbreviation != lOther$abbreviation) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1370,6 +1545,7 @@ abstract class CopyWith$Query$travels$travels$nodes$arrival<TRes> {
   TRes call({
     String? id,
     String? name,
+    String? abbreviation,
     String? $__typename,
   });
 }
@@ -1390,6 +1566,7 @@ class _CopyWithImpl$Query$travels$travels$nodes$arrival<TRes>
   TRes call({
     Object? id = _undefined,
     Object? name = _undefined,
+    Object? abbreviation = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$travels$travels$nodes$arrival(
@@ -1397,6 +1574,9 @@ class _CopyWithImpl$Query$travels$travels$nodes$arrival<TRes>
         name: name == _undefined || name == null
             ? _instance.name
             : (name as String),
+        abbreviation: abbreviation == _undefined || abbreviation == null
+            ? _instance.abbreviation
+            : (abbreviation as String),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -1412,6 +1592,7 @@ class _CopyWithStubImpl$Query$travels$travels$nodes$arrival<TRes>
   call({
     String? id,
     String? name,
+    String? abbreviation,
     String? $__typename,
   }) =>
       _res;

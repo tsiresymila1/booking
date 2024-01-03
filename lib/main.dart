@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import "package:intl/intl.dart";
 
@@ -47,17 +48,19 @@ class MyApp extends StatelessWidget {
       },
       initialLocation: "/home",
       routes: [
-        GoRoute(path: "/", builder: (context, state) => const LoadingPage()),
-        GoRoute(path: "/login", builder: (context, state) => const LoginPage()),
+        GoRoute(path: "/", name: 'splash', builder: (context, state) => const LoadingPage()),
+        GoRoute(path: "/login", name: 'login', builder: (context, state) => const LoginPage()),
         GoRoute(
             path: "/otp",
+            name: 'otp',
             builder: (context, state) {
               Map<String, String> extra = state.extra! as Map<String, String>;
               return OTPPage(userId: extra["userId"]!);
             }),
-        GoRoute(path: "/home", builder: (context, state) => const HomePage()),
+        GoRoute(path: "/home", name: 'home',  builder: (context, state) => const HomePage()),
         GoRoute(
             path: "/suggest",
+            name: 'suggest',
             builder: (context, state) {
               return SuggestPage(queryTravels: state.extra! as Query$travels);
             })
@@ -78,9 +81,9 @@ class MyApp extends StatelessWidget {
               title: 'Booking',
               theme: ThemeData(
                   colorScheme:
-                      ColorScheme.fromSeed(seedColor: const Color(0xff115ebf)),
+                      ColorScheme.fromSeed(seedColor: const Color(0xff00b09e)), // #009788 11bf42
                   useMaterial3: true,
-                  fontFamily: "ABeeZee"),
+                  fontFamily: GoogleFonts.aBeeZee().fontFamily),
               routerConfig: _router,
               builder: (context, child) => AppBlocBuilder(
                 child: child,

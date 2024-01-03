@@ -1,4 +1,4 @@
-query Locations($filter: LocationFilter = {},$paging: OffsetPaging = {limit: 10},$sorting: [LocationSort!] = []){
+query Locations($filter: LocationFilter = {},$paging: OffsetPaging = { limit: 10 },$sorting: [LocationSort!] = []){
   locations(filter:$filter,paging:$paging,sorting:$sorting){
     nodes {
       id

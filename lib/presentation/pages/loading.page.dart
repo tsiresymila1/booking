@@ -20,10 +20,10 @@ class _LoadingPageState extends State<LoadingPage> {
     final account = Account(context.appWrite);
     account.get().then((value) {
       logger.i("Connected");
-      context.push('/home');
+      context.pushNamed('home');
     }).catchError((e) {
       logger.w("Error ::: ${e.toString()}");
-      context.push('/login');
+      context.pushNamed('login');
     });
   }
 

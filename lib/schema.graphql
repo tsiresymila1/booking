@@ -1,3 +1,11 @@
+input AddBookingsToTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
 input AddSeatsToBookingInput {
   # The id of the record.
   id: ID!
@@ -78,6 +86,7 @@ input BookingFilterTravelFilter {
   and: [BookingFilterTravelFilter!]
   arrivalId: IDFilterComparison
   carId: IDFilterComparison
+  createdById: IDFilterComparison
   date: DateFieldComparison
   departureId: IDFilterComparison
   feeId: IDFilterComparison
@@ -91,6 +100,7 @@ input BookingFilterUserFilter {
   and: [BookingFilterUserFilter!]
   email: StringFieldComparison
   id: IDFilterComparison
+  name: StringFieldComparison
   or: [BookingFilterUserFilter!]
   phone: StringFieldComparison
 }
@@ -137,6 +147,8 @@ type Car {
   reference: String!
   seatCount: Int!
   updatedAt: DateTime
+  user: User!
+  userId: ID!
 }
 
 type CarAggregateGroupBy {
@@ -181,6 +193,7 @@ type CarDeleteResponse {
   reference: String
   seatCount: Int
   updatedAt: DateTime
+  userId: ID
 }
 
 input CarFilter {
@@ -190,6 +203,17 @@ input CarFilter {
   or: [CarFilter!]
   reference: StringFieldComparison
   seatCount: IntFieldComparison
+  user: CarFilterUserFilter
+}
+
+input CarFilterUserFilter {
+  _id: StringFieldComparison
+  and: [CarFilterUserFilter!]
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [CarFilterUserFilter!]
+  phone: StringFieldComparison
 }
 
 type CarMaxAggregate {
@@ -248,6 +272,7 @@ input CreateCar {
   reference: String
   seatCount: Int
   updatedAt: DateTime
+  userId: ID
 }
 
 input CreateFee {
@@ -320,6 +345,7 @@ input CreateTravel {
   arrivalId: ID
   carId: ID
   createdAt: DateTime
+  createdById: ID
   date: Date
   departureId: ID
   duration: Int
@@ -330,9 +356,10 @@ input CreateTravel {
 }
 
 input CreateUserInput {
-  _id: String!
-  email: String!
-  phone: String!
+  _id: String
+  email: String
+  name: String
+  phone: String
 }
 
 # A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
@@ -636,6 +663,7 @@ input LocationUpdateFilter {
 
 type Mutation {
   addBooking(input: CreateOneBookingInput!): Booking!
+  addBookingsToTravel(input: AddBookingsToTravelInput!): Travel!
   addCar(input: CreateOneCarInput!): Car!
   addFee(input: CreateOneFeeInput!): Fee!
   addLocation(input: CreateOneLocationInput!): Location!
@@ -669,13 +697,16 @@ type Mutation {
   editManyTravels(input: UpdateManyTravelsInput!): UpdateManyResponse!
   editTravel(input: UpdateOneTravelInput!): Travel!
   setArrivalOnTravel(input: SetArrivalOnTravelInput!): Travel!
+  setBookingsOnTravel(input: SetBookingsOnTravelInput!): Travel!
   setCarOnTravel(input: SetCarOnTravelInput!): Travel!
+  setCreatedByOnTravel(input: SetCreatedByOnTravelInput!): Travel!
   setDepartureOnTravel(input: SetDepartureOnTravelInput!): Travel!
   setFeeOnTravel(input: SetFeeOnTravelInput!): Travel!
   setSeatsOnBooking(input: SetSeatsOnBookingInput!): Booking!
   setSeatsOnTravel(input: SetSeatsOnTravelInput!): Travel!
   setTravelOnBooking(input: SetTravelOnBookingInput!): Booking!
   setUserOnBooking(input: SetUserOnBookingInput!): Booking!
+  setUserOnCar(input: SetUserOnCarInput!): Car!
   updateUser(input: UpdateUserInput!): User!
 }
 
@@ -805,7 +836,23 @@ input SetArrivalOnTravelInput {
   relationId: ID!
 }
 
+input SetBookingsOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
 input SetCarOnTravelInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetCreatedByOnTravelInput {
   # The id of the record.
   id: ID!
 
@@ -854,6 +901,14 @@ input SetTravelOnBookingInput {
 }
 
 input SetUserOnBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The id of relation.
+  relationId: ID!
+}
+
+input SetUserOnCarInput {
   # The id of the record.
   id: ID!
 
@@ -913,9 +968,21 @@ input TimeFilterComparison {
 type Travel {
   arrival: Location!
   arrivalId: ID!
+  bookings(
+    # Specify to filter the records returned.
+    filter: BookingFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [BookingSort!]! = []
+  ): TravelBookingsConnection!
   car: Car!
   carId: ID!
   createdAt: DateTime
+  createdBy: User!
+  createdById: ID!
   date: Date!
   departure: Location!
   departureId: ID!
@@ -940,11 +1007,23 @@ type Travel {
 type TravelAggregateGroupBy {
   arrivalId: ID
   carId: ID
+  createdById: ID
   date: Date
   departureId: ID
   feeId: ID
   id: ID
   time: Time
+}
+
+type TravelBookingsConnection {
+  # Array of nodes.
+  nodes: [Booking!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+
+  # Fetch total count of records
+  totalCount: Int!
 }
 
 type TravelConnection {
@@ -958,6 +1037,7 @@ type TravelConnection {
 type TravelCountAggregate {
   arrivalId: Int
   carId: Int
+  createdById: Int
   date: Int
   departureId: Int
   feeId: Int
@@ -969,6 +1049,7 @@ input TravelDeleteFilter {
   and: [TravelDeleteFilter!]
   arrivalId: IDFilterComparison
   carId: IDFilterComparison
+  createdById: IDFilterComparison
   date: DateFieldComparison
   departureId: IDFilterComparison
   feeId: IDFilterComparison
@@ -981,6 +1062,7 @@ type TravelDeleteResponse {
   arrivalId: ID
   carId: ID
   createdAt: DateTime
+  createdById: ID
   date: Date
   departureId: ID
   duration: Int
@@ -996,6 +1078,8 @@ input TravelFilter {
   arrivalId: IDFilterComparison
   car: TravelFilterCarFilter
   carId: IDFilterComparison
+  createdBy: TravelFilterUserFilter
+  createdById: IDFilterComparison
   date: DateFieldComparison
   departure: TravelFilterLocationFilter
   departureId: IDFilterComparison
@@ -1031,9 +1115,20 @@ input TravelFilterLocationFilter {
   or: [TravelFilterLocationFilter!]
 }
 
+input TravelFilterUserFilter {
+  _id: StringFieldComparison
+  and: [TravelFilterUserFilter!]
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [TravelFilterUserFilter!]
+  phone: StringFieldComparison
+}
+
 type TravelMaxAggregate {
   arrivalId: ID
   carId: ID
+  createdById: ID
   date: Date
   departureId: ID
   feeId: ID
@@ -1044,6 +1139,7 @@ type TravelMaxAggregate {
 type TravelMinAggregate {
   arrivalId: ID
   carId: ID
+  createdById: ID
   date: Date
   departureId: ID
   feeId: ID
@@ -1071,6 +1167,7 @@ input TravelSort {
 enum TravelSortFields {
   arrivalId
   carId
+  createdById
   date
   departureId
   feeId
@@ -1082,6 +1179,7 @@ input TravelUpdateFilter {
   and: [TravelUpdateFilter!]
   arrivalId: IDFilterComparison
   carId: IDFilterComparison
+  createdById: IDFilterComparison
   date: DateFieldComparison
   departureId: IDFilterComparison
   feeId: IDFilterComparison
@@ -1106,6 +1204,7 @@ input UpdateCar {
   reference: String
   seatCount: Int
   updatedAt: DateTime
+  userId: ID
 }
 
 input UpdateFee {
@@ -1213,6 +1312,7 @@ input UpdateTravel {
   arrivalId: ID
   carId: ID
   createdAt: DateTime
+  createdById: ID
   date: Date
   departureId: ID
   duration: Int
@@ -1226,14 +1326,19 @@ input UpdateUserInput {
   _id: String
   email: String
   id: String!
+  name: String
   phone: String
 }
 
 type User {
   _id: String!
+  bookings: [Booking!]!
+  cars: [Car!]!
   createdAt: DateTime!
-  email: String!
+  email: String
   id: ID!
-  phone: String!
+  name: String
+  phone: String
+  travels: [Travel!]!
   updatedAt: DateTime!
 }
