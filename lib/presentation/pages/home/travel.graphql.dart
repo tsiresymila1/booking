@@ -352,7 +352,7 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
             value: ObjectValueNode(fields: [
           ObjectFieldNode(
             name: NameNode(value: 'limit'),
-            value: IntValueNode(value: '100'),
+            value: IntValueNode(value: '10'),
           )
         ])),
         directives: [],
@@ -609,6 +609,35 @@ const documentNodeQuerytravels = DocumentNode(definitions: [
             ]),
           ),
           FieldNode(
+            name: NameNode(value: 'pageInfo'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'hasNextPage'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'hasPreviousPage'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: '__typename'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+            ]),
+          ),
+          FieldNode(
             name: NameNode(value: '__typename'),
             alias: null,
             arguments: [],
@@ -779,22 +808,28 @@ class Query$travels$Widget extends graphql_flutter.Query<Query$travels> {
 class Query$travels$travels {
   Query$travels$travels({
     required this.nodes,
+    required this.pageInfo,
     this.$__typename = 'TravelConnection',
   });
 
   factory Query$travels$travels.fromJson(Map<String, dynamic> json) {
     final l$nodes = json['nodes'];
+    final l$pageInfo = json['pageInfo'];
     final l$$__typename = json['__typename'];
     return Query$travels$travels(
       nodes: (l$nodes as List<dynamic>)
           .map((e) =>
               Query$travels$travels$nodes.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      pageInfo: Query$travels$travels$pageInfo.fromJson(
+          (l$pageInfo as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
 
   final List<Query$travels$travels$nodes> nodes;
+
+  final Query$travels$travels$pageInfo pageInfo;
 
   final String $__typename;
 
@@ -802,6 +837,8 @@ class Query$travels$travels {
     final _resultData = <String, dynamic>{};
     final l$nodes = nodes;
     _resultData['nodes'] = l$nodes.map((e) => e.toJson()).toList();
+    final l$pageInfo = pageInfo;
+    _resultData['pageInfo'] = l$pageInfo.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -810,9 +847,11 @@ class Query$travels$travels {
   @override
   int get hashCode {
     final l$nodes = nodes;
+    final l$pageInfo = pageInfo;
     final l$$__typename = $__typename;
     return Object.hashAll([
       Object.hashAll(l$nodes.map((v) => v)),
+      l$pageInfo,
       l$$__typename,
     ]);
   }
@@ -836,6 +875,11 @@ class Query$travels$travels {
       if (l$nodes$entry != lOther$nodes$entry) {
         return false;
       }
+    }
+    final l$pageInfo = pageInfo;
+    final lOther$pageInfo = other.pageInfo;
+    if (l$pageInfo != lOther$pageInfo) {
+      return false;
     }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
@@ -865,6 +909,7 @@ abstract class CopyWith$Query$travels$travels<TRes> {
 
   TRes call({
     List<Query$travels$travels$nodes>? nodes,
+    Query$travels$travels$pageInfo? pageInfo,
     String? $__typename,
   });
   TRes nodes(
@@ -873,6 +918,7 @@ abstract class CopyWith$Query$travels$travels<TRes> {
                   CopyWith$Query$travels$travels$nodes<
                       Query$travels$travels$nodes>>)
           _fn);
+  CopyWith$Query$travels$travels$pageInfo<TRes> get pageInfo;
 }
 
 class _CopyWithImpl$Query$travels$travels<TRes>
@@ -890,12 +936,16 @@ class _CopyWithImpl$Query$travels$travels<TRes>
 
   TRes call({
     Object? nodes = _undefined,
+    Object? pageInfo = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$travels$travels(
         nodes: nodes == _undefined || nodes == null
             ? _instance.nodes
             : (nodes as List<Query$travels$travels$nodes>),
+        pageInfo: pageInfo == _undefined || pageInfo == null
+            ? _instance.pageInfo
+            : (pageInfo as Query$travels$travels$pageInfo),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -913,6 +963,12 @@ class _CopyWithImpl$Query$travels$travels<TRes>
                     e,
                     (i) => i,
                   ))).toList());
+
+  CopyWith$Query$travels$travels$pageInfo<TRes> get pageInfo {
+    final local$pageInfo = _instance.pageInfo;
+    return CopyWith$Query$travels$travels$pageInfo(
+        local$pageInfo, (e) => call(pageInfo: e));
+  }
 }
 
 class _CopyWithStubImpl$Query$travels$travels<TRes>
@@ -923,11 +979,15 @@ class _CopyWithStubImpl$Query$travels$travels<TRes>
 
   call({
     List<Query$travels$travels$nodes>? nodes,
+    Query$travels$travels$pageInfo? pageInfo,
     String? $__typename,
   }) =>
       _res;
 
   nodes(_fn) => _res;
+
+  CopyWith$Query$travels$travels$pageInfo<TRes> get pageInfo =>
+      CopyWith$Query$travels$travels$pageInfo.stub(_res);
 }
 
 class Query$travels$travels$nodes {
@@ -2186,6 +2246,151 @@ class _CopyWithStubImpl$Query$travels$travels$nodes$seats$nodes<TRes>
 
   call({
     int? seat,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$travels$travels$pageInfo {
+  Query$travels$travels$pageInfo({
+    this.hasNextPage,
+    this.hasPreviousPage,
+    this.$__typename = 'OffsetPageInfo',
+  });
+
+  factory Query$travels$travels$pageInfo.fromJson(Map<String, dynamic> json) {
+    final l$hasNextPage = json['hasNextPage'];
+    final l$hasPreviousPage = json['hasPreviousPage'];
+    final l$$__typename = json['__typename'];
+    return Query$travels$travels$pageInfo(
+      hasNextPage: (l$hasNextPage as bool?),
+      hasPreviousPage: (l$hasPreviousPage as bool?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final bool? hasNextPage;
+
+  final bool? hasPreviousPage;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$hasNextPage = hasNextPage;
+    _resultData['hasNextPage'] = l$hasNextPage;
+    final l$hasPreviousPage = hasPreviousPage;
+    _resultData['hasPreviousPage'] = l$hasPreviousPage;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$hasNextPage = hasNextPage;
+    final l$hasPreviousPage = hasPreviousPage;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$hasNextPage,
+      l$hasPreviousPage,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$travels$travels$pageInfo) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$hasNextPage = hasNextPage;
+    final lOther$hasNextPage = other.hasNextPage;
+    if (l$hasNextPage != lOther$hasNextPage) {
+      return false;
+    }
+    final l$hasPreviousPage = hasPreviousPage;
+    final lOther$hasPreviousPage = other.hasPreviousPage;
+    if (l$hasPreviousPage != lOther$hasPreviousPage) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$travels$travels$pageInfo
+    on Query$travels$travels$pageInfo {
+  CopyWith$Query$travels$travels$pageInfo<Query$travels$travels$pageInfo>
+      get copyWith => CopyWith$Query$travels$travels$pageInfo(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$travels$travels$pageInfo<TRes> {
+  factory CopyWith$Query$travels$travels$pageInfo(
+    Query$travels$travels$pageInfo instance,
+    TRes Function(Query$travels$travels$pageInfo) then,
+  ) = _CopyWithImpl$Query$travels$travels$pageInfo;
+
+  factory CopyWith$Query$travels$travels$pageInfo.stub(TRes res) =
+      _CopyWithStubImpl$Query$travels$travels$pageInfo;
+
+  TRes call({
+    bool? hasNextPage,
+    bool? hasPreviousPage,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$travels$travels$pageInfo<TRes>
+    implements CopyWith$Query$travels$travels$pageInfo<TRes> {
+  _CopyWithImpl$Query$travels$travels$pageInfo(
+    this._instance,
+    this._then,
+  );
+
+  final Query$travels$travels$pageInfo _instance;
+
+  final TRes Function(Query$travels$travels$pageInfo) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? hasNextPage = _undefined,
+    Object? hasPreviousPage = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$travels$travels$pageInfo(
+        hasNextPage: hasNextPage == _undefined
+            ? _instance.hasNextPage
+            : (hasNextPage as bool?),
+        hasPreviousPage: hasPreviousPage == _undefined
+            ? _instance.hasPreviousPage
+            : (hasPreviousPage as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$travels$travels$pageInfo<TRes>
+    implements CopyWith$Query$travels$travels$pageInfo<TRes> {
+  _CopyWithStubImpl$Query$travels$travels$pageInfo(this._res);
+
+  TRes _res;
+
+  call({
+    bool? hasNextPage,
+    bool? hasPreviousPage,
     String? $__typename,
   }) =>
       _res;

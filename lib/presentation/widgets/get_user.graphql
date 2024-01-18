@@ -1,0 +1,9 @@
+query getUserByAppWriteId($appWriteId: String!){
+    getUserByAppWriteId(appWriteId:$appWriteId){
+        id
+        name
+        email
+        phone
+        _id
+    }
+}

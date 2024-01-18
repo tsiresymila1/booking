@@ -1,0 +1,41 @@
+mutation makeBooking($input:CreateOneBookingInput! ){
+    addBooking(input:$input){
+        id
+        seats{
+            totalCount
+            nodes{
+                id
+                seat
+            }
+        }
+        travel{
+            id
+            arrival{
+                name
+                abbreviation
+            }
+            departure{
+                name
+                abbreviation
+            }
+            car{
+                seatCount
+            }
+            seats{
+                totalCount
+            }
+            fee{
+                value
+            }
+            time
+            date
+        }
+        user{
+            id
+            name
+            email
+            phone
+        }
+    }
+
+}

@@ -1,62 +1,73 @@
 import 'package:booking/presentation/pages/home/travel.graphql.dart';
-import 'package:booking/presentation/pages/suggest/widgets/suggest_travel.dart';
-import 'package:booking/presentation/widgets/user_provider.dart';
+import 'package:booking/presentation/pages/suggest/widgets/header.dart';
+import 'package:booking/schema.graphql.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+import '../../widgets/custom_appbar.dart';
+import '../home/location.graphql.dart';
+import '../home/widgets/list_travel.dart';
 
 class SuggestPage extends StatelessWidget {
-  final Query$travels? queryTravels;
+  final Query$Locations$locations$nodes arrival;
 
-  const SuggestPage({Key? key, this.queryTravels}) : super(key: key);
+  final Query$Locations$locations$nodes departure;
+
+  final DateTime departureDate;
+
+  const SuggestPage(
+      {Key? key,
+      required this.arrival,
+      required this.departure,
+      required this.departureDate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return UserConsumer(builder: (user) {
-      return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          elevation: 2,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: context.pop,
-          ),
-          scrolledUnderElevation: 0,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(100.0),
-            child: Row(
-              children: [
-              ],
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications_active),
-              onPressed: () {},
-            ),
-            Visibility(
-              visible: user != null,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  user?.name ?? "",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            )
-          ],
+    return Scaffold(
+      appBar: CustomAppbar(
+        height: 180,
+        content: TravelInfoHeader(
+          departureDate: departureDate.toString(),
+          dAbbr: departure.abbreviation,
+          dName: departure.name,
+          arAbbr: arrival.abbreviation,
+          arName: arrival.name
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          child: ListView.builder(
-              itemCount: queryTravels?.travels.nodes.length ?? 0,
-              itemBuilder: (context, index) {
-                final el = queryTravels?.travels.nodes[index];
-                return SuggestTravel(
-                  travel: el,
-                );
-              }),
-        ),
-      );
-    });
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Query$travels$Widget(
+            options: Options$Query$travels(
+                fetchPolicy: FetchPolicy.networkOnly,
+                variables: Variables$Query$travels(
+                    filter: Input$TravelFilter(
+                  date: Input$DateFieldComparison(
+                      gte: DateTime.now()
+                        ..copyWith(
+                            hour: 0,
+                            minute: 0,
+                            second: 0,
+                            microsecond: 0,
+                            millisecond: 0)),
+                  // arrival: Input$TravelFilterLocationFilter(
+                  //   id: Input$IDFilterComparison(eq: arrival.id),
+                  //   abbreviation:
+                  //       Input$StringFieldComparison(eq: arrival.abbreviation),
+                  // ),
+                  // departure: Input$TravelFilterLocationFilter(
+                  //   id: Input$IDFilterComparison(eq: departure.id),
+                  //   abbreviation:
+                  //       Input$StringFieldComparison(eq: departure.abbreviation),
+                  // ),
+                ))),
+            builder: (result, {fetchMore, refetch}) {
+              return ListTravel(
+                travels: result,
+                fetchMore: fetchMore,
+              );
+            }),
+      ),
+    );
   }
 }

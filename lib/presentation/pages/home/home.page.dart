@@ -1,16 +1,12 @@
 import 'package:booking/core/logger.dart';
-import 'package:booking/presentation/blocs/error/error_bloc.dart';
-import 'package:booking/presentation/blocs/error/error_event.dart';
 import 'package:booking/presentation/pages/home/location.graphql.dart';
-import 'package:booking/presentation/pages/home/travel.graphql.dart';
 import 'package:booking/presentation/pages/home/widgets/select_city.dart';
-import 'package:booking/presentation/pages/home/widgets/today_travel.dart';
+import 'package:booking/presentation/pages/home/widgets/list_travel.dart';
 import 'package:booking/presentation/pages/home/widgets/today_travel_header.dart';
 import 'package:booking/presentation/widgets/user_provider.dart';
 import 'package:booking/schema.graphql.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +14,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import "package:intl/intl.dart";
 
 import '../../../core/constant.dart';
+import '../../widgets/custom_appbar.dart';
 import '../../widgets/elevated_button.widget.dart';
 import 'widgets/today_travel_builder.dart';
 
@@ -29,51 +26,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool loading = false;
-  List<Query$travels$travels$nodes> datas = [];
   final _formkey = GlobalKey<FormBuilderState>();
 
   processSearch(BuildContext context, GraphQLClient client) {
-    _formkey.currentState?.save();
+    final isValid = _formkey.currentState?.saveAndValidate() ?? false;
     logger.i(_formkey.currentState?.value);
-    if (_formkey.currentState != null) {
-      setState(() {
-        loading = true;
-      });
+    if (_formkey.currentState != null && isValid) {
       Map<String, dynamic> formData = _formkey.currentState!.value;
       Query$Locations$locations$nodes arrival = formData['arrival'];
       Query$Locations$locations$nodes departure = formData['departure'];
       DateTime departureDate = formData['date'];
-      client
-          .query$travels(Options$Query$travels(
-              fetchPolicy: FetchPolicy.networkOnly,
-              variables: Variables$Query$travels(
-                  filter: Input$TravelFilter(
-                date: Input$DateFieldComparison(
-                    eq: departureDate.copyWith(
-                        hour: 0,
-                        minute: 0,
-                        second: 0,
-                        microsecond: 0,
-                        millisecond: 0)),
-                arrival: Input$TravelFilterLocationFilter(
-                  id: Input$IDFilterComparison(eq: arrival.id),
-                  abbreviation:
-                      Input$StringFieldComparison(eq: arrival.abbreviation),
-                ),
-                departure: Input$TravelFilterLocationFilter(
-                  id: Input$IDFilterComparison(eq: departure.id),
-                  abbreviation:
-                      Input$StringFieldComparison(eq: departure.abbreviation),
-                ),
-              ))))
-          .then((value) {
-        logger.i(value.parsedData);
-        context.pushNamed("suggest", extra: value.parsedData);
-      }).catchError((e) {
-        logger.e(e);
-        context.read<ErrorBloc>().add(ShowErrorEvent(error: e));
-      }).whenComplete(() => setState(() => loading = false));
+      return context.pushNamed("suggest", extra: {
+        "departure": departure,
+        "arrival": arrival,
+        "departureDate": departureDate
+      });
     }
   }
 
@@ -81,58 +48,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return UserConsumer(builder: (user) {
       return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          elevation: 2,
+        appBar: CustomAppbar(
           leading: IconButton(
             icon: const Icon(Icons.filter_list_sharp),
             onPressed: () {},
           ),
-          scrolledUnderElevation: 0,
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(100.0),
-              child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(
-                        width: 200,
-                        child: Text(
-                          "Start Booking",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Image.asset(
-                            "assets/images/sprinter.png",
-                            width: 80,
-                          ))
-                    ],
-                  ))),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications_active),
-              onPressed: () {},
-            ),
-            Visibility(
-              visible: user != null,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(
+                width: 200,
                 child: Text(
-                  user?.name ?? "",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  "Start Booking",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
-            )
-          ],
+              IconButton(
+                  onPressed: () {},
+                  icon: Image.asset(
+                    "assets/images/sprinter.png",
+                    width: 80,
+                  ))
+            ],
+          ),
         ),
         body: GraphQLConsumer(builder: (client) {
           return TodayTravelBuilder(
-              builder: (todaytavels, {fetchMore, refetch}) {
+              builder: (todaysTravel, {fetchMore, refetch}) {
             return Column(
               children: [
                 Padding(
@@ -140,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   child: Center(
                     child: FormBuilder(
                       key: _formkey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: AutovalidateMode.disabled,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -178,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                             child: FormBuilderDateTimePicker(
                               autocorrect: false,
                               name: "date",
+                              autovalidateMode: AutovalidateMode.disabled,
                               inputType: InputType.date,
                               decoration: inputDecorator.copyWith(
                                   hintText: "Departure Time",
@@ -196,16 +139,15 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () async {
                                 processSearch(context, client);
                               },
-                              icon: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                              icon: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Visibility(
-                                  visible: !loading,
-                                  replacement: const CupertinoActivityIndicator(
+                                  visible: true,
+                                  replacement: CupertinoActivityIndicator(
                                     radius: 12,
                                     color: Colors.white,
                                   ),
-                                  child: const Icon(Icons.search),
+                                  child: Icon(Icons.search),
                                 ),
                               ),
                               child: const Text(
@@ -220,7 +162,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TodayTravelHeader(onViewMore: refetch),
-                TodayTravel(travels: todaytavels)
+                Expanded(
+                  child: ListTravel(
+                    travels: todaysTravel,
+                    fetchMore: fetchMore,
+                  ),
+                )
               ],
             );
           });

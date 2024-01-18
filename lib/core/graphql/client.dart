@@ -2,9 +2,9 @@ import 'package:booking/core/graphql/link.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-ValueNotifier<GraphQLClient> graphqlClient(BuildContext context) {
+ValueNotifier<GraphQLClient> get graphqlClient {
   return ValueNotifier(GraphQLClient(
-    link: graphqlLink(context),
+    link: graphqlLink,
     cache: GraphQLCache(store: HiveStore()),
   ));
 }

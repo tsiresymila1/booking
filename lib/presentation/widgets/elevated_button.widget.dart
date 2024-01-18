@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomElevatedButton extends StatelessWidget {
   final Widget? icon;
   final Widget child;
-  final Function() onPressed;
+  final Function()? onPressed;
 
   const CustomElevatedButton(
       {Key? key, this.icon, required this.child, required this.onPressed})

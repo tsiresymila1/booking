@@ -1,5 +1,6 @@
-import 'package:booking/generated/assets.dart';
 import 'package:flutter/material.dart';
+
+import '../../generated/assets.dart';
 
 class LogoWidget extends StatelessWidget {
   final String title;
@@ -23,7 +24,7 @@ class LogoWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
-                    Assets.imagesLogo,
+                    Assets.imagesMadatrip2,
                     height: 160,
                   ),
                 ),
@@ -34,7 +35,10 @@ class LogoWidget extends StatelessWidget {
                       fontSize: 18,
                       color: Color(0xff1b1780)),
                 ),
-                child
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
+                  child: child,
+                )
               ],
             ),
           )),

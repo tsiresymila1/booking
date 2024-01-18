@@ -5,19 +5,18 @@ import 'package:booking/core/logger.dart';
 import 'package:booking/presentation/widgets/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-Link graphqlLink(BuildContext context) {
+Link get graphqlLink {
   final HttpLink httpLink = HttpLink(dotenv.get("GRAPHQL_URL"));
   final AuthLink authLink = AuthLink(getToken: () async {
-    final account = Account(context.appWrite);
     String jwt = "";
     try {
-      final jwtApp = await account.createJWT();
-      jwt = jwtApp.jwt;
+      jwt = GetStorage().read('jwt') ?? '';
     } catch (e) {
       /**/
-      logger.e(e);
+      // logger.e(e);
     }
     return 'Bearer $jwt';
   });

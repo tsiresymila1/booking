@@ -1,4 +1,4 @@
-query travels($filter: TravelFilter = {}, $paging: OffsetPaging = {limit: 100}, $sorting: [TravelSort!] = []){
+query travels($filter: TravelFilter = {}, $paging: OffsetPaging = {limit: 10}, $sorting: [TravelSort!] = []){
     travels(filter:$filter,paging: $paging, sorting:$sorting){
         nodes {
             id
@@ -29,6 +29,10 @@ query travels($filter: TravelFilter = {}, $paging: OffsetPaging = {limit: 100}, 
                     seat
                 }
             }
+        }
+        pageInfo{
+            hasNextPage
+            hasPreviousPage
         }
     }
 }

@@ -311,11 +311,6 @@ input CreateManyLocationsInput {
   locations: [CreateLocation!]!
 }
 
-input CreateManyTravelsInput {
-  # Array of records to create
-  travels: [CreateTravel!]!
-}
-
 input CreateOneBookingInput {
   # The record to create
   booking: CreateBooking!
@@ -339,6 +334,14 @@ input CreateOneLocationInput {
 input CreateOneTravelInput {
   # The record to create
   travel: CreateTravel!
+}
+
+input CreatePaymentInput {
+  # amount
+  amount: Int!
+
+  # currency
+  currency: String! = "eur"
 }
 
 input CreateTravel {
@@ -671,7 +674,6 @@ type Mutation {
   addManyCars(input: CreateManyCarsInput!): [Car!]!
   addManyFees(input: CreateManyFeesInput!): [Fee!]!
   addManyLocations(input: CreateManyLocationsInput!): [Location!]!
-  addManyTravels(input: CreateManyTravelsInput!): [Travel!]!
   addSeatsToBooking(input: AddSeatsToBookingInput!): Booking!
   addSeatsToTravel(input: AddSeatsToTravelInput!): Travel!
   addTravel(input: CreateOneTravelInput!): Travel!
@@ -694,8 +696,8 @@ type Mutation {
   editManyCars(input: UpdateManyCarsInput!): UpdateManyResponse!
   editManyFees(input: UpdateManyFeesInput!): UpdateManyResponse!
   editManyLocations(input: UpdateManyLocationsInput!): UpdateManyResponse!
-  editManyTravels(input: UpdateManyTravelsInput!): UpdateManyResponse!
   editTravel(input: UpdateOneTravelInput!): Travel!
+  initPayment(input: CreatePaymentInput!): Payment!
   setArrivalOnTravel(input: SetArrivalOnTravelInput!): Travel!
   setBookingsOnTravel(input: SetBookingsOnTravelInput!): Travel!
   setCarOnTravel(input: SetCarOnTravelInput!): Travel!
@@ -724,6 +726,17 @@ input OffsetPaging {
 
   # Offset to start returning records from
   offset: Int
+}
+
+type Payment {
+  # customerId
+  customerId: String!
+
+  # ephemeralKey
+  ephemeralKey: String!
+
+  # paymentIntent
+  paymentIntent: String!
 }
 
 type Query {
@@ -770,6 +783,7 @@ type Query {
     # Specify to sort results.
     sorting: [FeeSort!]! = []
   ): FeeConnection!
+  getUserByAppWriteId(appWriteId: String!): User!
   location(
     # The id of the record to find.
     id: ID!
@@ -1175,19 +1189,6 @@ enum TravelSortFields {
   time
 }
 
-input TravelUpdateFilter {
-  and: [TravelUpdateFilter!]
-  arrivalId: IDFilterComparison
-  carId: IDFilterComparison
-  createdById: IDFilterComparison
-  date: DateFieldComparison
-  departureId: IDFilterComparison
-  feeId: IDFilterComparison
-  id: IDFilterComparison
-  or: [TravelUpdateFilter!]
-  time: TimeFilterComparison
-}
-
 input UpdateBooking {
   createdAt: DateTime
   id: ID
@@ -1258,14 +1259,6 @@ input UpdateManyLocationsInput {
 type UpdateManyResponse {
   # The number of records updated.
   updatedCount: Int!
-}
-
-input UpdateManyTravelsInput {
-  # Filter used to find fields to update
-  filter: TravelUpdateFilter!
-
-  # The update to apply to all records found using the filter
-  update: UpdateTravel!
 }
 
 input UpdateOneBookingInput {

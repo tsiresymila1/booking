@@ -1,7 +1,8 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:booking/core/logger.dart';
+import 'package:appwrite/models.dart';
 import 'package:booking/generated/assets.dart';
 import 'package:booking/presentation/widgets/appwrite.dart';
+import 'package:fl_query/fl_query.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -15,19 +16,6 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   @override
-  void didChangeDependencies () {
-    super.didChangeDependencies();
-    final account = Account(context.appWrite);
-    account.get().then((value) {
-      logger.i("Connected");
-      context.pushNamed('home');
-    }).catchError((e) {
-      logger.w("Error ::: ${e.toString()}");
-      context.pushNamed('login');
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -40,15 +28,25 @@ class _LoadingPageState extends State<LoadingPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    "assets/images/logo.png",
+                    "assets/images/madatrip2.png",
                     height: 200,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 12),
-                    child:
-                        Lottie.asset("assets/lotties/loader.json", height: 60),
-                  )
+                  QueryBuilder<User, AppwriteException>('connectedUser',
+                      () async {
+                    final account = Account(context.appWrite);
+                    return await account.get();
+                  }, onError: (error) {
+                    context.pushNamed('home');
+                  }, onData: (data) {
+                    context.pushNamed('home');
+                  }, builder: (context, result) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 12),
+                      child: Lottie.asset("assets/lotties/loader.json",
+                          height: 60),
+                    );
+                  })
                 ],
               ),
             )),

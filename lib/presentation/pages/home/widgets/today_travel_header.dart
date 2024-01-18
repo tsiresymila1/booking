@@ -1,3 +1,4 @@
+import 'package:booking/core/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,9 +18,7 @@ class TodayTravelHeader extends StatelessWidget {
         children: [
           Text(
             "Today travel",
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold)
-                .merge(GoogleFonts.poppins()),
+            style: context.textTheme.headlineMedium?.merge(GoogleFonts.poppins()),
           ),
           TextButton(
               onPressed: onViewMore,

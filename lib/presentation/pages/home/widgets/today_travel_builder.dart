@@ -27,6 +27,7 @@ class TodayTravelBuilder extends StatelessWidget {
                             second: 0,
                             microsecond: 0,
                             millisecond: 0))),
+                paging: Input$OffsetPaging(limit: 10,offset: 1),
                 sorting: [
               Input$TravelSort(
                   direction: Enum$SortDirection.ASC,
