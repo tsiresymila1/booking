@@ -338,7 +338,7 @@ input CreateOneTravelInput {
 
 input CreatePaymentInput {
   # amount
-  amount: Int!
+  amount: Float!
 
   # currency
   currency: String! = "eur"

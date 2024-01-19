@@ -6211,7 +6211,7 @@ class _CopyWithStubImpl$Input$CreateOneTravelInput<TRes>
 
 class Input$CreatePaymentInput {
   factory Input$CreatePaymentInput({
-    required int amount,
+    required double amount,
     String? currency,
   }) =>
       Input$CreatePaymentInput._({
@@ -6224,7 +6224,7 @@ class Input$CreatePaymentInput {
   factory Input$CreatePaymentInput.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     final l$amount = data['amount'];
-    result$data['amount'] = (l$amount as int);
+    result$data['amount'] = (l$amount as num).toDouble();
     if (data.containsKey('currency')) {
       final l$currency = data['currency'];
       result$data['currency'] = (l$currency as String);
@@ -6234,7 +6234,7 @@ class Input$CreatePaymentInput {
 
   Map<String, dynamic> _$data;
 
-  int get amount => (_$data['amount'] as int);
+  double get amount => (_$data['amount'] as double);
 
   String? get currency => (_$data['currency'] as String?);
 
@@ -6302,7 +6302,7 @@ abstract class CopyWith$Input$CreatePaymentInput<TRes> {
       _CopyWithStubImpl$Input$CreatePaymentInput;
 
   TRes call({
-    int? amount,
+    double? amount,
     String? currency,
   });
 }
@@ -6326,7 +6326,8 @@ class _CopyWithImpl$Input$CreatePaymentInput<TRes>
   }) =>
       _then(Input$CreatePaymentInput._({
         ..._instance._$data,
-        if (amount != _undefined && amount != null) 'amount': (amount as int),
+        if (amount != _undefined && amount != null)
+          'amount': (amount as double),
         if (currency != _undefined && currency != null)
           'currency': (currency as String),
       }));
@@ -6339,7 +6340,7 @@ class _CopyWithStubImpl$Input$CreatePaymentInput<TRes>
   TRes _res;
 
   call({
-    int? amount,
+    double? amount,
     String? currency,
   }) =>
       _res;

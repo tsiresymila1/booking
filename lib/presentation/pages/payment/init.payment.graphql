@@ -1,0 +1,7 @@
+mutation CreatePaymentIntent($input: CreatePaymentInput!){
+    initPayment(input:$input){
+        customerId
+        ephemeralKey
+        paymentIntent
+    }
+}

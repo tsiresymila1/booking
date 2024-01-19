@@ -1,10 +1,13 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:booking/core/error.dart';
 import 'package:booking/presentation/pages/passenger/create_booking.graphql.dart';
 import 'package:booking/presentation/pages/passenger/widgets/content_header.dart';
 import 'package:booking/presentation/pages/passenger/widgets/travel_info.dart';
 import 'package:booking/presentation/widgets/appwrite.dart';
 import 'package:booking/presentation/widgets/custom_appbar.dart';
+import 'package:booking/presentation/widgets/fl_query/custom_mutation_builder.dart';
+import 'package:booking/presentation/widgets/fl_query/custom_query_builder.dart';
 import 'package:booking/presentation/widgets/footer_action.dart';
 import 'package:booking/presentation/widgets/user_provider.dart';
 import 'package:booking/schema.graphql.dart';
@@ -112,11 +115,11 @@ class PassengerPage extends StatelessWidget {
               ),
               Mutation$makeBooking$Widget(options:
                   WidgetOptions$Mutation$makeBooking(onCompleted: (r, res) {
-                context.pushNamed("payment", extra: {
-                  "seats": seats,
-                  "fee": travel.fee.value,
-                  "travelId": travel.id
-                });
+                    context.pushNamed("payment", extra: {
+                      "seats": seats,
+                      "fee": travel.fee.value,
+                      "travelId": travel.id
+                    });
               }), builder: (mutation, res) {
                 return Positioned(
                   bottom: 0,
@@ -125,62 +128,76 @@ class PassengerPage extends StatelessWidget {
                   child: FooterAction(
                     titleText: "Total",
                     subtitleText: "\$${seats.length * travel.fee.value}",
-                    action: CustomElevatedButton(
-                        onPressed: () async {
-                          final isValid = formKey.currentState
-                                  ?.saveAndValidate(focusOnInvalid: false) ??
-                              false;
-                          if (isValid) {
-                            String phone = formKey.currentState?.value["phone"];
-                            final account = Account(context.appWrite);
-                            if (user != null) {
-                              mutation(Variables$Mutation$makeBooking(
-                                  input: Input$CreateOneBookingInput(
-                                      booking: Input$CreateBooking(
-                                          seatsIds: seats,
-                                          travelId: travel.id,
-                                          userId: user.$_id))));
-                            } else {
-                              await errorHandler(context, () async {
-                                PhoneNumber? phoneNumber =
-                                    await validatePhoneNumber(phone);
-                                if (phoneNumber != null) {
-                                  final token =
-                                      await account.createPhoneSession(
-                                          userId: ID.unique(),
-                                          phone: phoneNumber.e164);
-                                  if (!context.mounted) return;
-                                  context.pushNamed('otp', extra: {
-                                    "userId": token.userId,
-                                    'fee': travel.fee.value,
-                                    'seats': seats,
-                                    'travelId': travel.id,
-                                    'token': token
-                                  });
-                                  return;
-                                }
+                    action:
+                        CustomMutationBuilder<Token, dynamic, String, dynamic>(
+                      'getUser',
+                      (phone) async {
+                        final account = Account(context.appWrite);
+                        PhoneNumber? phoneNumber =
+                            await validatePhoneNumber(phone);
+                        return await account.createPhoneSession(
+                            userId: ID.unique(), phone: phoneNumber!.e164);
+                      },
+                      onData: (token, recovery) {
+                        context.pushNamed('otp', extra: {
+                          "userId": token.userId,
+                          'fee': travel.fee.value,
+                          'seats': seats,
+                          'travelId': travel.id,
+                          'token': token
+                        });
+                      },
+                      builder: (context, getUser) {
+                        return CustomElevatedButton(
+                            onPressed: () async {
+                              context.pushNamed("payment", extra: {
+                                "seats": seats,
+                                "fee": travel.fee.value,
+                                "travelId": travel.id
                               });
-                            }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Visibility(
-                                visible: res?.isLoading ?? false,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  child: CupertinoActivityIndicator(
-                                    color: Colors.white,
+                              return ;
+                              final isValid = formKey.currentState
+                                      ?.saveAndValidate(
+                                          focusOnInvalid: false) ??
+                                  false;
+                              if (isValid) {
+                                String phone =
+                                    formKey.currentState?.value["phone"];
+                                if (user != null) {
+                                  mutation(Variables$Mutation$makeBooking(
+                                      input: Input$CreateOneBookingInput(
+                                          booking: Input$CreateBooking(
+                                              seatsIds: seats,
+                                              travelId: travel.id,
+                                              userId: user.$_id))));
+                                } else {
+                                  getUser.mutate(phone);
+                                }
+                              }
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Visibility(
+                                    visible: res?.isLoading ?? false,
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      child: CupertinoActivityIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  const Text('Proceed'),
+                                ],
                               ),
-                              const Text('Proceed'),
-                            ],
-                          ),
-                        )),
+                            ));
+                      },
+                      context: context,
+                    ),
                   ),
                 );
               })

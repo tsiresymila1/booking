@@ -6,7 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Function()? onPressed;
 
   const CustomElevatedButton(
-      {Key? key, this.icon, required this.child, required this.onPressed})
+      {Key? key, this.icon, required this.child,  this.onPressed})
       : super(key: key);
 
   @override
