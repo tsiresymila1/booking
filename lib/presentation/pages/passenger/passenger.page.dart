@@ -118,7 +118,7 @@ class PassengerPage extends StatelessWidget {
                     context.pushNamed("payment", extra: {
                       "seats": seats,
                       "fee": travel.fee.value,
-                      "travelId": travel.id
+                      "bookingId": res?.addBooking.id
                     });
               }), builder: (mutation, res) {
                 return Positioned(
@@ -153,7 +153,7 @@ class PassengerPage extends StatelessWidget {
                               context.pushNamed("payment", extra: {
                                 "seats": seats,
                                 "fee": travel.fee.value,
-                                "travelId": travel.id
+                                "bookingId": res?.parsedData?.addBooking.id,
                               });
                               return ;
                               final isValid = formKey.currentState

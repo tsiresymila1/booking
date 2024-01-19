@@ -136,6 +136,142 @@ class _CopyWithStubImpl$Input$AddBookingsToTravelInput<TRes>
       _res;
 }
 
+class Input$AddPaymentsToBookingInput {
+  factory Input$AddPaymentsToBookingInput({
+    required String id,
+    required List<String> relationIds,
+  }) =>
+      Input$AddPaymentsToBookingInput._({
+        r'id': id,
+        r'relationIds': relationIds,
+      });
+
+  Input$AddPaymentsToBookingInput._(this._$data);
+
+  factory Input$AddPaymentsToBookingInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationIds = data['relationIds'];
+    result$data['relationIds'] =
+        (l$relationIds as List<dynamic>).map((e) => (e as String)).toList();
+    return Input$AddPaymentsToBookingInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  List<String> get relationIds => (_$data['relationIds'] as List<String>);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationIds = relationIds;
+    result$data['relationIds'] = l$relationIds.map((e) => e).toList();
+    return result$data;
+  }
+
+  CopyWith$Input$AddPaymentsToBookingInput<Input$AddPaymentsToBookingInput>
+      get copyWith => CopyWith$Input$AddPaymentsToBookingInput(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$AddPaymentsToBookingInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationIds = relationIds;
+    final lOther$relationIds = other.relationIds;
+    if (l$relationIds.length != lOther$relationIds.length) {
+      return false;
+    }
+    for (int i = 0; i < l$relationIds.length; i++) {
+      final l$relationIds$entry = l$relationIds[i];
+      final lOther$relationIds$entry = lOther$relationIds[i];
+      if (l$relationIds$entry != lOther$relationIds$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationIds = relationIds;
+    return Object.hashAll([
+      l$id,
+      Object.hashAll(l$relationIds.map((v) => v)),
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$AddPaymentsToBookingInput<TRes> {
+  factory CopyWith$Input$AddPaymentsToBookingInput(
+    Input$AddPaymentsToBookingInput instance,
+    TRes Function(Input$AddPaymentsToBookingInput) then,
+  ) = _CopyWithImpl$Input$AddPaymentsToBookingInput;
+
+  factory CopyWith$Input$AddPaymentsToBookingInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$AddPaymentsToBookingInput;
+
+  TRes call({
+    String? id,
+    List<String>? relationIds,
+  });
+}
+
+class _CopyWithImpl$Input$AddPaymentsToBookingInput<TRes>
+    implements CopyWith$Input$AddPaymentsToBookingInput<TRes> {
+  _CopyWithImpl$Input$AddPaymentsToBookingInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$AddPaymentsToBookingInput _instance;
+
+  final TRes Function(Input$AddPaymentsToBookingInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationIds = _undefined,
+  }) =>
+      _then(Input$AddPaymentsToBookingInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationIds != _undefined && relationIds != null)
+          'relationIds': (relationIds as List<String>),
+      }));
+}
+
+class _CopyWithStubImpl$Input$AddPaymentsToBookingInput<TRes>
+    implements CopyWith$Input$AddPaymentsToBookingInput<TRes> {
+  _CopyWithStubImpl$Input$AddPaymentsToBookingInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    List<String>? relationIds,
+  }) =>
+      _res;
+}
+
 class Input$AddSeatsToBookingInput {
   factory Input$AddSeatsToBookingInput({
     required String id,
@@ -4184,6 +4320,7 @@ class Input$CreateBooking {
   factory Input$CreateBooking({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -4192,6 +4329,7 @@ class Input$CreateBooking {
       Input$CreateBooking._({
         if (createdAt != null) r'createdAt': createdAt,
         if (id != null) r'id': id,
+        if (paymentsIds != null) r'paymentsIds': paymentsIds,
         if (seatsIds != null) r'seatsIds': seatsIds,
         if (travelId != null) r'travelId': travelId,
         if (updatedAt != null) r'updatedAt': updatedAt,
@@ -4210,6 +4348,11 @@ class Input$CreateBooking {
     if (data.containsKey('id')) {
       final l$id = data['id'];
       result$data['id'] = (l$id as String?);
+    }
+    if (data.containsKey('paymentsIds')) {
+      final l$paymentsIds = data['paymentsIds'];
+      result$data['paymentsIds'] =
+          (l$paymentsIds as List<dynamic>?)?.map((e) => (e as int)).toList();
     }
     if (data.containsKey('seatsIds')) {
       final l$seatsIds = data['seatsIds'];
@@ -4238,6 +4381,8 @@ class Input$CreateBooking {
 
   String? get id => (_$data['id'] as String?);
 
+  List<int>? get paymentsIds => (_$data['paymentsIds'] as List<int>?);
+
   List<int>? get seatsIds => (_$data['seatsIds'] as List<int>?);
 
   String? get travelId => (_$data['travelId'] as String?);
@@ -4256,6 +4401,10 @@ class Input$CreateBooking {
     if (_$data.containsKey('id')) {
       final l$id = id;
       result$data['id'] = l$id;
+    }
+    if (_$data.containsKey('paymentsIds')) {
+      final l$paymentsIds = paymentsIds;
+      result$data['paymentsIds'] = l$paymentsIds?.map((e) => e).toList();
     }
     if (_$data.containsKey('seatsIds')) {
       final l$seatsIds = seatsIds;
@@ -4306,6 +4455,26 @@ class Input$CreateBooking {
       return false;
     }
     if (l$id != lOther$id) {
+      return false;
+    }
+    final l$paymentsIds = paymentsIds;
+    final lOther$paymentsIds = other.paymentsIds;
+    if (_$data.containsKey('paymentsIds') !=
+        other._$data.containsKey('paymentsIds')) {
+      return false;
+    }
+    if (l$paymentsIds != null && lOther$paymentsIds != null) {
+      if (l$paymentsIds.length != lOther$paymentsIds.length) {
+        return false;
+      }
+      for (int i = 0; i < l$paymentsIds.length; i++) {
+        final l$paymentsIds$entry = l$paymentsIds[i];
+        final lOther$paymentsIds$entry = lOther$paymentsIds[i];
+        if (l$paymentsIds$entry != lOther$paymentsIds$entry) {
+          return false;
+        }
+      }
+    } else if (l$paymentsIds != lOther$paymentsIds) {
       return false;
     }
     final l$seatsIds = seatsIds;
@@ -4361,6 +4530,7 @@ class Input$CreateBooking {
   int get hashCode {
     final l$createdAt = createdAt;
     final l$id = id;
+    final l$paymentsIds = paymentsIds;
     final l$seatsIds = seatsIds;
     final l$travelId = travelId;
     final l$updatedAt = updatedAt;
@@ -4368,6 +4538,11 @@ class Input$CreateBooking {
     return Object.hashAll([
       _$data.containsKey('createdAt') ? l$createdAt : const {},
       _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('paymentsIds')
+          ? l$paymentsIds == null
+              ? null
+              : Object.hashAll(l$paymentsIds.map((v) => v))
+          : const {},
       _$data.containsKey('seatsIds')
           ? l$seatsIds == null
               ? null
@@ -4392,6 +4567,7 @@ abstract class CopyWith$Input$CreateBooking<TRes> {
   TRes call({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -4415,6 +4591,7 @@ class _CopyWithImpl$Input$CreateBooking<TRes>
   TRes call({
     Object? createdAt = _undefined,
     Object? id = _undefined,
+    Object? paymentsIds = _undefined,
     Object? seatsIds = _undefined,
     Object? travelId = _undefined,
     Object? updatedAt = _undefined,
@@ -4424,6 +4601,8 @@ class _CopyWithImpl$Input$CreateBooking<TRes>
         ..._instance._$data,
         if (createdAt != _undefined) 'createdAt': (createdAt as DateTime?),
         if (id != _undefined) 'id': (id as String?),
+        if (paymentsIds != _undefined)
+          'paymentsIds': (paymentsIds as List<int>?),
         if (seatsIds != _undefined) 'seatsIds': (seatsIds as List<int>?),
         if (travelId != _undefined) 'travelId': (travelId as String?),
         if (updatedAt != _undefined) 'updatedAt': (updatedAt as DateTime?),
@@ -4440,6 +4619,7 @@ class _CopyWithStubImpl$Input$CreateBooking<TRes>
   call({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -6212,10 +6392,12 @@ class _CopyWithStubImpl$Input$CreateOneTravelInput<TRes>
 class Input$CreatePaymentInput {
   factory Input$CreatePaymentInput({
     required double amount,
+    required String bookingId,
     String? currency,
   }) =>
       Input$CreatePaymentInput._({
         r'amount': amount,
+        r'bookingId': bookingId,
         if (currency != null) r'currency': currency,
       });
 
@@ -6225,6 +6407,8 @@ class Input$CreatePaymentInput {
     final result$data = <String, dynamic>{};
     final l$amount = data['amount'];
     result$data['amount'] = (l$amount as num).toDouble();
+    final l$bookingId = data['bookingId'];
+    result$data['bookingId'] = (l$bookingId as String);
     if (data.containsKey('currency')) {
       final l$currency = data['currency'];
       result$data['currency'] = (l$currency as String);
@@ -6236,12 +6420,16 @@ class Input$CreatePaymentInput {
 
   double get amount => (_$data['amount'] as double);
 
+  String get bookingId => (_$data['bookingId'] as String);
+
   String? get currency => (_$data['currency'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$amount = amount;
     result$data['amount'] = l$amount;
+    final l$bookingId = bookingId;
+    result$data['bookingId'] = l$bookingId;
     if (_$data.containsKey('currency')) {
       final l$currency = currency;
       result$data['currency'] = (l$currency as String);
@@ -6269,6 +6457,11 @@ class Input$CreatePaymentInput {
     if (l$amount != lOther$amount) {
       return false;
     }
+    final l$bookingId = bookingId;
+    final lOther$bookingId = other.bookingId;
+    if (l$bookingId != lOther$bookingId) {
+      return false;
+    }
     final l$currency = currency;
     final lOther$currency = other.currency;
     if (_$data.containsKey('currency') !=
@@ -6284,9 +6477,11 @@ class Input$CreatePaymentInput {
   @override
   int get hashCode {
     final l$amount = amount;
+    final l$bookingId = bookingId;
     final l$currency = currency;
     return Object.hashAll([
       l$amount,
+      l$bookingId,
       _$data.containsKey('currency') ? l$currency : const {},
     ]);
   }
@@ -6303,6 +6498,7 @@ abstract class CopyWith$Input$CreatePaymentInput<TRes> {
 
   TRes call({
     double? amount,
+    String? bookingId,
     String? currency,
   });
 }
@@ -6322,12 +6518,15 @@ class _CopyWithImpl$Input$CreatePaymentInput<TRes>
 
   TRes call({
     Object? amount = _undefined,
+    Object? bookingId = _undefined,
     Object? currency = _undefined,
   }) =>
       _then(Input$CreatePaymentInput._({
         ..._instance._$data,
         if (amount != _undefined && amount != null)
           'amount': (amount as double),
+        if (bookingId != _undefined && bookingId != null)
+          'bookingId': (bookingId as String),
         if (currency != _undefined && currency != null)
           'currency': (currency as String),
       }));
@@ -6341,6 +6540,7 @@ class _CopyWithStubImpl$Input$CreatePaymentInput<TRes>
 
   call({
     double? amount,
+    String? bookingId,
     String? currency,
   }) =>
       _res;
@@ -9698,6 +9898,603 @@ class _CopyWithStubImpl$Input$FeeUpdateFilter<TRes>
       CopyWith$Input$IntFieldComparison.stub(_res);
 }
 
+class Input$FloatFieldComparison {
+  factory Input$FloatFieldComparison({
+    Input$FloatFieldComparisonBetween? between,
+    double? eq,
+    double? gt,
+    double? gte,
+    List<double>? $in,
+    bool? $is,
+    bool? isNot,
+    double? lt,
+    double? lte,
+    double? neq,
+    Input$FloatFieldComparisonBetween? notBetween,
+    List<double>? notIn,
+  }) =>
+      Input$FloatFieldComparison._({
+        if (between != null) r'between': between,
+        if (eq != null) r'eq': eq,
+        if (gt != null) r'gt': gt,
+        if (gte != null) r'gte': gte,
+        if ($in != null) r'in': $in,
+        if ($is != null) r'is': $is,
+        if (isNot != null) r'isNot': isNot,
+        if (lt != null) r'lt': lt,
+        if (lte != null) r'lte': lte,
+        if (neq != null) r'neq': neq,
+        if (notBetween != null) r'notBetween': notBetween,
+        if (notIn != null) r'notIn': notIn,
+      });
+
+  Input$FloatFieldComparison._(this._$data);
+
+  factory Input$FloatFieldComparison.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('between')) {
+      final l$between = data['between'];
+      result$data['between'] = l$between == null
+          ? null
+          : Input$FloatFieldComparisonBetween.fromJson(
+              (l$between as Map<String, dynamic>));
+    }
+    if (data.containsKey('eq')) {
+      final l$eq = data['eq'];
+      result$data['eq'] = (l$eq as num?)?.toDouble();
+    }
+    if (data.containsKey('gt')) {
+      final l$gt = data['gt'];
+      result$data['gt'] = (l$gt as num?)?.toDouble();
+    }
+    if (data.containsKey('gte')) {
+      final l$gte = data['gte'];
+      result$data['gte'] = (l$gte as num?)?.toDouble();
+    }
+    if (data.containsKey('in')) {
+      final l$$in = data['in'];
+      result$data['in'] =
+          (l$$in as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList();
+    }
+    if (data.containsKey('is')) {
+      final l$$is = data['is'];
+      result$data['is'] = (l$$is as bool?);
+    }
+    if (data.containsKey('isNot')) {
+      final l$isNot = data['isNot'];
+      result$data['isNot'] = (l$isNot as bool?);
+    }
+    if (data.containsKey('lt')) {
+      final l$lt = data['lt'];
+      result$data['lt'] = (l$lt as num?)?.toDouble();
+    }
+    if (data.containsKey('lte')) {
+      final l$lte = data['lte'];
+      result$data['lte'] = (l$lte as num?)?.toDouble();
+    }
+    if (data.containsKey('neq')) {
+      final l$neq = data['neq'];
+      result$data['neq'] = (l$neq as num?)?.toDouble();
+    }
+    if (data.containsKey('notBetween')) {
+      final l$notBetween = data['notBetween'];
+      result$data['notBetween'] = l$notBetween == null
+          ? null
+          : Input$FloatFieldComparisonBetween.fromJson(
+              (l$notBetween as Map<String, dynamic>));
+    }
+    if (data.containsKey('notIn')) {
+      final l$notIn = data['notIn'];
+      result$data['notIn'] = (l$notIn as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList();
+    }
+    return Input$FloatFieldComparison._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Input$FloatFieldComparisonBetween? get between =>
+      (_$data['between'] as Input$FloatFieldComparisonBetween?);
+
+  double? get eq => (_$data['eq'] as double?);
+
+  double? get gt => (_$data['gt'] as double?);
+
+  double? get gte => (_$data['gte'] as double?);
+
+  List<double>? get $in => (_$data['in'] as List<double>?);
+
+  bool? get $is => (_$data['is'] as bool?);
+
+  bool? get isNot => (_$data['isNot'] as bool?);
+
+  double? get lt => (_$data['lt'] as double?);
+
+  double? get lte => (_$data['lte'] as double?);
+
+  double? get neq => (_$data['neq'] as double?);
+
+  Input$FloatFieldComparisonBetween? get notBetween =>
+      (_$data['notBetween'] as Input$FloatFieldComparisonBetween?);
+
+  List<double>? get notIn => (_$data['notIn'] as List<double>?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('between')) {
+      final l$between = between;
+      result$data['between'] = l$between?.toJson();
+    }
+    if (_$data.containsKey('eq')) {
+      final l$eq = eq;
+      result$data['eq'] = l$eq;
+    }
+    if (_$data.containsKey('gt')) {
+      final l$gt = gt;
+      result$data['gt'] = l$gt;
+    }
+    if (_$data.containsKey('gte')) {
+      final l$gte = gte;
+      result$data['gte'] = l$gte;
+    }
+    if (_$data.containsKey('in')) {
+      final l$$in = $in;
+      result$data['in'] = l$$in?.map((e) => e).toList();
+    }
+    if (_$data.containsKey('is')) {
+      final l$$is = $is;
+      result$data['is'] = l$$is;
+    }
+    if (_$data.containsKey('isNot')) {
+      final l$isNot = isNot;
+      result$data['isNot'] = l$isNot;
+    }
+    if (_$data.containsKey('lt')) {
+      final l$lt = lt;
+      result$data['lt'] = l$lt;
+    }
+    if (_$data.containsKey('lte')) {
+      final l$lte = lte;
+      result$data['lte'] = l$lte;
+    }
+    if (_$data.containsKey('neq')) {
+      final l$neq = neq;
+      result$data['neq'] = l$neq;
+    }
+    if (_$data.containsKey('notBetween')) {
+      final l$notBetween = notBetween;
+      result$data['notBetween'] = l$notBetween?.toJson();
+    }
+    if (_$data.containsKey('notIn')) {
+      final l$notIn = notIn;
+      result$data['notIn'] = l$notIn?.map((e) => e).toList();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$FloatFieldComparison<Input$FloatFieldComparison>
+      get copyWith => CopyWith$Input$FloatFieldComparison(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$FloatFieldComparison) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$between = between;
+    final lOther$between = other.between;
+    if (_$data.containsKey('between') != other._$data.containsKey('between')) {
+      return false;
+    }
+    if (l$between != lOther$between) {
+      return false;
+    }
+    final l$eq = eq;
+    final lOther$eq = other.eq;
+    if (_$data.containsKey('eq') != other._$data.containsKey('eq')) {
+      return false;
+    }
+    if (l$eq != lOther$eq) {
+      return false;
+    }
+    final l$gt = gt;
+    final lOther$gt = other.gt;
+    if (_$data.containsKey('gt') != other._$data.containsKey('gt')) {
+      return false;
+    }
+    if (l$gt != lOther$gt) {
+      return false;
+    }
+    final l$gte = gte;
+    final lOther$gte = other.gte;
+    if (_$data.containsKey('gte') != other._$data.containsKey('gte')) {
+      return false;
+    }
+    if (l$gte != lOther$gte) {
+      return false;
+    }
+    final l$$in = $in;
+    final lOther$$in = other.$in;
+    if (_$data.containsKey('in') != other._$data.containsKey('in')) {
+      return false;
+    }
+    if (l$$in != null && lOther$$in != null) {
+      if (l$$in.length != lOther$$in.length) {
+        return false;
+      }
+      for (int i = 0; i < l$$in.length; i++) {
+        final l$$in$entry = l$$in[i];
+        final lOther$$in$entry = lOther$$in[i];
+        if (l$$in$entry != lOther$$in$entry) {
+          return false;
+        }
+      }
+    } else if (l$$in != lOther$$in) {
+      return false;
+    }
+    final l$$is = $is;
+    final lOther$$is = other.$is;
+    if (_$data.containsKey('is') != other._$data.containsKey('is')) {
+      return false;
+    }
+    if (l$$is != lOther$$is) {
+      return false;
+    }
+    final l$isNot = isNot;
+    final lOther$isNot = other.isNot;
+    if (_$data.containsKey('isNot') != other._$data.containsKey('isNot')) {
+      return false;
+    }
+    if (l$isNot != lOther$isNot) {
+      return false;
+    }
+    final l$lt = lt;
+    final lOther$lt = other.lt;
+    if (_$data.containsKey('lt') != other._$data.containsKey('lt')) {
+      return false;
+    }
+    if (l$lt != lOther$lt) {
+      return false;
+    }
+    final l$lte = lte;
+    final lOther$lte = other.lte;
+    if (_$data.containsKey('lte') != other._$data.containsKey('lte')) {
+      return false;
+    }
+    if (l$lte != lOther$lte) {
+      return false;
+    }
+    final l$neq = neq;
+    final lOther$neq = other.neq;
+    if (_$data.containsKey('neq') != other._$data.containsKey('neq')) {
+      return false;
+    }
+    if (l$neq != lOther$neq) {
+      return false;
+    }
+    final l$notBetween = notBetween;
+    final lOther$notBetween = other.notBetween;
+    if (_$data.containsKey('notBetween') !=
+        other._$data.containsKey('notBetween')) {
+      return false;
+    }
+    if (l$notBetween != lOther$notBetween) {
+      return false;
+    }
+    final l$notIn = notIn;
+    final lOther$notIn = other.notIn;
+    if (_$data.containsKey('notIn') != other._$data.containsKey('notIn')) {
+      return false;
+    }
+    if (l$notIn != null && lOther$notIn != null) {
+      if (l$notIn.length != lOther$notIn.length) {
+        return false;
+      }
+      for (int i = 0; i < l$notIn.length; i++) {
+        final l$notIn$entry = l$notIn[i];
+        final lOther$notIn$entry = lOther$notIn[i];
+        if (l$notIn$entry != lOther$notIn$entry) {
+          return false;
+        }
+      }
+    } else if (l$notIn != lOther$notIn) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$between = between;
+    final l$eq = eq;
+    final l$gt = gt;
+    final l$gte = gte;
+    final l$$in = $in;
+    final l$$is = $is;
+    final l$isNot = isNot;
+    final l$lt = lt;
+    final l$lte = lte;
+    final l$neq = neq;
+    final l$notBetween = notBetween;
+    final l$notIn = notIn;
+    return Object.hashAll([
+      _$data.containsKey('between') ? l$between : const {},
+      _$data.containsKey('eq') ? l$eq : const {},
+      _$data.containsKey('gt') ? l$gt : const {},
+      _$data.containsKey('gte') ? l$gte : const {},
+      _$data.containsKey('in')
+          ? l$$in == null
+              ? null
+              : Object.hashAll(l$$in.map((v) => v))
+          : const {},
+      _$data.containsKey('is') ? l$$is : const {},
+      _$data.containsKey('isNot') ? l$isNot : const {},
+      _$data.containsKey('lt') ? l$lt : const {},
+      _$data.containsKey('lte') ? l$lte : const {},
+      _$data.containsKey('neq') ? l$neq : const {},
+      _$data.containsKey('notBetween') ? l$notBetween : const {},
+      _$data.containsKey('notIn')
+          ? l$notIn == null
+              ? null
+              : Object.hashAll(l$notIn.map((v) => v))
+          : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$FloatFieldComparison<TRes> {
+  factory CopyWith$Input$FloatFieldComparison(
+    Input$FloatFieldComparison instance,
+    TRes Function(Input$FloatFieldComparison) then,
+  ) = _CopyWithImpl$Input$FloatFieldComparison;
+
+  factory CopyWith$Input$FloatFieldComparison.stub(TRes res) =
+      _CopyWithStubImpl$Input$FloatFieldComparison;
+
+  TRes call({
+    Input$FloatFieldComparisonBetween? between,
+    double? eq,
+    double? gt,
+    double? gte,
+    List<double>? $in,
+    bool? $is,
+    bool? isNot,
+    double? lt,
+    double? lte,
+    double? neq,
+    Input$FloatFieldComparisonBetween? notBetween,
+    List<double>? notIn,
+  });
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get between;
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get notBetween;
+}
+
+class _CopyWithImpl$Input$FloatFieldComparison<TRes>
+    implements CopyWith$Input$FloatFieldComparison<TRes> {
+  _CopyWithImpl$Input$FloatFieldComparison(
+    this._instance,
+    this._then,
+  );
+
+  final Input$FloatFieldComparison _instance;
+
+  final TRes Function(Input$FloatFieldComparison) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? between = _undefined,
+    Object? eq = _undefined,
+    Object? gt = _undefined,
+    Object? gte = _undefined,
+    Object? $in = _undefined,
+    Object? $is = _undefined,
+    Object? isNot = _undefined,
+    Object? lt = _undefined,
+    Object? lte = _undefined,
+    Object? neq = _undefined,
+    Object? notBetween = _undefined,
+    Object? notIn = _undefined,
+  }) =>
+      _then(Input$FloatFieldComparison._({
+        ..._instance._$data,
+        if (between != _undefined)
+          'between': (between as Input$FloatFieldComparisonBetween?),
+        if (eq != _undefined) 'eq': (eq as double?),
+        if (gt != _undefined) 'gt': (gt as double?),
+        if (gte != _undefined) 'gte': (gte as double?),
+        if ($in != _undefined) 'in': ($in as List<double>?),
+        if ($is != _undefined) 'is': ($is as bool?),
+        if (isNot != _undefined) 'isNot': (isNot as bool?),
+        if (lt != _undefined) 'lt': (lt as double?),
+        if (lte != _undefined) 'lte': (lte as double?),
+        if (neq != _undefined) 'neq': (neq as double?),
+        if (notBetween != _undefined)
+          'notBetween': (notBetween as Input$FloatFieldComparisonBetween?),
+        if (notIn != _undefined) 'notIn': (notIn as List<double>?),
+      }));
+
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get between {
+    final local$between = _instance.between;
+    return local$between == null
+        ? CopyWith$Input$FloatFieldComparisonBetween.stub(_then(_instance))
+        : CopyWith$Input$FloatFieldComparisonBetween(
+            local$between, (e) => call(between: e));
+  }
+
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get notBetween {
+    final local$notBetween = _instance.notBetween;
+    return local$notBetween == null
+        ? CopyWith$Input$FloatFieldComparisonBetween.stub(_then(_instance))
+        : CopyWith$Input$FloatFieldComparisonBetween(
+            local$notBetween, (e) => call(notBetween: e));
+  }
+}
+
+class _CopyWithStubImpl$Input$FloatFieldComparison<TRes>
+    implements CopyWith$Input$FloatFieldComparison<TRes> {
+  _CopyWithStubImpl$Input$FloatFieldComparison(this._res);
+
+  TRes _res;
+
+  call({
+    Input$FloatFieldComparisonBetween? between,
+    double? eq,
+    double? gt,
+    double? gte,
+    List<double>? $in,
+    bool? $is,
+    bool? isNot,
+    double? lt,
+    double? lte,
+    double? neq,
+    Input$FloatFieldComparisonBetween? notBetween,
+    List<double>? notIn,
+  }) =>
+      _res;
+
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get between =>
+      CopyWith$Input$FloatFieldComparisonBetween.stub(_res);
+
+  CopyWith$Input$FloatFieldComparisonBetween<TRes> get notBetween =>
+      CopyWith$Input$FloatFieldComparisonBetween.stub(_res);
+}
+
+class Input$FloatFieldComparisonBetween {
+  factory Input$FloatFieldComparisonBetween({
+    required double lower,
+    required double upper,
+  }) =>
+      Input$FloatFieldComparisonBetween._({
+        r'lower': lower,
+        r'upper': upper,
+      });
+
+  Input$FloatFieldComparisonBetween._(this._$data);
+
+  factory Input$FloatFieldComparisonBetween.fromJson(
+      Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$lower = data['lower'];
+    result$data['lower'] = (l$lower as num).toDouble();
+    final l$upper = data['upper'];
+    result$data['upper'] = (l$upper as num).toDouble();
+    return Input$FloatFieldComparisonBetween._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  double get lower => (_$data['lower'] as double);
+
+  double get upper => (_$data['upper'] as double);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$lower = lower;
+    result$data['lower'] = l$lower;
+    final l$upper = upper;
+    result$data['upper'] = l$upper;
+    return result$data;
+  }
+
+  CopyWith$Input$FloatFieldComparisonBetween<Input$FloatFieldComparisonBetween>
+      get copyWith => CopyWith$Input$FloatFieldComparisonBetween(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$FloatFieldComparisonBetween) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$lower = lower;
+    final lOther$lower = other.lower;
+    if (l$lower != lOther$lower) {
+      return false;
+    }
+    final l$upper = upper;
+    final lOther$upper = other.upper;
+    if (l$upper != lOther$upper) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$lower = lower;
+    final l$upper = upper;
+    return Object.hashAll([
+      l$lower,
+      l$upper,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$FloatFieldComparisonBetween<TRes> {
+  factory CopyWith$Input$FloatFieldComparisonBetween(
+    Input$FloatFieldComparisonBetween instance,
+    TRes Function(Input$FloatFieldComparisonBetween) then,
+  ) = _CopyWithImpl$Input$FloatFieldComparisonBetween;
+
+  factory CopyWith$Input$FloatFieldComparisonBetween.stub(TRes res) =
+      _CopyWithStubImpl$Input$FloatFieldComparisonBetween;
+
+  TRes call({
+    double? lower,
+    double? upper,
+  });
+}
+
+class _CopyWithImpl$Input$FloatFieldComparisonBetween<TRes>
+    implements CopyWith$Input$FloatFieldComparisonBetween<TRes> {
+  _CopyWithImpl$Input$FloatFieldComparisonBetween(
+    this._instance,
+    this._then,
+  );
+
+  final Input$FloatFieldComparisonBetween _instance;
+
+  final TRes Function(Input$FloatFieldComparisonBetween) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? lower = _undefined,
+    Object? upper = _undefined,
+  }) =>
+      _then(Input$FloatFieldComparisonBetween._({
+        ..._instance._$data,
+        if (lower != _undefined && lower != null) 'lower': (lower as double),
+        if (upper != _undefined && upper != null) 'upper': (upper as double),
+      }));
+}
+
+class _CopyWithStubImpl$Input$FloatFieldComparisonBetween<TRes>
+    implements CopyWith$Input$FloatFieldComparisonBetween<TRes> {
+  _CopyWithStubImpl$Input$FloatFieldComparisonBetween(this._res);
+
+  TRes _res;
+
+  call({
+    double? lower,
+    double? upper,
+  }) =>
+      _res;
+}
+
 class Input$IDFilterComparison {
   factory Input$IDFilterComparison({
     String? eq,
@@ -12111,6 +12908,677 @@ class _CopyWithStubImpl$Input$OffsetPaging<TRes>
       _res;
 }
 
+class Input$PaymentFilter {
+  factory Input$PaymentFilter({
+    Input$FloatFieldComparison? amount,
+    List<Input$PaymentFilter>? and,
+    Input$StringFieldComparison? currency,
+    Input$StringFieldComparison? description,
+    Input$IDFilterComparison? id,
+    List<Input$PaymentFilter>? or,
+    Input$IntFieldComparison? paymentId,
+    Input$StringFieldComparison? paymentMethodId,
+    Input$StringFieldComparison? status,
+  }) =>
+      Input$PaymentFilter._({
+        if (amount != null) r'amount': amount,
+        if (and != null) r'and': and,
+        if (currency != null) r'currency': currency,
+        if (description != null) r'description': description,
+        if (id != null) r'id': id,
+        if (or != null) r'or': or,
+        if (paymentId != null) r'paymentId': paymentId,
+        if (paymentMethodId != null) r'paymentMethodId': paymentMethodId,
+        if (status != null) r'status': status,
+      });
+
+  Input$PaymentFilter._(this._$data);
+
+  factory Input$PaymentFilter.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('amount')) {
+      final l$amount = data['amount'];
+      result$data['amount'] = l$amount == null
+          ? null
+          : Input$FloatFieldComparison.fromJson(
+              (l$amount as Map<String, dynamic>));
+    }
+    if (data.containsKey('and')) {
+      final l$and = data['and'];
+      result$data['and'] = (l$and as List<dynamic>?)
+          ?.map(
+              (e) => Input$PaymentFilter.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('currency')) {
+      final l$currency = data['currency'];
+      result$data['currency'] = l$currency == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$currency as Map<String, dynamic>));
+    }
+    if (data.containsKey('description')) {
+      final l$description = data['description'];
+      result$data['description'] = l$description == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$description as Map<String, dynamic>));
+    }
+    if (data.containsKey('id')) {
+      final l$id = data['id'];
+      result$data['id'] = l$id == null
+          ? null
+          : Input$IDFilterComparison.fromJson((l$id as Map<String, dynamic>));
+    }
+    if (data.containsKey('or')) {
+      final l$or = data['or'];
+      result$data['or'] = (l$or as List<dynamic>?)
+          ?.map(
+              (e) => Input$PaymentFilter.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('paymentId')) {
+      final l$paymentId = data['paymentId'];
+      result$data['paymentId'] = l$paymentId == null
+          ? null
+          : Input$IntFieldComparison.fromJson(
+              (l$paymentId as Map<String, dynamic>));
+    }
+    if (data.containsKey('paymentMethodId')) {
+      final l$paymentMethodId = data['paymentMethodId'];
+      result$data['paymentMethodId'] = l$paymentMethodId == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$paymentMethodId as Map<String, dynamic>));
+    }
+    if (data.containsKey('status')) {
+      final l$status = data['status'];
+      result$data['status'] = l$status == null
+          ? null
+          : Input$StringFieldComparison.fromJson(
+              (l$status as Map<String, dynamic>));
+    }
+    return Input$PaymentFilter._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Input$FloatFieldComparison? get amount =>
+      (_$data['amount'] as Input$FloatFieldComparison?);
+
+  List<Input$PaymentFilter>? get and =>
+      (_$data['and'] as List<Input$PaymentFilter>?);
+
+  Input$StringFieldComparison? get currency =>
+      (_$data['currency'] as Input$StringFieldComparison?);
+
+  Input$StringFieldComparison? get description =>
+      (_$data['description'] as Input$StringFieldComparison?);
+
+  Input$IDFilterComparison? get id =>
+      (_$data['id'] as Input$IDFilterComparison?);
+
+  List<Input$PaymentFilter>? get or =>
+      (_$data['or'] as List<Input$PaymentFilter>?);
+
+  Input$IntFieldComparison? get paymentId =>
+      (_$data['paymentId'] as Input$IntFieldComparison?);
+
+  Input$StringFieldComparison? get paymentMethodId =>
+      (_$data['paymentMethodId'] as Input$StringFieldComparison?);
+
+  Input$StringFieldComparison? get status =>
+      (_$data['status'] as Input$StringFieldComparison?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('amount')) {
+      final l$amount = amount;
+      result$data['amount'] = l$amount?.toJson();
+    }
+    if (_$data.containsKey('and')) {
+      final l$and = and;
+      result$data['and'] = l$and?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('currency')) {
+      final l$currency = currency;
+      result$data['currency'] = l$currency?.toJson();
+    }
+    if (_$data.containsKey('description')) {
+      final l$description = description;
+      result$data['description'] = l$description?.toJson();
+    }
+    if (_$data.containsKey('id')) {
+      final l$id = id;
+      result$data['id'] = l$id?.toJson();
+    }
+    if (_$data.containsKey('or')) {
+      final l$or = or;
+      result$data['or'] = l$or?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('paymentId')) {
+      final l$paymentId = paymentId;
+      result$data['paymentId'] = l$paymentId?.toJson();
+    }
+    if (_$data.containsKey('paymentMethodId')) {
+      final l$paymentMethodId = paymentMethodId;
+      result$data['paymentMethodId'] = l$paymentMethodId?.toJson();
+    }
+    if (_$data.containsKey('status')) {
+      final l$status = status;
+      result$data['status'] = l$status?.toJson();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PaymentFilter<Input$PaymentFilter> get copyWith =>
+      CopyWith$Input$PaymentFilter(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$PaymentFilter) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$amount = amount;
+    final lOther$amount = other.amount;
+    if (_$data.containsKey('amount') != other._$data.containsKey('amount')) {
+      return false;
+    }
+    if (l$amount != lOther$amount) {
+      return false;
+    }
+    final l$and = and;
+    final lOther$and = other.and;
+    if (_$data.containsKey('and') != other._$data.containsKey('and')) {
+      return false;
+    }
+    if (l$and != null && lOther$and != null) {
+      if (l$and.length != lOther$and.length) {
+        return false;
+      }
+      for (int i = 0; i < l$and.length; i++) {
+        final l$and$entry = l$and[i];
+        final lOther$and$entry = lOther$and[i];
+        if (l$and$entry != lOther$and$entry) {
+          return false;
+        }
+      }
+    } else if (l$and != lOther$and) {
+      return false;
+    }
+    final l$currency = currency;
+    final lOther$currency = other.currency;
+    if (_$data.containsKey('currency') !=
+        other._$data.containsKey('currency')) {
+      return false;
+    }
+    if (l$currency != lOther$currency) {
+      return false;
+    }
+    final l$description = description;
+    final lOther$description = other.description;
+    if (_$data.containsKey('description') !=
+        other._$data.containsKey('description')) {
+      return false;
+    }
+    if (l$description != lOther$description) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (_$data.containsKey('id') != other._$data.containsKey('id')) {
+      return false;
+    }
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$or = or;
+    final lOther$or = other.or;
+    if (_$data.containsKey('or') != other._$data.containsKey('or')) {
+      return false;
+    }
+    if (l$or != null && lOther$or != null) {
+      if (l$or.length != lOther$or.length) {
+        return false;
+      }
+      for (int i = 0; i < l$or.length; i++) {
+        final l$or$entry = l$or[i];
+        final lOther$or$entry = lOther$or[i];
+        if (l$or$entry != lOther$or$entry) {
+          return false;
+        }
+      }
+    } else if (l$or != lOther$or) {
+      return false;
+    }
+    final l$paymentId = paymentId;
+    final lOther$paymentId = other.paymentId;
+    if (_$data.containsKey('paymentId') !=
+        other._$data.containsKey('paymentId')) {
+      return false;
+    }
+    if (l$paymentId != lOther$paymentId) {
+      return false;
+    }
+    final l$paymentMethodId = paymentMethodId;
+    final lOther$paymentMethodId = other.paymentMethodId;
+    if (_$data.containsKey('paymentMethodId') !=
+        other._$data.containsKey('paymentMethodId')) {
+      return false;
+    }
+    if (l$paymentMethodId != lOther$paymentMethodId) {
+      return false;
+    }
+    final l$status = status;
+    final lOther$status = other.status;
+    if (_$data.containsKey('status') != other._$data.containsKey('status')) {
+      return false;
+    }
+    if (l$status != lOther$status) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$amount = amount;
+    final l$and = and;
+    final l$currency = currency;
+    final l$description = description;
+    final l$id = id;
+    final l$or = or;
+    final l$paymentId = paymentId;
+    final l$paymentMethodId = paymentMethodId;
+    final l$status = status;
+    return Object.hashAll([
+      _$data.containsKey('amount') ? l$amount : const {},
+      _$data.containsKey('and')
+          ? l$and == null
+              ? null
+              : Object.hashAll(l$and.map((v) => v))
+          : const {},
+      _$data.containsKey('currency') ? l$currency : const {},
+      _$data.containsKey('description') ? l$description : const {},
+      _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('or')
+          ? l$or == null
+              ? null
+              : Object.hashAll(l$or.map((v) => v))
+          : const {},
+      _$data.containsKey('paymentId') ? l$paymentId : const {},
+      _$data.containsKey('paymentMethodId') ? l$paymentMethodId : const {},
+      _$data.containsKey('status') ? l$status : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PaymentFilter<TRes> {
+  factory CopyWith$Input$PaymentFilter(
+    Input$PaymentFilter instance,
+    TRes Function(Input$PaymentFilter) then,
+  ) = _CopyWithImpl$Input$PaymentFilter;
+
+  factory CopyWith$Input$PaymentFilter.stub(TRes res) =
+      _CopyWithStubImpl$Input$PaymentFilter;
+
+  TRes call({
+    Input$FloatFieldComparison? amount,
+    List<Input$PaymentFilter>? and,
+    Input$StringFieldComparison? currency,
+    Input$StringFieldComparison? description,
+    Input$IDFilterComparison? id,
+    List<Input$PaymentFilter>? or,
+    Input$IntFieldComparison? paymentId,
+    Input$StringFieldComparison? paymentMethodId,
+    Input$StringFieldComparison? status,
+  });
+  CopyWith$Input$FloatFieldComparison<TRes> get amount;
+  TRes and(
+      Iterable<Input$PaymentFilter>? Function(
+              Iterable<CopyWith$Input$PaymentFilter<Input$PaymentFilter>>?)
+          _fn);
+  CopyWith$Input$StringFieldComparison<TRes> get currency;
+  CopyWith$Input$StringFieldComparison<TRes> get description;
+  CopyWith$Input$IDFilterComparison<TRes> get id;
+  TRes or(
+      Iterable<Input$PaymentFilter>? Function(
+              Iterable<CopyWith$Input$PaymentFilter<Input$PaymentFilter>>?)
+          _fn);
+  CopyWith$Input$IntFieldComparison<TRes> get paymentId;
+  CopyWith$Input$StringFieldComparison<TRes> get paymentMethodId;
+  CopyWith$Input$StringFieldComparison<TRes> get status;
+}
+
+class _CopyWithImpl$Input$PaymentFilter<TRes>
+    implements CopyWith$Input$PaymentFilter<TRes> {
+  _CopyWithImpl$Input$PaymentFilter(
+    this._instance,
+    this._then,
+  );
+
+  final Input$PaymentFilter _instance;
+
+  final TRes Function(Input$PaymentFilter) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? amount = _undefined,
+    Object? and = _undefined,
+    Object? currency = _undefined,
+    Object? description = _undefined,
+    Object? id = _undefined,
+    Object? or = _undefined,
+    Object? paymentId = _undefined,
+    Object? paymentMethodId = _undefined,
+    Object? status = _undefined,
+  }) =>
+      _then(Input$PaymentFilter._({
+        ..._instance._$data,
+        if (amount != _undefined)
+          'amount': (amount as Input$FloatFieldComparison?),
+        if (and != _undefined) 'and': (and as List<Input$PaymentFilter>?),
+        if (currency != _undefined)
+          'currency': (currency as Input$StringFieldComparison?),
+        if (description != _undefined)
+          'description': (description as Input$StringFieldComparison?),
+        if (id != _undefined) 'id': (id as Input$IDFilterComparison?),
+        if (or != _undefined) 'or': (or as List<Input$PaymentFilter>?),
+        if (paymentId != _undefined)
+          'paymentId': (paymentId as Input$IntFieldComparison?),
+        if (paymentMethodId != _undefined)
+          'paymentMethodId': (paymentMethodId as Input$StringFieldComparison?),
+        if (status != _undefined)
+          'status': (status as Input$StringFieldComparison?),
+      }));
+
+  CopyWith$Input$FloatFieldComparison<TRes> get amount {
+    final local$amount = _instance.amount;
+    return local$amount == null
+        ? CopyWith$Input$FloatFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$FloatFieldComparison(
+            local$amount, (e) => call(amount: e));
+  }
+
+  TRes and(
+          Iterable<Input$PaymentFilter>? Function(
+                  Iterable<CopyWith$Input$PaymentFilter<Input$PaymentFilter>>?)
+              _fn) =>
+      call(
+          and: _fn(_instance.and?.map((e) => CopyWith$Input$PaymentFilter(
+                e,
+                (i) => i,
+              )))?.toList());
+
+  CopyWith$Input$StringFieldComparison<TRes> get currency {
+    final local$currency = _instance.currency;
+    return local$currency == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$currency, (e) => call(currency: e));
+  }
+
+  CopyWith$Input$StringFieldComparison<TRes> get description {
+    final local$description = _instance.description;
+    return local$description == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$description, (e) => call(description: e));
+  }
+
+  CopyWith$Input$IDFilterComparison<TRes> get id {
+    final local$id = _instance.id;
+    return local$id == null
+        ? CopyWith$Input$IDFilterComparison.stub(_then(_instance))
+        : CopyWith$Input$IDFilterComparison(local$id, (e) => call(id: e));
+  }
+
+  TRes or(
+          Iterable<Input$PaymentFilter>? Function(
+                  Iterable<CopyWith$Input$PaymentFilter<Input$PaymentFilter>>?)
+              _fn) =>
+      call(
+          or: _fn(_instance.or?.map((e) => CopyWith$Input$PaymentFilter(
+                e,
+                (i) => i,
+              )))?.toList());
+
+  CopyWith$Input$IntFieldComparison<TRes> get paymentId {
+    final local$paymentId = _instance.paymentId;
+    return local$paymentId == null
+        ? CopyWith$Input$IntFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$IntFieldComparison(
+            local$paymentId, (e) => call(paymentId: e));
+  }
+
+  CopyWith$Input$StringFieldComparison<TRes> get paymentMethodId {
+    final local$paymentMethodId = _instance.paymentMethodId;
+    return local$paymentMethodId == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$paymentMethodId, (e) => call(paymentMethodId: e));
+  }
+
+  CopyWith$Input$StringFieldComparison<TRes> get status {
+    final local$status = _instance.status;
+    return local$status == null
+        ? CopyWith$Input$StringFieldComparison.stub(_then(_instance))
+        : CopyWith$Input$StringFieldComparison(
+            local$status, (e) => call(status: e));
+  }
+}
+
+class _CopyWithStubImpl$Input$PaymentFilter<TRes>
+    implements CopyWith$Input$PaymentFilter<TRes> {
+  _CopyWithStubImpl$Input$PaymentFilter(this._res);
+
+  TRes _res;
+
+  call({
+    Input$FloatFieldComparison? amount,
+    List<Input$PaymentFilter>? and,
+    Input$StringFieldComparison? currency,
+    Input$StringFieldComparison? description,
+    Input$IDFilterComparison? id,
+    List<Input$PaymentFilter>? or,
+    Input$IntFieldComparison? paymentId,
+    Input$StringFieldComparison? paymentMethodId,
+    Input$StringFieldComparison? status,
+  }) =>
+      _res;
+
+  CopyWith$Input$FloatFieldComparison<TRes> get amount =>
+      CopyWith$Input$FloatFieldComparison.stub(_res);
+
+  and(_fn) => _res;
+
+  CopyWith$Input$StringFieldComparison<TRes> get currency =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get description =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  CopyWith$Input$IDFilterComparison<TRes> get id =>
+      CopyWith$Input$IDFilterComparison.stub(_res);
+
+  or(_fn) => _res;
+
+  CopyWith$Input$IntFieldComparison<TRes> get paymentId =>
+      CopyWith$Input$IntFieldComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get paymentMethodId =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+
+  CopyWith$Input$StringFieldComparison<TRes> get status =>
+      CopyWith$Input$StringFieldComparison.stub(_res);
+}
+
+class Input$PaymentSort {
+  factory Input$PaymentSort({
+    required Enum$SortDirection direction,
+    required Enum$PaymentSortFields field,
+    Enum$SortNulls? nulls,
+  }) =>
+      Input$PaymentSort._({
+        r'direction': direction,
+        r'field': field,
+        if (nulls != null) r'nulls': nulls,
+      });
+
+  Input$PaymentSort._(this._$data);
+
+  factory Input$PaymentSort.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$direction = data['direction'];
+    result$data['direction'] =
+        fromJson$Enum$SortDirection((l$direction as String));
+    final l$field = data['field'];
+    result$data['field'] = fromJson$Enum$PaymentSortFields((l$field as String));
+    if (data.containsKey('nulls')) {
+      final l$nulls = data['nulls'];
+      result$data['nulls'] =
+          l$nulls == null ? null : fromJson$Enum$SortNulls((l$nulls as String));
+    }
+    return Input$PaymentSort._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Enum$SortDirection get direction =>
+      (_$data['direction'] as Enum$SortDirection);
+
+  Enum$PaymentSortFields get field =>
+      (_$data['field'] as Enum$PaymentSortFields);
+
+  Enum$SortNulls? get nulls => (_$data['nulls'] as Enum$SortNulls?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$direction = direction;
+    result$data['direction'] = toJson$Enum$SortDirection(l$direction);
+    final l$field = field;
+    result$data['field'] = toJson$Enum$PaymentSortFields(l$field);
+    if (_$data.containsKey('nulls')) {
+      final l$nulls = nulls;
+      result$data['nulls'] =
+          l$nulls == null ? null : toJson$Enum$SortNulls(l$nulls);
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PaymentSort<Input$PaymentSort> get copyWith =>
+      CopyWith$Input$PaymentSort(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$PaymentSort) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$direction = direction;
+    final lOther$direction = other.direction;
+    if (l$direction != lOther$direction) {
+      return false;
+    }
+    final l$field = field;
+    final lOther$field = other.field;
+    if (l$field != lOther$field) {
+      return false;
+    }
+    final l$nulls = nulls;
+    final lOther$nulls = other.nulls;
+    if (_$data.containsKey('nulls') != other._$data.containsKey('nulls')) {
+      return false;
+    }
+    if (l$nulls != lOther$nulls) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$direction = direction;
+    final l$field = field;
+    final l$nulls = nulls;
+    return Object.hashAll([
+      l$direction,
+      l$field,
+      _$data.containsKey('nulls') ? l$nulls : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PaymentSort<TRes> {
+  factory CopyWith$Input$PaymentSort(
+    Input$PaymentSort instance,
+    TRes Function(Input$PaymentSort) then,
+  ) = _CopyWithImpl$Input$PaymentSort;
+
+  factory CopyWith$Input$PaymentSort.stub(TRes res) =
+      _CopyWithStubImpl$Input$PaymentSort;
+
+  TRes call({
+    Enum$SortDirection? direction,
+    Enum$PaymentSortFields? field,
+    Enum$SortNulls? nulls,
+  });
+}
+
+class _CopyWithImpl$Input$PaymentSort<TRes>
+    implements CopyWith$Input$PaymentSort<TRes> {
+  _CopyWithImpl$Input$PaymentSort(
+    this._instance,
+    this._then,
+  );
+
+  final Input$PaymentSort _instance;
+
+  final TRes Function(Input$PaymentSort) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? direction = _undefined,
+    Object? field = _undefined,
+    Object? nulls = _undefined,
+  }) =>
+      _then(Input$PaymentSort._({
+        ..._instance._$data,
+        if (direction != _undefined && direction != null)
+          'direction': (direction as Enum$SortDirection),
+        if (field != _undefined && field != null)
+          'field': (field as Enum$PaymentSortFields),
+        if (nulls != _undefined) 'nulls': (nulls as Enum$SortNulls?),
+      }));
+}
+
+class _CopyWithStubImpl$Input$PaymentSort<TRes>
+    implements CopyWith$Input$PaymentSort<TRes> {
+  _CopyWithStubImpl$Input$PaymentSort(this._res);
+
+  TRes _res;
+
+  call({
+    Enum$SortDirection? direction,
+    Enum$PaymentSortFields? field,
+    Enum$SortNulls? nulls,
+  }) =>
+      _res;
+}
+
 class Input$SeatFilter {
   factory Input$SeatFilter({
     List<Input$SeatFilter>? and,
@@ -13327,6 +14795,142 @@ class _CopyWithStubImpl$Input$SetFeeOnTravelInput<TRes>
   call({
     String? id,
     String? relationId,
+  }) =>
+      _res;
+}
+
+class Input$SetPaymentsOnBookingInput {
+  factory Input$SetPaymentsOnBookingInput({
+    required String id,
+    required List<String> relationIds,
+  }) =>
+      Input$SetPaymentsOnBookingInput._({
+        r'id': id,
+        r'relationIds': relationIds,
+      });
+
+  Input$SetPaymentsOnBookingInput._(this._$data);
+
+  factory Input$SetPaymentsOnBookingInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$id = data['id'];
+    result$data['id'] = (l$id as String);
+    final l$relationIds = data['relationIds'];
+    result$data['relationIds'] =
+        (l$relationIds as List<dynamic>).map((e) => (e as String)).toList();
+    return Input$SetPaymentsOnBookingInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get id => (_$data['id'] as String);
+
+  List<String> get relationIds => (_$data['relationIds'] as List<String>);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$id = id;
+    result$data['id'] = l$id;
+    final l$relationIds = relationIds;
+    result$data['relationIds'] = l$relationIds.map((e) => e).toList();
+    return result$data;
+  }
+
+  CopyWith$Input$SetPaymentsOnBookingInput<Input$SetPaymentsOnBookingInput>
+      get copyWith => CopyWith$Input$SetPaymentsOnBookingInput(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$SetPaymentsOnBookingInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$relationIds = relationIds;
+    final lOther$relationIds = other.relationIds;
+    if (l$relationIds.length != lOther$relationIds.length) {
+      return false;
+    }
+    for (int i = 0; i < l$relationIds.length; i++) {
+      final l$relationIds$entry = l$relationIds[i];
+      final lOther$relationIds$entry = lOther$relationIds[i];
+      if (l$relationIds$entry != lOther$relationIds$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$relationIds = relationIds;
+    return Object.hashAll([
+      l$id,
+      Object.hashAll(l$relationIds.map((v) => v)),
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$SetPaymentsOnBookingInput<TRes> {
+  factory CopyWith$Input$SetPaymentsOnBookingInput(
+    Input$SetPaymentsOnBookingInput instance,
+    TRes Function(Input$SetPaymentsOnBookingInput) then,
+  ) = _CopyWithImpl$Input$SetPaymentsOnBookingInput;
+
+  factory CopyWith$Input$SetPaymentsOnBookingInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$SetPaymentsOnBookingInput;
+
+  TRes call({
+    String? id,
+    List<String>? relationIds,
+  });
+}
+
+class _CopyWithImpl$Input$SetPaymentsOnBookingInput<TRes>
+    implements CopyWith$Input$SetPaymentsOnBookingInput<TRes> {
+  _CopyWithImpl$Input$SetPaymentsOnBookingInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$SetPaymentsOnBookingInput _instance;
+
+  final TRes Function(Input$SetPaymentsOnBookingInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? relationIds = _undefined,
+  }) =>
+      _then(Input$SetPaymentsOnBookingInput._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+        if (relationIds != _undefined && relationIds != null)
+          'relationIds': (relationIds as List<String>),
+      }));
+}
+
+class _CopyWithStubImpl$Input$SetPaymentsOnBookingInput<TRes>
+    implements CopyWith$Input$SetPaymentsOnBookingInput<TRes> {
+  _CopyWithStubImpl$Input$SetPaymentsOnBookingInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    List<String>? relationIds,
   }) =>
       _res;
 }
@@ -17945,6 +19549,7 @@ class Input$UpdateBooking {
   factory Input$UpdateBooking({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -17953,6 +19558,7 @@ class Input$UpdateBooking {
       Input$UpdateBooking._({
         if (createdAt != null) r'createdAt': createdAt,
         if (id != null) r'id': id,
+        if (paymentsIds != null) r'paymentsIds': paymentsIds,
         if (seatsIds != null) r'seatsIds': seatsIds,
         if (travelId != null) r'travelId': travelId,
         if (updatedAt != null) r'updatedAt': updatedAt,
@@ -17971,6 +19577,11 @@ class Input$UpdateBooking {
     if (data.containsKey('id')) {
       final l$id = data['id'];
       result$data['id'] = (l$id as String?);
+    }
+    if (data.containsKey('paymentsIds')) {
+      final l$paymentsIds = data['paymentsIds'];
+      result$data['paymentsIds'] =
+          (l$paymentsIds as List<dynamic>?)?.map((e) => (e as int)).toList();
     }
     if (data.containsKey('seatsIds')) {
       final l$seatsIds = data['seatsIds'];
@@ -17999,6 +19610,8 @@ class Input$UpdateBooking {
 
   String? get id => (_$data['id'] as String?);
 
+  List<int>? get paymentsIds => (_$data['paymentsIds'] as List<int>?);
+
   List<int>? get seatsIds => (_$data['seatsIds'] as List<int>?);
 
   String? get travelId => (_$data['travelId'] as String?);
@@ -18017,6 +19630,10 @@ class Input$UpdateBooking {
     if (_$data.containsKey('id')) {
       final l$id = id;
       result$data['id'] = l$id;
+    }
+    if (_$data.containsKey('paymentsIds')) {
+      final l$paymentsIds = paymentsIds;
+      result$data['paymentsIds'] = l$paymentsIds?.map((e) => e).toList();
     }
     if (_$data.containsKey('seatsIds')) {
       final l$seatsIds = seatsIds;
@@ -18067,6 +19684,26 @@ class Input$UpdateBooking {
       return false;
     }
     if (l$id != lOther$id) {
+      return false;
+    }
+    final l$paymentsIds = paymentsIds;
+    final lOther$paymentsIds = other.paymentsIds;
+    if (_$data.containsKey('paymentsIds') !=
+        other._$data.containsKey('paymentsIds')) {
+      return false;
+    }
+    if (l$paymentsIds != null && lOther$paymentsIds != null) {
+      if (l$paymentsIds.length != lOther$paymentsIds.length) {
+        return false;
+      }
+      for (int i = 0; i < l$paymentsIds.length; i++) {
+        final l$paymentsIds$entry = l$paymentsIds[i];
+        final lOther$paymentsIds$entry = lOther$paymentsIds[i];
+        if (l$paymentsIds$entry != lOther$paymentsIds$entry) {
+          return false;
+        }
+      }
+    } else if (l$paymentsIds != lOther$paymentsIds) {
       return false;
     }
     final l$seatsIds = seatsIds;
@@ -18122,6 +19759,7 @@ class Input$UpdateBooking {
   int get hashCode {
     final l$createdAt = createdAt;
     final l$id = id;
+    final l$paymentsIds = paymentsIds;
     final l$seatsIds = seatsIds;
     final l$travelId = travelId;
     final l$updatedAt = updatedAt;
@@ -18129,6 +19767,11 @@ class Input$UpdateBooking {
     return Object.hashAll([
       _$data.containsKey('createdAt') ? l$createdAt : const {},
       _$data.containsKey('id') ? l$id : const {},
+      _$data.containsKey('paymentsIds')
+          ? l$paymentsIds == null
+              ? null
+              : Object.hashAll(l$paymentsIds.map((v) => v))
+          : const {},
       _$data.containsKey('seatsIds')
           ? l$seatsIds == null
               ? null
@@ -18153,6 +19796,7 @@ abstract class CopyWith$Input$UpdateBooking<TRes> {
   TRes call({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -18176,6 +19820,7 @@ class _CopyWithImpl$Input$UpdateBooking<TRes>
   TRes call({
     Object? createdAt = _undefined,
     Object? id = _undefined,
+    Object? paymentsIds = _undefined,
     Object? seatsIds = _undefined,
     Object? travelId = _undefined,
     Object? updatedAt = _undefined,
@@ -18185,6 +19830,8 @@ class _CopyWithImpl$Input$UpdateBooking<TRes>
         ..._instance._$data,
         if (createdAt != _undefined) 'createdAt': (createdAt as DateTime?),
         if (id != _undefined) 'id': (id as String?),
+        if (paymentsIds != _undefined)
+          'paymentsIds': (paymentsIds as List<int>?),
         if (seatsIds != _undefined) 'seatsIds': (seatsIds as List<int>?),
         if (travelId != _undefined) 'travelId': (travelId as String?),
         if (updatedAt != _undefined) 'updatedAt': (updatedAt as DateTime?),
@@ -18201,6 +19848,7 @@ class _CopyWithStubImpl$Input$UpdateBooking<TRes>
   call({
     DateTime? createdAt,
     String? id,
+    List<int>? paymentsIds,
     List<int>? seatsIds,
     String? travelId,
     DateTime? updatedAt,
@@ -20929,6 +22577,59 @@ Enum$LocationSortFields fromJson$Enum$LocationSortFields(String value) {
       return Enum$LocationSortFields.name;
     default:
       return Enum$LocationSortFields.$unknown;
+  }
+}
+
+enum Enum$PaymentSortFields {
+  amount,
+  currency,
+  description,
+  id,
+  paymentId,
+  paymentMethodId,
+  status,
+  $unknown
+}
+
+String toJson$Enum$PaymentSortFields(Enum$PaymentSortFields e) {
+  switch (e) {
+    case Enum$PaymentSortFields.amount:
+      return r'amount';
+    case Enum$PaymentSortFields.currency:
+      return r'currency';
+    case Enum$PaymentSortFields.description:
+      return r'description';
+    case Enum$PaymentSortFields.id:
+      return r'id';
+    case Enum$PaymentSortFields.paymentId:
+      return r'paymentId';
+    case Enum$PaymentSortFields.paymentMethodId:
+      return r'paymentMethodId';
+    case Enum$PaymentSortFields.status:
+      return r'status';
+    case Enum$PaymentSortFields.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$PaymentSortFields fromJson$Enum$PaymentSortFields(String value) {
+  switch (value) {
+    case r'amount':
+      return Enum$PaymentSortFields.amount;
+    case r'currency':
+      return Enum$PaymentSortFields.currency;
+    case r'description':
+      return Enum$PaymentSortFields.description;
+    case r'id':
+      return Enum$PaymentSortFields.id;
+    case r'paymentId':
+      return Enum$PaymentSortFields.paymentId;
+    case r'paymentMethodId':
+      return Enum$PaymentSortFields.paymentMethodId;
+    case r'status':
+      return Enum$PaymentSortFields.status;
+    default:
+      return Enum$PaymentSortFields.$unknown;
   }
 }
 

@@ -9,12 +9,18 @@ import 'package:booking/schema.graphql.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:go_router/go_router.dart';
 
 class PaymentPage extends StatefulWidget {
   final int fee;
   final List<int> seats;
+  final String bookingId;
 
-  const PaymentPage({super.key, required this.fee, required this.seats});
+  const PaymentPage(
+      {super.key,
+      required this.fee,
+      required this.seats,
+      required this.bookingId});
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -52,10 +58,9 @@ class _PaymentPageState extends State<PaymentPage> {
                   contents: [
                     CardFormField(
                       style: CardFormStyle(
-                        borderColor: Colors.grey.withOpacity(0.7),
-                        borderRadius: 0,
-                        borderWidth: 1
-                      ),
+                          borderColor: Colors.grey.withOpacity(0.7),
+                          borderRadius: 0,
+                          borderWidth: 1),
                       enablePostalCode: false,
                       controller: controller,
                     )
@@ -78,27 +83,33 @@ class _PaymentPageState extends State<PaymentPage> {
                           ));
                     },
                     context: context,
-                    onData: (data, recovery){
-
+                    onData: (data, recovery) {
+                      // create payment status page
+                      context.pushReplacementNamed("payment-status",
+                          extra: {"status": data.status});
                     },
                     builder: (context, mutatePayment) {
                       return Mutation$CreatePaymentIntent$Widget(options:
                           WidgetOptions$Mutation$CreatePaymentIntent(
                               onCompleted: (data, intent) {
-                        mutatePayment
-                            .mutate(intent?.initPayment.paymentIntent ?? '');
+                        mutatePayment.mutate(
+                            intent?.initPayment.paymentIntent.secret ?? '');
                       }), builder: (mutation, result) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: CustomElevatedButton(
                               onPressed: controller.details.complete
                                   ? () {
-                                      mutation(Variables$Mutation$CreatePaymentIntent(
-                                          input: Input$CreatePaymentInput(
-                                              amount: 0.3 +
-                                                  (0.029 * widget.fee) +
-                                                  (widget.seats.length * widget.fee),
-                                              currency: 'eur')));
+                                      mutation(
+                                          Variables$Mutation$CreatePaymentIntent(
+                                              input: Input$CreatePaymentInput(
+                                                  amount: 0.3 +
+                                                      (0.029 * widget.fee) +
+                                                      (widget.seats.length *
+                                                          widget.fee),
+                                                  currency: 'eur',
+                                                  bookingId:
+                                                      widget.bookingId)));
                                     }
                                   : null,
                               child: Row(
@@ -108,7 +119,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                     visible: (result?.isLoading ?? false) ||
                                         mutatePayment.isMutating,
                                     child: const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 8),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
                                       child: CupertinoActivityIndicator(
                                         color: Colors.white,
                                       ),

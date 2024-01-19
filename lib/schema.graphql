@@ -6,6 +6,14 @@ input AddBookingsToTravelInput {
   relationIds: [ID!]!
 }
 
+input AddPaymentsToBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
+}
+
 input AddSeatsToBookingInput {
   # The id of the record.
   id: ID!
@@ -25,6 +33,17 @@ input AddSeatsToTravelInput {
 type Booking {
   createdAt: DateTime
   id: ID!
+  payments(
+    # Specify to filter the records returned.
+    filter: PaymentFilter! = {}
+
+    # Limit or page results.
+    paging: OffsetPaging! = { limit: 10 }
+
+    # Specify to sort results.
+    sorting: [PaymentSort!]! = []
+  ): BookingPaymentsConnection!
+  paymentsIds: [Int!]
   seats(
     # Specify to filter the records returned.
     filter: SeatFilter! = {}
@@ -68,6 +87,7 @@ input BookingDeleteFilter {
 type BookingDeleteResponse {
   createdAt: DateTime
   id: ID
+  paymentsIds: [Int!]
   seatsIds: [Int!]
   travelId: ID
   updatedAt: DateTime
@@ -111,6 +131,17 @@ type BookingMaxAggregate {
 
 type BookingMinAggregate {
   id: ID
+}
+
+type BookingPaymentsConnection {
+  # Array of nodes.
+  nodes: [Payment!]!
+
+  # Paging information
+  pageInfo: OffsetPageInfo!
+
+  # Fetch total count of records
+  totalCount: Int!
 }
 
 type BookingSeatsConnection {
@@ -259,6 +290,7 @@ input CarUpdateFilter {
 input CreateBooking {
   createdAt: DateTime
   id: ID
+  paymentsIds: [Int!]
   seatsIds: [Int!]
   travelId: ID
   updatedAt: DateTime
@@ -339,6 +371,9 @@ input CreateOneTravelInput {
 input CreatePaymentInput {
   # amount
   amount: Float!
+
+  # bookingId
+  bookingId: String!
 
   # currency
   currency: String! = "eur"
@@ -540,6 +575,26 @@ input FeeUpdateFilter {
   value: IntFieldComparison
 }
 
+input FloatFieldComparison {
+  between: FloatFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: FloatFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input FloatFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
 input IDFilterComparison {
   eq: ID
   gt: ID
@@ -674,6 +729,7 @@ type Mutation {
   addManyCars(input: CreateManyCarsInput!): [Car!]!
   addManyFees(input: CreateManyFeesInput!): [Fee!]!
   addManyLocations(input: CreateManyLocationsInput!): [Location!]!
+  addPaymentsToBooking(input: AddPaymentsToBookingInput!): Booking!
   addSeatsToBooking(input: AddSeatsToBookingInput!): Booking!
   addSeatsToTravel(input: AddSeatsToTravelInput!): Travel!
   addTravel(input: CreateOneTravelInput!): Travel!
@@ -697,13 +753,14 @@ type Mutation {
   editManyFees(input: UpdateManyFeesInput!): UpdateManyResponse!
   editManyLocations(input: UpdateManyLocationsInput!): UpdateManyResponse!
   editTravel(input: UpdateOneTravelInput!): Travel!
-  initPayment(input: CreatePaymentInput!): Payment!
+  initPayment(input: CreatePaymentInput!): PaymentIntent!
   setArrivalOnTravel(input: SetArrivalOnTravelInput!): Travel!
   setBookingsOnTravel(input: SetBookingsOnTravelInput!): Travel!
   setCarOnTravel(input: SetCarOnTravelInput!): Travel!
   setCreatedByOnTravel(input: SetCreatedByOnTravelInput!): Travel!
   setDepartureOnTravel(input: SetDepartureOnTravelInput!): Travel!
   setFeeOnTravel(input: SetFeeOnTravelInput!): Travel!
+  setPaymentsOnBooking(input: SetPaymentsOnBookingInput!): Booking!
   setSeatsOnBooking(input: SetSeatsOnBookingInput!): Booking!
   setSeatsOnTravel(input: SetSeatsOnTravelInput!): Travel!
   setTravelOnBooking(input: SetTravelOnBookingInput!): Booking!
@@ -729,6 +786,31 @@ input OffsetPaging {
 }
 
 type Payment {
+  amount: Float!
+  bookingId: ID!
+  createdAt: DateTime
+  currency: String!
+  description: String!
+  id: ID!
+  paymentId: Int!
+  paymentMethodId: String!
+  status: String!
+  updatedAt: DateTime
+}
+
+input PaymentFilter {
+  amount: FloatFieldComparison
+  and: [PaymentFilter!]
+  currency: StringFieldComparison
+  description: StringFieldComparison
+  id: IDFilterComparison
+  or: [PaymentFilter!]
+  paymentId: IntFieldComparison
+  paymentMethodId: StringFieldComparison
+  status: StringFieldComparison
+}
+
+type PaymentIntent {
   # customerId
   customerId: String!
 
@@ -736,7 +818,40 @@ type Payment {
   ephemeralKey: String!
 
   # paymentIntent
-  paymentIntent: String!
+  paymentIntent: PaymentIntentDetail!
+}
+
+type PaymentIntentDetail {
+  # paymentIntent
+  amount: Float!
+
+  # paymentIntent
+  currency: String!
+
+  # paymentIntent
+  id: String!
+
+  # paymentIntent
+  secret: String!
+
+  # paymentIntent
+  status: String!
+}
+
+input PaymentSort {
+  direction: SortDirection!
+  field: PaymentSortFields!
+  nulls: SortNulls
+}
+
+enum PaymentSortFields {
+  amount
+  currency
+  description
+  id
+  paymentId
+  paymentMethodId
+  status
 }
 
 type Query {
@@ -888,6 +1003,14 @@ input SetFeeOnTravelInput {
 
   # The id of relation.
   relationId: ID!
+}
+
+input SetPaymentsOnBookingInput {
+  # The id of the record.
+  id: ID!
+
+  # The ids of the relations.
+  relationIds: [ID!]!
 }
 
 input SetSeatsOnBookingInput {
@@ -1192,6 +1315,7 @@ enum TravelSortFields {
 input UpdateBooking {
   createdAt: DateTime
   id: ID
+  paymentsIds: [Int!]
   seatsIds: [Int!]
   travelId: ID
   updatedAt: DateTime

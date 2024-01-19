@@ -14,6 +14,7 @@ import 'package:booking/presentation/pages/login.page.dart';
 import 'package:booking/presentation/pages/otp/otp.page.dart';
 import 'package:booking/presentation/pages/passenger/passenger.page.dart';
 import 'package:booking/presentation/pages/payment/payment.page.dart';
+import 'package:booking/presentation/pages/payment/payment_status.page.dart';
 import 'package:booking/presentation/pages/suggest/suggest.page.dart';
 import 'package:booking/presentation/widgets/appwrite.dart';
 import 'package:booking/presentation/widgets/custom_query_listenable.dart';
@@ -137,10 +138,22 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               Map<String, dynamic> extra = state.extra! as Map<String, dynamic>;
               int fee = extra["fee"];
+              String bookingId = extra["bookingId"];
               List<int> seats = extra["seats"];
               return PaymentPage(
                 fee: fee,
                 seats: seats,
+                bookingId: bookingId,
+              );
+            }),
+        GoRoute(
+            path: "/payment-status",
+            name: 'payment-status',
+            builder: (context, state) {
+              Map<String, dynamic> extra = state.extra! as Map<String, dynamic>;
+              PaymentIntentsStatus status = extra["status"];
+              return PaymentStatusPage(
+                status: status,
               );
             }),
       ]);

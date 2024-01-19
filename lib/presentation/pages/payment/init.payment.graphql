@@ -2,6 +2,12 @@ mutation CreatePaymentIntent($input: CreatePaymentInput!){
     initPayment(input:$input){
         customerId
         ephemeralKey
-        paymentIntent
+        paymentIntent{
+            id
+            amount
+            currency
+            status
+            secret
+        }
     }
 }
